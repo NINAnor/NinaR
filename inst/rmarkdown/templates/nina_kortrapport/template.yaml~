@@ -1,0 +1,5 @@
+name: NINA minirapport
+description: >
+ Template for creating a NINA minireport
+create_dir: true
+

@@ -1,0 +1,58 @@
+---
+title: [Skriv in titell nivå 1 her]
+subtitle: [Skriv in titell nivå 2 her]
+author:
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+reportnr: 1234
+location: Trondheim
+ISBN_end: 1234-5
+self-ref: Brum, O., Robin, K. 2016.  En veldig bra titel. NINA.
+access: Åpen
+qualitycontrol: [xx]
+boss_sign: Forskningssjef [fylles ut av forskningssjefen] (sign.)
+customer: [xx]
+customer_ref: [xx]
+customer_contact: [xx]
+keywords:
+  - geografisk område (land, fylke, kommune)
+  - art (fauna, flora, høyere taksonomisk enhet
+  - konsekvensutredning
+  - overvåkingsrapport
+  - etterundersøkelse
+  - vassdrag
+  - økosystemtjenester
+  - radioaktivitet
+englishkeywords:
+  - word: [se nøkkelord]
+bibliography: mybibfile.bib
+output: NinaR::nina_kortrapport
+foreword: 
+    text: [Tekst inn her]
+    location: [Sted, forord]
+    date: [Dato, forord]
+    name: [Prosjektleder]
+sammendrag: \blindtext
+
+---
+
+Innledning
+==================
+
+Her her to måter å inkludere referenser: @Feynman1963118 [@Dirac1953888].
+\blindtext[8]
+
+\newpage
+
+Referanser {#references .unnumbered}
+==========
