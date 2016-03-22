@@ -13,8 +13,8 @@ nina_kortrapport(..., keep_tex = TRUE,
 \item{keep_tex}{Keep the intermediate tex file used in the conversion to PDF}
 
 \item{md_extensions}{Markdown extensions to be added or removed from the
-default definition or R Markdown. See the \code{\link{rmarkdown_format}} for
-additional details.}
+default definition or R Markdown. See the \code{\link{rmarkdown_format}}
+for additional details.}
 }
 \value{
 R Markdown output format to pass to

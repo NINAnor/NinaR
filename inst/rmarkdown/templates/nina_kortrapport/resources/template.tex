@@ -16,9 +16,10 @@
 %For getting total pagecount
 \usepackage{lastpage}
 
-%To get date
-\usepackage[norsk]{datetime2}
-\DTMlangsetup{showdayofmonth=false}
+%To get pdf production date in proper format
+\usepackage[norsk]{datetime}
+\newdateformat{ninadate}{%
+\monthname[\THEMONTH]~ \THEYEAR}
 
 %Set fonts
 \usepackage{fontspec}
@@ -37,7 +38,7 @@
 \usepackage{setspace}
 
 %To adjust margins
-\usepackage[a4paper,  margin=1.5cm]{geometry}
+\usepackage[a4paper, left=1.5cm,right=3.5cm,top=2cm,bottom=2cm,headheight=1cm]{geometry}
 
 %To adjust heading spacings
 \usepackage{titlesec}
@@ -50,6 +51,8 @@
 
 %To adjust graphics
 \usepackage{graphicx}
+%\usepackage{epstopdf}
+
 
 %Modify headers and footers
 \usepackage{fancyhdr}
@@ -77,14 +80,17 @@
 %Define endpage footer
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
   \fancyhf{}
+  \fancyfootoffset[R]{0cm}
+  \chead{\vspace{1cm}ISSN: 2464-2797 \\
+ISBN: 978-82-426-$ISBN_end$}
   \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\textbf{Norsk institutt for naturforskning}\\
 \small NINA Hovedkontor\\
 Postadresse: Postboks 5685 Sluppen, 7485 Trondheim\\
 Telefon: 73801400, Telefaks: 73801401\\
 E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
-http://www.nina.no\hfill\large\darkGrey{Samarbeid og kunnskap for framtidas miljøløsninger}}
-   %\rfoot{\vspace{5cm}\hfill\Large\darkGrey{Samarbeid og kunnskap for framtidas miljøløsninger}}
+http://www.nina.no}
+   \rfoot{\vspace{4cm}\hfill\Large\darkGrey{Samarbeid og kunnskap for framtidas miljøløsninger}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -94,21 +100,22 @@ http://www.nina.no\hfill\large\darkGrey{Samarbeid og kunnskap for framtidas milj
 }
 
 %Make sure it always produce even numbered document (adding empty page if necessary)
-\usepackage{changepage}
-\strictpagecheck
-\AtEndDocument{\ifoddpage\clearpage\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}\else\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}\fi}
+\AtEndDocument{\fancyhf{}
+\null\ifodd\value{page}\else\clearpage\fi
+\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}}
+%\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}
 
 %Set up custom colors
 \usepackage{xcolor}
 \usepackage{blindtext}
-\definecolor{darkOrange}{RGB}{221,145,74}
-\definecolor{lightOrange}{RGB}{253,131,9}
-\definecolor{ashgrey}{RGB}{89, 103, 71}
-\definecolor{darkgrey}{RGB}{89, 103, 119}
-\definecolor{footgrey}{RGB}{215, 217, 223}
+\definecolor{darkOrange}{RGB}{219,140,68}
+\definecolor{lightOrange}{RGB}{255,192,128}
+\definecolor{ashgrey}{RGB}{128, 128, 128}
+\definecolor{darkgrey}{RGB}{77, 92, 108}
+\definecolor{footgrey}{RGB}{233, 235, 238}
 
-\newcommand{\shadOrange}[1]{\textcolor{darkOrange}{#1}}
-\newcommand{\orange}[1]{\textcolor{lightOrange}{#1}}
+\newcommand{\shadOrange}[1]{\textcolor{lightOrange}{#1}}
+\newcommand{\orange}[1]{\textcolor{darkOrange}{#1}}
 \newcommand{\lightGrey}[1]{\textcolor{ashgrey}{#1}}
 \newcommand{\darkGrey}[1]{\textcolor{darkgrey}{#1}}
 
@@ -138,9 +145,10 @@ $endfor$
 \end{titlepage}
 \newgeometry{bottom=3cm, top=3cm}
 %Second page
-
 \cfoot{}
+{\color{ashgrey}
 \section*{NINAs publikasjoner}
+
 
 \subsection*{NINA Rapport}
 Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings-, overvåkings- eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings- og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.
@@ -156,6 +164,7 @@ Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt ti
 
 \subsection*{Annen publisering}
 I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.
+}
 \clearpage
 
 %Page 3
@@ -171,17 +180,17 @@ $endfor$
 
 
 \clearpage
-
+\newgeometry{bottom=2cm, top=2cm, left=2.5cm, right=2.5cm}
 %Page 4
 \fancyhf{}
 \pagestyle{fancy}
 \fancyfoot[c]{\ruleline{\thepage}}
-\fancyhead[c]{\ruleline{\scriptsize{NINA kortrapport $rapportnr$}}}
+\fancyhead[c]{\ruleline{\scriptsize{NINA kortrapport $reportnr$}}}
 
 \normalsize
 
-\footnotesize{$self-ref$}- NINA Kortrapport $rapportnr$ \pageref{LastPage} s. \par \smallspace
-$location$, \today \par \smallspace
+\footnotesize{$self-ref$}- NINA Kortrapport $reportnr$ \pageref{LastPage} s. \par \smallspace
+$location$, \ninadate\today \par \smallspace
 ISSN: 2464-2797 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
 {\footnotesize{RETTIGHETSHAVER}} \par
@@ -292,6 +301,7 @@ $foreword.location$, $foreword.date$, $foreword.name$
 $body$
 
 %\clearpage
+%\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}
 %\thispagestyle{endfooter}
 
 
