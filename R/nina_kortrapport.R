@@ -31,10 +31,11 @@
 #' @export
 nina_kortrapport <- function(...,
                              keep_tex = TRUE,
-                             md_extensions = c("-autolink_bare_uris")) {
+                             md_extensions = c("-autolink_bare_uris","+header_attributes")) {
   inherit_pdf_document(...,
                        template = find_resource("nina_kortrapport", "template.tex"),
                        keep_tex = keep_tex,
                        md_extensions = md_extensions,
                        latex_engine = "xelatex")
+
 }

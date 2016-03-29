@@ -10,8 +10,9 @@
 
 %For references
 \usepackage{natbib}
-\bibliographystyle{plainnat}
+\bibliographystyle{abbrvnat}
 \usepackage[hidelinks]{hyperref}
+
 
 %For getting total pagecount
 \usepackage{lastpage}
@@ -25,6 +26,9 @@
 \usepackage{fontspec}
 \setmainfont{Arial}
 
+%To insert manual hyphens
+\usepackage{hyphenat}
+
 %To refer to sections, figures and tables
 \usepackage{nameref}
 \newcommand*{\myref}[1]{\hyperref[{#1}]{\autoref*{#1} \nameref*{#1}}}
@@ -37,8 +41,9 @@
 \dottedcontents{section}[2.3em]{\bfseries}{2.3em}{5pt}
 \usepackage{setspace}
 
-%To adjust margins
+%To adjust margins and use left justification
 \usepackage[a4paper, left=1.5cm,right=3.5cm,top=2cm,bottom=2cm,headheight=1cm]{geometry}
+\usepackage[document]{ragged2e}
 
 %To adjust heading spacings
 \usepackage{titlesec}
@@ -60,6 +65,7 @@
 \addtolength{\headheight}{2pt}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+
 %Defines the line in the pagefooter
 \newcommand*\ruleline[1]{\par\noindent\raisebox{.8ex}{\makebox[\linewidth]{\hrulefill\hspace{1ex}\raisebox{-.8ex}{#1}\hspace{1ex}\hrulefill}}}
 
@@ -67,7 +73,7 @@
 \usepackage{tikzpagenodes}
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
-  \lfoot{\vspace{1cm}\hspace{-1cm}\includegraphics[height=2cm]{logo}}
+  \lfoot{\vspace{1cm}\hspace{-1cm}\includegraphics[height=2cm]{logo.eps}}
    \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{Norsk institutt for naturforskning}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
@@ -100,19 +106,26 @@ http://www.nina.no}
 }
 
 %Make sure it always produce even numbered document (adding empty page if necessary)
-\AtEndDocument{\fancyhf{}
-\null\ifodd\value{page}\else\clearpage\fi
-\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}}
-%\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\pagestyle{endfooter}
+\usepackage{scrextend}
+\newcommand{\OpenNewPageIfNeeded}{%
+  \ifthispageodd{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\cleardoublepage\pagestyle{endfooter}
+  }{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
+}
+
+\AtEndDocument{\OpenNewPageIfNeeded}
+
+
+%\AtEndDocument{\fancyhf{}\pagestyle{endfooter}\ifodd\value{page}\else\clearpage\fancyhf{}\pagestyle{endfooter}\fi
+%}
 
 %Set up custom colors
 \usepackage{xcolor}
 \usepackage{blindtext}
-\definecolor{darkOrange}{RGB}{219,140,68}
-\definecolor{lightOrange}{RGB}{255,192,128}
+\definecolor{darkOrange}{RGB}{245,127, 0}
+\definecolor{lightOrange}{RGB}{219,140, 68}
 \definecolor{ashgrey}{RGB}{128, 128, 128}
 \definecolor{darkgrey}{RGB}{77, 92, 108}
-\definecolor{footgrey}{RGB}{233, 235, 238}
+\definecolor{footgrey}{RGB}{212, 215, 221}
 
 \newcommand{\shadOrange}[1]{\textcolor{lightOrange}{#1}}
 \newcommand{\orange}[1]{\textcolor{darkOrange}{#1}}
@@ -127,31 +140,32 @@ http://www.nina.no}
 \thispagestyle{titlefooter}
 \begin{center}
 \vspace{-1cm}
-\LARGE\shadOrange{\textbf{www.nina.no}}
+\Large\shadOrange{\textbf{www.nina.no}}
 \end{center}
 \vspace{2cm}
 
-\hspace{-1cm}\Huge{\darkGrey{\textbf{NINA} Kortrapport}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
+%\hspace{-1cm}
+\Huge{\darkGrey{\textbf{NINA} Kortrapport}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
 \vspace{2cm}
 
-\hspace{-1cm}\Huge{$title$} \par\vspace{.5cm}
-\hspace{-1cm}\huge{$subtitle$} \par\vspace{1cm}
+\Huge{$title$} \par\vspace{.5cm}
+\huge{$subtitle$} \par\vspace{1cm}
 
 $for(author)$
-\hspace{-1cm}\LARGE{$author.name$} \par
+\LARGE{$author.name$} \par
 $endfor$
 
 \restoregeometry
 \end{titlepage}
-\newgeometry{bottom=3cm, top=3cm}
+\newgeometry{bottom=3cm, top=3cm, left=2cm, right=2cm}
 %Second page
 \cfoot{}
-{\color{ashgrey}
+
 \section*{NINAs publikasjoner}
 
 
 \subsection*{NINA Rapport}
-Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings-, overvåkings- eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings- og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.
+Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.
 
 \subsection*{NINA Kortrapport}
 Dette er en enklere og ofte kortere rapportform til oppdragsgiver, gjerne for prosjekt med mindre arbeidsomfang enn det som ligger til grunn for NINA Rapport. Det er ikke krav om sammendrag på engelsk. Rapportserien kan også benyttes til framdriftsrapporter eller foreløpige meldinger til oppdragsgiver.
@@ -164,18 +178,20 @@ Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt ti
 
 \subsection*{Annen publisering}
 I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.
-}
-\clearpage
 
+\clearpage
+\newgeometry{bottom=3cm, top=3cm}
 %Page 3
 \setcounter{page}{1}
-\fancyfoot[C]{\hspace{+4cm}\LARGE{\textbf{Norsk institutt for naturforskning}}}
+\fancyfoot[C]{
+\newgeometry{bottom=3cm, top=3cm, right=3cm}
+\hfill\Large{\textbf{Norsk institutt for naturforskning}}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
 \huge{$subtitle$} \par\vspace{1cm}
 $for(author)$
-\hspace{-1cm}\LARGE{$author.name$} \par
+\hspace{0cm}\LARGE{$author.name$} \par
 $endfor$
 
 
@@ -212,16 +228,16 @@ $customer_ref$ \par \smallspace
 $customer_contact$ \par \smallspace
 {\footnotesize{NØKKELORD}} \par\smallskip
 $for(keywords)$
-\small{$keywords.word$} \par
+\small{\hyp{} $keywords.word$} \par
 $endfor$
 \vspace{5mm}
 KEY WORDS \par\smallskip
 $for(englishkeywords)$
-\small{$englishkeywords.word$} \par
+\small{\hyp{} $englishkeywords.word$} \par
 $endfor$
 
 \vfill
-\noindent
+%\noindent
 \footnotesize
 
 \begin{minipage}{\linewidth}
@@ -270,6 +286,7 @@ www.nina.no
 \normalsize{
 $sammendrag$} \\
 
+\vspace{1cm}
 \small
 $for(author)$
 $author.name$, $author.address$, $author.email$  \par
@@ -300,16 +317,10 @@ $foreword.location$, $foreword.date$, $foreword.name$
 
 $body$
 
+
 %\clearpage
-%\newgeometry{bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}
-%\thispagestyle{endfooter}
-
-
-
-%\begin{center}
-%ISSN: 2464-2797 \par
-%ISBN: 978-82-426-$ISBN_end$
-
-%\end{center}
+%\fancyhf{}
+%\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}
+%\pagestyle{endfooter}
 
 \end{document}

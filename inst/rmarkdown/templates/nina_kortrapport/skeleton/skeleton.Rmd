@@ -25,34 +25,40 @@ customer: [xx]
 customer_ref: [xx]
 customer_contact: [xx]
 keywords:
-  - geografisk område (land, fylke, kommune)
-  - art (fauna, flora, høyere taksonomisk enhet
-  - konsekvensutredning
-  - overvåkingsrapport
-  - etterundersøkelse
-  - vassdrag
-  - økosystemtjenester
-  - radioaktivitet
+  - word: geografisk område (land, fylke, kommune)
+  - word: art (fauna, flora, høyere taksonomisk enhet
+  - word: konsekvensutredning
+  - word: overvåkingsrapport
+  - word: etterundersøkelse
+  - word: vassdrag
+  - word: økosystemtjenester
+  - word: radioaktivitet
 englishkeywords:
   - word: [se nøkkelord]
 bibliography: mybibfile.bib
 output: NinaR::nina_kortrapport
 foreword: 
-    text: [Tekst inn her]
+    text: [Forord inn her]
     location: [Sted, forord]
     date: [Dato, forord]
     name: [Prosjektleder]
-sammendrag: \blindtext
-
+sammendrag: [Sammendrag inn her]
 ---
 
 Innledning
 ==================
 
-Her her to måter å inkludere referenser: @Feynman1963118 [@Dirac1953888].
-\blindtext[8]
+Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
+
+Dette templat baseres på R-pakken @rmarkdown, se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken [@NinaR] bruker kod fra @rticles for templater. 
+
+
 
 \newpage
 
-Referanser {#references .unnumbered}
+Referanser {#references}
 ==========
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\noindent
