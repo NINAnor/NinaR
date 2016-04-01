@@ -3,7 +3,7 @@
 #' Code is borrowes heavily from rmarkdown
 #' Format for converting from R Markdown to a slidy presentation.
 #'
-#'
+#' @importFrom rmarkdown render_supporting_files
 #' @importFrom rmarkdown pandoc_highlight_args
 #' @importFrom rmarkdown html_document_base
 #' @importFrom rmarkdown rmarkdown_format
@@ -28,17 +28,15 @@
 #'
 #' See the \href{http://rmarkdown.rstudio.com/slidy_presentation_format.html}{online
 #' documentation} for additional details on using the \code{slidy_presentation} format.
-#'
 #' For more information on markdown syntax for presentations see the
 #' \href{http://pandoc.org/README.html}{pandoc online documentation}.
-#'
 #' @examples
 #' \dontrun{
 #'
 #' library(NinaR)
 #'
 #' # simple invocation
-#' render("pres.Rmd", nina:slidy.R())
+#' render("pres.Rmd", nina_slidy.R())
 #'
 #' # specify an option for incremental rendering
 #' render("pres.Rmd", nina_slidy(incremental = TRUE))

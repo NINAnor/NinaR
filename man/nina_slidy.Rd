@@ -94,7 +94,6 @@ Format for converting from R Markdown to a slidy presentation.
 \details{
 See the \href{http://rmarkdown.rstudio.com/slidy_presentation_format.html}{online
 documentation} for additional details on using the \code{slidy_presentation} format.
-
 For more information on markdown syntax for presentations see the
 \href{http://pandoc.org/README.html}{pandoc online documentation}.
 }
@@ -104,7 +103,7 @@ For more information on markdown syntax for presentations see the
 library(NinaR)
 
 # simple invocation
-render("pres.Rmd", nina:slidy.R())
+render("pres.Rmd", nina_slidy.R())
 
 # specify an option for incremental rendering
 render("pres.Rmd", nina_slidy(incremental = TRUE))

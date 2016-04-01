@@ -1,11 +1,12 @@
 
-rticles 0.2 (unreleased)
+NinaR 0.0.3
 ---------------------------------------------------------------------
+- First version with NINA presentation template using Slidy
 
-- Add American Chemical Society (ACS) template
-
-
-rticles 0.1
+NinaR 0.0.2
 ---------------------------------------------------------------------
+- First version with NINA shortreport template using LaTeX
 
-- Initial release to CRAN
+Nina 0.0.1
+---------------------------------------------------------------------
+- First commit to github

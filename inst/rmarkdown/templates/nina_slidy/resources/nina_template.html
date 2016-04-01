@@ -13,10 +13,10 @@ $if(date-meta)$
   <meta name="date" content="$date-meta$" />
 $endif$
 $if(footer)$
-  <meta name="copyright" content="$footer$"/> 
+  <meta name="copyright" content="$footer$"/>
 $endif$
 $if(font-size-adjustment)$
-  <meta name="font-size-adjustment" content="$font-size-adjustment$"/> 
+  <meta name="font-size-adjustment" content="$font-size-adjustment$"/>
 $endif$
   <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
   <style type="text/css">code{white-space: pre;}</style>
@@ -46,10 +46,9 @@ $include-before$
 $endfor$
 $if(title)$
 <div class="slide titlepage">
-  <img src="$slidy-url$/graphics/titlepage.png" width=100% height=100%>  
   <h1 class="title">$title$</h1>
 $if(subtitle)$
-  <h1 class="subtitle">$subtitle$</h1>
+  <h2 class="subtitle">$subtitle$</h2>
 $endif$
   <p class="author">
 $for(author)$$author$$sep$<br/>$endfor$
@@ -60,6 +59,8 @@ $endif$
 </div>
 $endif$
 $body$
+<div class="slide endpage">
+</div>
 $for(include-after)$
 $include-after$
 $endfor$
