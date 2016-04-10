@@ -19,6 +19,7 @@ location: Trondheim
 ISBN_end: 1234-5
 self-ref: Brum, O., Robin, K. 2016.  En veldig bra titel. NINA.
 access: Åpen
+secure_pdf:
 qualitycontrol: [xx]
 boss_sign: Forskningssjef [fylles ut av forskningssjefen] (sign.)
 customer: [xx]
@@ -36,7 +37,10 @@ keywords:
 englishkeywords:
   - word: [se nøkkelord]
 bibliography: mybibfile.bib
-output: NinaR::nina_kortrapport
+output: 
+  NinaR::nina_kortrapport:
+    highlight: tango
+    fig_caption: yes
 foreword: 
     text: [Forord inn her]
     location: [Sted, forord]
@@ -47,14 +51,41 @@ sammendrag: [Sammendrag inn her]
 
 Innledning
 ==================
-
 Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
 
 Dette templat baseres på R-pakken @rmarkdown, se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken [@NinaR] bruker kod fra @rticles for templater. 
 
-
-
+Ny side, hvis det ønskes for eksempel mellom ulike kapitel, lages gjennom å skrive `\newpage`.
 \newpage
+
+Resultater
+========
+R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokomentet. PDFen kan låses gjennom å angi `secure_pdf: yes` i Yaml-avsnittet.
+
+```{r test-chunk1}
+#Så ser kod-comments ut
+
+x<-1:10
+y<-1:10
+
+x+y
+
+```
+
+Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Teksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man referere til figuren i teksten.  
+```{r test-chunk2, fig.cap="En enkel figur generert fra R \\label{xy_plot}"}
+plot(y~x)
+
+```
+
+Bilder kan også legges till slik. Eps-filer angis uten filendelse.
+
+![Nina-logoen \label{logoen}](logo)
+
+
+Her refererer vi til figur \ref{xy_plot}, som er den første figuren vi lagte. Vi kan også referere til bilder, for eksempel til figur \ref{logoen}. Notere at man må ha to `\\` for R-figurer men en `\` for bilder. Dette beteende kan endres i fremtide versjoner av Pandoc.
+
+\clearpage
 
 Referanser {#references}
 ==========

@@ -12,11 +12,6 @@ nina_slidy(incremental = FALSE, duration = NULL, footer = NULL,
   lib_dir = NULL, md_extensions = NULL, pandoc_args = NULL, ...)
 }
 \arguments{
-\item{incremental}{\code{TRUE} to render slide bullets incrementally. Note
-that if you want to reverse the default incremental behavior for an
-individual bullet you can precede it with \code{>}. For example:
-\emph{\code{> - Bullet Text}}}
-
 \item{duration}{Duration (in minutes) of the slide deck. This value is used
 to add a countdown timer to the slide footer.}
 
@@ -39,7 +34,7 @@ markdown document).}
 
 \item{fig_caption}{\code{TRUE} to render figures with captions}
 
-\item{dev}{Graphics device to use for figure output (defaults to pdf)}
+\item{dev}{Graphics device to use for figure output (defaults to png)}
 
 \item{smart}{Produce typographically correct output, converting straight
 quotes to curly quotes, --- to em-dashes, -- to en-dashes, and ... to
@@ -52,8 +47,8 @@ documents MathJax is still loaded externally (this is necessary because of
 it's size).}
 
 \item{highlight}{Syntax highlighting style. Supported styles include
-"default", "tango", "pygments", "kate", "monochrome", "espresso",
-"zenburn", and "haddock". Pass \code{NULL} to prevent syntax highlighting.}
+"default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn",
+"haddock", and "textmate". Pass \code{NULL} to prevent syntax highlighting.}
 
 \item{mathjax}{Include mathjax. The "default" option uses an https URL from
 the official MathJax CDN. The "local" option uses a local version of MathJax
@@ -62,10 +57,10 @@ or pass \code{NULL} to exclude MathJax entirely.}
 
 \item{template}{Pandoc template to use for rendering. Pass "default" to use
 the rmarkdown package default template; pass \code{NULL} to use pandoc's
-built-in template; pass a path to use a custom template that you've
-created.  See the documentation on
-\href{{http://pandoc.org/README.html}{pandoc online documentation}}
-for details on creating custom templates.}
+built-in template; pass a path to use a custom template that you've created.
+Note that if you don't use the "default" template then some features of
+\code{html_document} won't be available (see the Templates section below for
+more details).}
 
 \item{css}{One or more css files to include}
 

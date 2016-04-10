@@ -1,4 +1,6 @@
-%\special{pdf:encrypt ownerpw (abc) length 128 perm 2052}
+$if(secure_pdf)$
+\special{pdf:encrypt ownerpw (abc) length 128 perm 2052}
+$endif$
 \documentclass[11pt, a4paper]{article}
 \usepackage[norsk]{babel}
 
@@ -87,8 +89,10 @@
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
   \fancyhf{}
   \fancyfootoffset[R]{0cm}
-  \chead{\vspace{1cm}ISSN: 2464-2797 \\
-ISBN: 978-82-426-$ISBN_end$}
+  \begin{center}
+  \vfill{}ISSN: 2464-2797 \\
+ISBN: 978-82-426-$ISBN_end$
+\end{center}
   \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\textbf{Norsk institutt for naturforskning}\\
 \small NINA Hovedkontor\\
 Postadresse: Postboks 5685 Sluppen, 7485 Trondheim\\
@@ -108,15 +112,15 @@ http://www.nina.no}
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\cleardoublepage\pagestyle{endfooter}
+  \ifthispageodd{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\clearpage~\pagestyle{endfooter}
   }{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
 }
-
 \AtEndDocument{\OpenNewPageIfNeeded}
 
 
-%\AtEndDocument{\fancyhf{}\pagestyle{endfooter}\ifodd\value{page}\else\clearpage\fancyhf{}\pagestyle{endfooter}\fi
-%}
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
 
 %Set up custom colors
 \usepackage{xcolor}
@@ -196,7 +200,7 @@ $endfor$
 
 
 \clearpage
-\newgeometry{bottom=2cm, top=2cm, left=2.5cm, right=2.5cm}
+\newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
 %Page 4
 \fancyhf{}
 \pagestyle{fancy}

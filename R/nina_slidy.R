@@ -10,10 +10,7 @@
 #' @importFrom rmarkdown pandoc_options
 #' @importFrom rmarkdown knitr_options_html
 #' @importFrom rmarkdown output_format
-#' @inheritParams rmarkdown::pandoc_path_arg
-#' @inheritParams rmarkdown::beamer_presentation
-#' @inheritParams rmarkdown::pdf_document
-#' @inheritParams rmarkdown::html_document
+#'
 #'
 #' @param duration Duration (in minutes) of the slide deck. This value is used
 #'   to add a countdown timer to the slide footer.
@@ -21,6 +18,8 @@
 #' @param font_adjustment Increase or decrease the default font size
 #'  (e.g. -1 or +1). You can also manually adjust the font size during the
 #'  presentation using the 'S' (smaller) and 'B' (bigger) keys.
+#' @inheritParams rmarkdown::pandoc_path_arg
+#' @inheritParams rmarkdown::html_document
 #'
 #' @return R Markdown output format to pass to \code{\link{render}}
 #'
