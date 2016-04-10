@@ -51,6 +51,7 @@ sammendrag: [Sammendrag inn her]
 
 Innledning
 ==================
+
 Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
 
 Dette templat baseres på R-pakken @rmarkdown, se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken [@NinaR] bruker kod fra @rticles for templater. 
@@ -60,19 +61,24 @@ Ny side, hvis det ønskes for eksempel mellom ulike kapitel, lages gjennom å sk
 
 Resultater
 ========
-R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokomentet. PDFen kan låses gjennom å angi `secure_pdf: yes` i Yaml-avsnittet.
+R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokomentet.
 
-```{r test-chunk1}
+```{r test-chunk1, results='asis'}
 #Så ser kod-comments ut
 
-x<-1:10
+x<- 1:10*0.5+rnorm(10, mean=1,sd=2)
 y<-1:10
 
-x+y
+mod1<-glm(y~x)
+require(xtable)
+print(xtable(round(summary(mod1)$coefficients, 3),caption="Tabell laget med xtable \\label{tab1}"), comment=F)
 
 ```
 
 Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Teksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man referere til figuren i teksten.  
+
+Tabeller kan lages enkelt med pakken `xtable`. De kan også refereres til, for eksempel til tabell \ref{tab1}.
+
 ```{r test-chunk2, fig.cap="En enkel figur generert fra R \\label{xy_plot}"}
 plot(y~x)
 
