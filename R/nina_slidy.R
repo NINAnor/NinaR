@@ -10,7 +10,6 @@
 #' @importFrom rmarkdown pandoc_options
 #' @importFrom rmarkdown knitr_options_html
 #' @importFrom rmarkdown output_format
-#' @importFrom rmarkdown includes_to_pandoc_args
 #'
 #'
 #' @param duration Duration (in minutes) of the slide deck. This value is used
@@ -93,7 +92,7 @@ nina_slidy <- function(incremental = FALSE,
                                         font_adjustment))
 
   # content includes
-  args <- c(args, includes_to_pandoc_args(includes))
+  args <- c(args, rmarkdown::includes_to_pandoc_args(includes))
 
   # additional css
   for (css_file in css)
