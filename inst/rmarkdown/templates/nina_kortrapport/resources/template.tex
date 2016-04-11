@@ -27,6 +27,7 @@ $endif$
 %Set fonts
 \usepackage{fontspec}
 \setmainfont{Arial}
+\setmonofont{Arial Narrow}
 
 %To insert manual hyphens
 \usepackage{hyphenat}
@@ -76,7 +77,7 @@ $endif$
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
   \lfoot{\vspace{1cm}\hspace{-1cm}\includegraphics[height=2cm]{logo.eps}}
-   \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{Norsk institutt for naturforskning}}
+   \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{\texttt{Norsk institutt for naturforskning}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -93,14 +94,17 @@ $endif$
   \vfill{}ISSN: 2464-2797 \\
 ISBN: 978-82-426-$ISBN_end$
 \end{center}
-  \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\textbf{Norsk institutt for naturforskning}\\
+  \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\texttt{\textbf{Norsk institutt for naturforskning}}\\
+\begingroup
+\texttt
 \small NINA Hovedkontor\\
 Postadresse: Postboks 5685 Sluppen, 7485 Trondheim\\
 Telefon: 73801400, Telefaks: 73801401\\
 E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
-http://www.nina.no}
-   \rfoot{\vspace{4cm}\hfill\Large\darkGrey{Samarbeid og kunnskap for framtidas miljøløsninger}}
+http://www.nina.no
+\endgroup}
+   \rfoot{\vspace{4cm}\hfill\Large\darkGrey{\texttt{Samarbeid og kunnskap for framtidas miljøløsninger}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -149,7 +153,7 @@ $endif$
 \vspace{2cm}
 
 %\hspace{-1cm}
-\Huge{\darkGrey{\textbf{NINA} Kortrapport}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
+\Huge{\darkGrey{\texttt{\textbf{NINA} Kortrapport}}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
@@ -161,27 +165,27 @@ $endfor$
 
 \restoregeometry
 \end{titlepage}
-\newgeometry{bottom=3cm, top=3cm, left=2cm, right=2cm}
+\newgeometry{bottom=3cm, top=3cm, left=2.5cm, right=2.5cm}
 %Second page
 \cfoot{}
 
 \section*{NINAs publikasjoner}
 
 
-\subsection*{NINA Rapport}
-Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.
+\subsection*{\normalsize{NINA Rapport}}
+{\small Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.}
 
-\subsection*{NINA Kortrapport}
-Dette er en enklere og ofte kortere rapportform til oppdragsgiver, gjerne for prosjekt med mindre arbeidsomfang enn det som ligger til grunn for NINA Rapport. Det er ikke krav om sammendrag på engelsk. Rapportserien kan også benyttes til framdriftsrapporter eller foreløpige meldinger til oppdragsgiver.
+\subsection*{\normalsize{NINA Kortrapport}}
+{\small Dette er en enklere og ofte kortere rapportform til oppdragsgiver, gjerne for prosjekt med mindre arbeidsomfang enn det som ligger til grunn for NINA Rapport. Det er ikke krav om sammendrag på engelsk. Rapportserien kan også benyttes til framdriftsrapporter eller foreløpige meldinger til oppdragsgiver.}
 
-\subsection*{NINA Temahefte}
-Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer vekt på illustrasjoner enn NINA Rapport.
+\subsection*{\normalsize{NINA Temahefte}}
+{\small Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer vekt på illustrasjoner enn NINA Rapport.}
 
-\subsection*{NINA Fakta}
-Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større publikum. De sendes til presse, ideelle organisasjoner, naturforvaltningen på ulike nivå, politikere og andre spesielt interesserte. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.
+\subsection*{\normalsize{NINA Fakta}}
+{\small Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større publikum. De sendes til presse, ideelle organisasjoner, naturforvaltningen på ulike nivå, politikere og andre spesielt interesserte. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.}
 
-\subsection*{Annen publisering}
-I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.
+\subsection*{\normalsize{Annen publisering}}
+{\small I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.}
 
 \clearpage
 \newgeometry{bottom=3cm, top=3cm}
@@ -205,7 +209,7 @@ $endfor$
 \fancyhf{}
 \pagestyle{fancy}
 \fancyfoot[c]{\ruleline{\thepage}}
-\fancyhead[c]{\ruleline{\scriptsize{NINA kortrapport $reportnr$}}}
+\fancyhead[c]{\ruleline{\scriptsize{NINA Kortrapport $reportnr$}}}
 
 \normalsize
 
