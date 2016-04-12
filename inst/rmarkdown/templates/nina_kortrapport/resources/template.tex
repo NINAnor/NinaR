@@ -27,7 +27,8 @@ $endif$
 %Set fonts
 \usepackage{fontspec}
 \setmainfont{Arial}
-\setmonofont{Arial Narrow}
+\newfontfamily{\narrow}{Arial Narrow}
+\newfontfamily{\narrowbold}{Arial Narrow Bold}
 
 %To insert manual hyphens
 \usepackage{hyphenat}
@@ -70,14 +71,14 @@ $endif$
 \renewcommand{\footrulewidth}{0pt}
 
 %Defines the line in the pagefooter
-\newcommand*\ruleline[1]{\par\noindent\raisebox{.8ex}{\makebox[\linewidth]{\hrulefill\hspace{1ex}\raisebox{-.8ex}{#1}\hspace{1ex}\hrulefill}}}
+\newcommand*\ruleline[1]{\par\noindent\raisebox{.4ex}{\makebox[\linewidth]{\hrulefill\hspace{1ex}\raisebox{-.4ex}{#1}\hspace{1ex}\hrulefill}}}
 
 %Define titlepage footer
 \usepackage{tikzpagenodes}
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
   \lfoot{\vspace{1cm}\hspace{-1cm}\includegraphics[height=2cm]{logo.eps}}
-   \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{\texttt{Norsk institutt for naturforskning}}}
+   \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -94,9 +95,9 @@ $endif$
   \vfill{}ISSN: 2464-2797 \\
 ISBN: 978-82-426-$ISBN_end$
 \end{center}
-  \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\texttt{\textbf{Norsk institutt for naturforskning}}\\
+  \lfoot{\color{darkgrey}\vspace{1.5cm}\normalsize\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
-\texttt
+\narrow
 \small NINA Hovedkontor\\
 Postadresse: Postboks 5685 Sluppen, 7485 Trondheim\\
 Telefon: 73801400, Telefaks: 73801401\\
@@ -104,7 +105,7 @@ E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{4cm}\hfill\Large\darkGrey{\texttt{Samarbeid og kunnskap for framtidas miljøløsninger}}}
+   \rfoot{\vspace{4cm}\hfill\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -153,7 +154,7 @@ $endif$
 \vspace{2cm}
 
 %\hspace{-1cm}
-\Huge{\darkGrey{\texttt{\textbf{NINA} Kortrapport}}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
+\Huge{\darkGrey{\narrowbold{\textbf{NINA}}~\narrow{Kortrapport}}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
@@ -209,7 +210,7 @@ $endfor$
 \fancyhf{}
 \pagestyle{fancy}
 \fancyfoot[c]{\ruleline{\thepage}}
-\fancyhead[c]{\ruleline{\scriptsize{NINA Kortrapport $reportnr$}}}
+\fancyhead[c]{\ruleline{\tiny{NINA Kortrapport $reportnr$}}}
 
 \normalsize
 

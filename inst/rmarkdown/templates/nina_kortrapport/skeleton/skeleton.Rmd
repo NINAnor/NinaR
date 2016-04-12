@@ -50,9 +50,11 @@ sammendrag: [Sammendrag inn her]
 ---
 
 ```{r setup, echo=F, message=F}
-options(width = 40)
+options(width =60)
 require(NinaR)
 require(xtable)
+require(knitr)
+opts_chunk$set(tidy=T, tidy.opts=list(width.cutoff=50))
 ```
 
 Innledning
@@ -85,16 +87,14 @@ Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er ang
 
 Tabeller kan lages enkelt med pakken `xtable`. De kan også refereres til, for eksempel til tabell \ref{tab1}.
 
-```{r test-chunk2, fig.cap="Ett exempel med NINAs grafpalett generert fra R \\label{xy_plot}", fig.asp=0.5, message= F}
+```{r test-chunk2, fig.cap="Ett exempel med NINAs grafpalett generert fra R \\label{xy_plot}"}
 old.mai<-par("mai")
-par(mai = old.mai * c(1, 2.5, 1, 1.5))
+par(mai = old.mai * c(1, 2.3, 1, 1.5))
 palette(NinaPalette())
+set.seed(123)
+plot.mat<-matrix(rnorm(25, 40, sd=10), ncol=5, dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
 
-plot.mat<-matrix(rnorm(25, 40, sd=10), ncol=5, 
-                 dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), 
-                          c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
-
-barplot(plot.mat, col=1:5, beside=T, horiz = T, las=1, xlim = c(0, 100), xlab="%", border = NA)
+barplot(plot.mat, col=1:5, beside=T, horiz = T, las=1, xlim = c(0, 100), xlab="%", border = NA, ylim = c(0, 25))
 
 legend("topright", legend = rownames(plot.mat), fill = 1:5, bty = "n")
 

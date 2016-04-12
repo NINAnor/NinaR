@@ -2,11 +2,8 @@
 
 export(NinaLogoPalette)
 export(NinaPalette)
-export(includes)
-export(includes_to_pandoc_args)
 export(nina_kortrapport)
 export(nina_slidy)
-export(relative_to)
 importFrom(rmarkdown,html_document_base)
 importFrom(rmarkdown,knitr_options_html)
 importFrom(rmarkdown,output_format)
