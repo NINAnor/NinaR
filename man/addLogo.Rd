@@ -4,23 +4,39 @@
 \alias{addLogo}
 \title{addLogo}
 \usage{
-addLogo(x = 0.85, y = 0.1)
+addLogo(x = 0.85, y = 0.1, size = 0.2)
 }
 \arguments{
-\item{Fill}{in}
+\item{x}{x-position in percentage values (0-1) of
+npc (Normalized parent coordinates)}
+
+\item{y}{y-position in percentage values (0-1) of
+npc (Normalized parent coordinates)}
+
+\item{size}{size specified as width in percentage of original size (default 0.2).
+Height is left unspecified to scale with width, retaining
+original aspect ratio.}
 }
 \value{
-Fill in
+Adds scalable logo on current device (opens new device if no current device exists)
 }
 \description{
-# Adds a NINA logo to plot
+Adds a NINA logo to plot
 }
 \details{
-Colors conform to the 'NINA Grafisk handbok'
+Logo is based on Postscript version of logo, and is scalable
+(vectorized). The function uses the package grImport. See
+examples for usage.
 }
 \examples{
-plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1, type="n")
+## Add small logo to right bottom corner
+plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1)
 addLogo()
+
+#Add large logo to background of plot
+plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1, type="n")
+addLogo(x = 0.5, y = 0.5, size = 1)
+grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
 points((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16)
 }
 \author{
