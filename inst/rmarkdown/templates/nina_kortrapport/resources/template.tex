@@ -13,7 +13,19 @@ $endif$
 %For references
 \usepackage{natbib}
 \bibliographystyle{abbrvnat}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,
+            pdfauthor={
+            $for(author)$
+              $author.name$,~
+              $endfor$
+            },
+            pdftitle={$title$},
+            pdfsubject={$subtitle$},
+            pdfkeywords={
+              $for(keywords)$
+              $keywords.word$,~
+              $endfor$
+            }]{hyperref}
 
 
 %For getting total pagecount

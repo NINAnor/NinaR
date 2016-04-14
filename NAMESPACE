@@ -2,6 +2,7 @@
 
 export(NinaLogoPalette)
 export(NinaPalette)
+export(addLogo)
 export(nina_kortrapport)
 export(nina_slidy)
 importFrom(rmarkdown,html_document_base)
