@@ -13,9 +13,9 @@ body
   padding: 0 0 0 0;
   width: 100%;
   height: 100%;
-  color: black;
+  color: #004F71;
   background-color: white;
-  font-family: "Gill Sans MT", "Gill Sans", GillSans, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
   font-size: 14pt;
 }
 
@@ -184,6 +184,9 @@ div.toc-heading {
 
 img {
   image-rendering: optimize-quality;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
 }
 
 pre {
@@ -279,7 +282,7 @@ ul ul ul ul { list-style-type: disc; }
 
 li:before {
     content: "• ";
-    color: #e57709; /* or whatever color you prefer */
+    color: #E57200; /* or whatever color you prefer */
 }
 
 ul li {
