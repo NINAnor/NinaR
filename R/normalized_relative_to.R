@@ -9,7 +9,7 @@
 #'
 #' @return Relative path from the directory to the file (or the unmodified file
 #'   path if the file does not appear to be in the directory).
-#'
+#' @noRd
 relative_to <- function(dir, file) {
   # ensure directory ends with a /
   if (!identical(substr(dir, nchar(dir), nchar(dir)), "/")) {

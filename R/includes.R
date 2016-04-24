@@ -28,6 +28,7 @@
 #'
 #' }
 #' @name includes
+#' @noRd
 includes <- function(in_header = NULL,
                      before_body = NULL,
                      after_body = NULL) {
@@ -37,7 +38,7 @@ includes <- function(in_header = NULL,
 }
 
 
-#' @rdname includes
+
 includes_to_pandoc_args <- function(includes, filter = identity) {
   if (!is.null(includes))
     pandoc_include_args(in_header = filter(includes$in_header),
