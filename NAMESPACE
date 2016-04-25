@@ -2,6 +2,7 @@
 
 export(NinaLogoPalette)
 export(NinaPalette)
+export(addAlpha)
 export(addLogo)
 export(nina_kortrapport)
 export(nina_slidy)

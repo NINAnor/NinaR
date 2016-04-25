@@ -1,6 +1,6 @@
 #' NinaLogoPalette
 #'
-#' # Creates a NINA logo color palette
+#' Creates a NINA logo color palette
 #'
 #' Colors conform to the 'NINA Grafisk handbok'
 #'
@@ -9,7 +9,8 @@
 #' @author Jens Åström, Kari Sivertsen
 #' @seealso \code{\link{NinaPalette}}
 #' @examples
-#' NinaLogoPalette()
+#' set.seed(12345)
+#' barplot(runif(3), col=NinaLogoPalette())
 #' @export
 
 

@@ -13,13 +13,14 @@ NinaLogoPalette()
 Returns 3 logo colors
 }
 \description{
-# Creates a NINA logo color palette
+Creates a NINA logo color palette
 }
 \details{
 Colors conform to the 'NINA Grafisk handbok'
 }
 \examples{
-NinaLogoPalette()
+set.seed(12345)
+barplot(runif(3), col=NinaLogoPalette())
 }
 \author{
 Jens Åström, Kari Sivertsen
