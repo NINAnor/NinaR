@@ -13,7 +13,7 @@ body
   padding: 0 0 0 0;
   width: 100%;
   height: 100%;
-  color: #004F71;
+  color: #425563;
   background-color: white;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14pt;
@@ -103,6 +103,15 @@ div.slide {
   background-image: url(../graphics/nina_slide.png);
 }
 
+/*
+div.footer {
+    color: black; background: #E8E8E8;
+    position: fixed; top: 90%;
+    text-align:center; width:100%;
+    background-image: url(../graphics/nina_slide.png);
+}
+*/
+
 div.background {
   display: none;
 }
@@ -147,18 +156,18 @@ div.slide.endpage {
 
 div.slide h1 {
   padding-left: 0;
-  padding-right: 20pt;
+  padding-right: 0;
   padding-top: 4pt;
-  padding-bottom: 4pt;
+  padding-bottom: 20pt;
   margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 2%;
+  margin-right: 5%;
   margin-bottom: 0.5em;
   display: block;
   font-size: 160%;
   line-height: 1.2em;
   background: transparent;
-  border-bottom: 10px solid #004F71;
+  border-bottom: 15px solid #425563;
 }
 
 @media screen and (max-device-width: 1024px)
