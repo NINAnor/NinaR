@@ -49,7 +49,7 @@ foreword:
 sammendrag: [Sammendrag inn her]
 ---
 
-```{r setup, echo=F, message=F}
+```{r setup, echo=F, message=F, warning=F}
 options(width =60)
 require(NinaR)
 require(xtable)
@@ -60,34 +60,56 @@ opts_chunk$set(tidy=T, tidy.opts=list(width.cutoff=50))
 Innledning
 ==================
 
+Dette er et eksempel på en NINA kortrapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for kortrapport. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/) . Rstudio er særskilt passende å bruke, men mallen kan også brukes direkte i R (for eksempel gjennom terminalen/Command Prompt).
+
+Fremgangsmåte
+-------------
+
+_For å bruke mallen trengs:_
+
+* R
+* NinaR (se http://www.github.com/NINAnor/NinaR)
+* En Tex-installasjon
+  - For Windows, see http://miktex.org/
+  - For Mac, see http://tug.org/mactex/
+  - For Linux, installere tex-live
+
+Når R-pakken `NinaR` er installert, finnes mallen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mall produseres gjennom `rmarkdown::draft("title", template="nina_kortrapport", package="NinaR")`.
+  
+Høyst oppe i mallen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives in. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. 
+
 Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
 
-Dette templat baseres på R-pakken @rmarkdown, se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken [@NinaR] bruker kod fra @rticles for templater. 
+Dette templat baseres på R-pakken `Rmarkdown` [@rmarkdown], se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken `NinaR` bruker kod fra @rticles for templater. 
 
 Ny side, hvis det ønskes for eksempel mellom ulike kapitel, lages gjennom å skrive `\newpage`.
+
+Spørsmål og synspunkter kan sendes til Jens Åström.
 \newpage
 
 Resultater
 ========
-R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokomentet.
+R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokumentet.
 
-```{r test-chunk1, results='asis', message= F}
-#Så ser kod-comments ut
+```{r test-chunk1}
+#Så her ser kod-comments ut
 
 x<- 1:10*0.5+rnorm(10, mean=1,sd=2)
 y<-1:10
+```
+Tabeller fra R kan lages gjennom pakken `xtable`. Her er et eksempel på output fra en enkel modell. De kan også refereres til, for eksempel referer jeg nå til tabell \ref{tab1}.
 
+```{r test-chunk2, results='asis', message= F}
 mod1<-glm(y~x)
 print(xtable(round(summary(mod1)$coefficients, 3), 
              caption="Tabell laget med xtable \\label{tab1}"), comment=F)
 
 ```
 
-Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Teksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man referere til figuren i teksten.  
+Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Figurteksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man også referere til figuren. Figur \ref{xy_plot} viser et eksempel på bruk av NINAs logofarger via funksjonen `NinaR::NinaPalette`.  
 
-Tabeller kan lages enkelt med pakken `xtable`. De kan også refereres til, for eksempel til tabell \ref{tab1}.
 
-```{r test-chunk2, fig.cap="Ett exempel med NINAs grafpalett generert fra R \\label{xy_plot}"}
+```{r test-chunk3, fig.cap="Ett exempel med NINAs grafpalett generert fra R \\label{xy_plot}"}
 old.mai<-par("mai")
 par(mai = old.mai * c(1, 2.3, 1, 1.5))
 palette(NinaPalette())
@@ -100,12 +122,12 @@ legend("topright", legend = rownames(plot.mat), fill = 1:5, bty = "n")
 
 ```
 
-Bilder kan også legges till slik. Eps-filer angis uten filendelse.
+Bilder kan også legges till gjennom vanlig markdown syntax. Eps-filer angis uten filendelse.
 
 ![Nina-logoen \label{logoen}](logo)
 
 
-Her refererer vi til figur \ref{xy_plot}, som er den første figuren vi lagte. Vi kan også referere til bilder, for eksempel til figur \ref{logoen}. Notere at man må ha to `\\` for R-figurer men en `\` for bilder. Dette beteende kan endres i fremtide versjoner av Pandoc.
+Vi kan også referere til bilder, for eksempel til figur \ref{logoen}. Notere at man må ha to `\\` for R-figurer men en `\` for bilder. Dette beteende kan endres i fremtide versjoner av Pandoc.
 
 \clearpage
 

@@ -1,7 +1,7 @@
 Package: NinaR
 Type: Package
 Title: Document templates and functions for NINA
-Version: 0.0.4
+Version: 0.0.5
 Date: 2016-03-29
 Authors@R: c(
   person("Jens", "Astrom", role = c("aut", "cre"), email = "jens.astrom@nina.no")
@@ -17,3 +17,4 @@ Suggests: knitr
 Imports: utils, rmarkdown, knitr, yaml
 LazyData: TRUE
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

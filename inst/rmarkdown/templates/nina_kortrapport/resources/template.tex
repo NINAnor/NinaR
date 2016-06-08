@@ -31,6 +31,10 @@ $endif$
 %For getting total pagecount
 \usepackage{lastpage}
 
+%For typesetting of bullet lists
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 %To get pdf production date in proper format
 \usepackage[norsk]{datetime}
 \newdateformat{ninadate}{%
@@ -55,6 +59,7 @@ $endif$
 \setcounter{tocdepth}{2}
 \contentsmargin{0pt}
 \dottedcontents{section}[2.3em]{\bfseries}{2.3em}{5pt}
+\dottedcontents{subsection}[2.3em]{\bfseries}{2.3em}{5pt}
 \usepackage{setspace}
 
 %To adjust margins and use left justification
@@ -89,7 +94,7 @@ $endif$
 \usepackage{tikzpagenodes}
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
-  \lfoot{\vspace{1cm}\hspace{-1cm}\includegraphics[height=2cm]{logo.eps}}
+  \lfoot{\vspace{1.3cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
    \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
@@ -156,13 +161,13 @@ $endif$
 
 \begin{document}
 
-\newgeometry{bottom=6cm, top=2cm}
+\newgeometry{bottom=5.5cm, top=2cm}
 \begin{titlepage}
 
 \thispagestyle{titlefooter}
 \begin{center}
 \vspace{-1cm}
-\Large\shadOrange{\textbf{www.nina.no}}
+\Large\shadOrange{\narrow{\textbf{www.nina.no}}}
 \end{center}
 \vspace{2cm}
 
@@ -260,10 +265,11 @@ $endfor$
 
 \vfill
 %\noindent
-\footnotesize
+
 
 \begin{minipage}{\linewidth}
-KONTAKTOPPLYSNINGER \par\smallspace
+\scriptsize{KONTAKTOPPLYSNINGER} \par\smallspace
+\footnotesize
 \leavevmode\hbox to \linewidth{%
 \hspace{-.25cm}
 \begin{tabular}[t]{l@{}}
