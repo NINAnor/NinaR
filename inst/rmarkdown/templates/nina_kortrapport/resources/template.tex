@@ -8,7 +8,10 @@ $endif$
 \usepackage{blindtext}
 
 %For linenumbers
+$if(line_numbering)$
 \usepackage{lineno}
+\linenumbers
+$endif$
 
 %For references
 \usepackage{natbib}
@@ -60,6 +63,7 @@ $endif$
 \contentsmargin{0pt}
 \dottedcontents{section}[2.3em]{\bfseries}{2.3em}{5pt}
 \dottedcontents{subsection}[2.3em]{\bfseries}{2.3em}{5pt}
+\dottedcontents{subsubsection}[2.3em]{\bfseries}{2.3em}{5pt}
 \usepackage{setspace}
 
 %To adjust margins and use left justification
@@ -67,13 +71,13 @@ $endif$
 \usepackage[document]{ragged2e}
 
 %To adjust heading spacings
-\usepackage{titlesec}
-\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%\usepackage{titlesec}
+%\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \newcommand{\smallspace}{\vspace{3mm}}
 \newcommand{\medspace}{\vspace{5mm}}
 
 %Adjust paragraph indentations
-\setlength{\parindent}{0pt}
+%\setlength{\parindent}{0pt}
 
 %To adjust graphics
 \usepackage{graphicx}
@@ -144,6 +148,9 @@ http://www.nina.no
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
+%Define custom code background shading
+\definecolor{shadecolor}{RGB}{238,238,238}
+
 
 %Set up custom colors
 \usepackage{xcolor}
@@ -341,8 +348,8 @@ $foreword.location$, $foreword.date$, $foreword.name$
 
 
 \clearpage
-\setcounter{secnumdepth}{1}
-
+\setcounter{secnumdepth}{3}
+\setlength{\parskip}{6pt}
 
 $body$
 

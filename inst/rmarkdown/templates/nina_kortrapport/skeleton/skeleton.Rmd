@@ -20,6 +20,7 @@ ISBN_end: 1234-5
 self-ref: Brum, O., Robin, K. 2016.  En veldig bra titel. NINA.
 access: Åpen
 secure_pdf:
+line_numbering:
 qualitycontrol: [xx]
 boss_sign: Forskningssjef [fylles ut av forskningssjefen] (sign.)
 customer: [xx]
