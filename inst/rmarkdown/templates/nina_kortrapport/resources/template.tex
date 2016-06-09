@@ -71,8 +71,8 @@ $endif$
 \usepackage[document]{ragged2e}
 
 %To adjust heading spacings
-%\usepackage{titlesec}
-%\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\usepackage{titlesec}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \newcommand{\smallspace}{\vspace{3mm}}
 \newcommand{\medspace}{\vspace{5mm}}
 
@@ -116,7 +116,7 @@ $endif$
   \vfill{}ISSN: 2464-2797 \\
 ISBN: 978-82-426-$ISBN_end$
 \end{center}
-  \lfoot{\color{darkgrey}\vspace{1.5cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
+  \lfoot{\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
 \narrow
 \large NINA Hovedkontor\\
@@ -127,7 +127,7 @@ E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{5cm}\hfill\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}
+   \rfoot{\vspace{4.7cm}\hfill\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -139,8 +139,8 @@ http://www.nina.no
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\clearpage~\pagestyle{endfooter}
-  }{\fancyhf{}\newgeometry{a4paper, bottom=8cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
+  \ifthispageodd{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\clearpage~\pagestyle{endfooter}
+  }{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
 }
 \AtEndDocument{\OpenNewPageIfNeeded}
 

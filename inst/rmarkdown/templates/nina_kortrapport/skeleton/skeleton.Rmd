@@ -61,32 +61,32 @@ opts_chunk$set(tidy=T, tidy.opts=list(width.cutoff=50))
 Innledning
 ==================
 
-Dette er et eksempel på en NINA kortrapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for kortrapport. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/) . Rstudio er særskilt passende å bruke, men mallen kan også brukes direkte i R (for eksempel gjennom terminalen/Command Prompt).
+Dette er et eksempel på en NINA kortrapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for kortrapporter. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/). Se exampelmallen for diverse funksjonalitet. Rstudio er særskilt tilpasset til `rmarkdown`, men mallen kan også brukes direkte i R (også via terminalen/Command Prompt). Kommandoet `rmarkdown::render("din_rapport.Rmd")` genererer en pdf, alternativt bruk knappen "Knit" i Rstudio.
 
 Fremgangsmåte
 -------------
 
-_For å bruke mallen trengs:_
+*For å bruke mallen trengs:*
 
 * R
 * NinaR (se http://www.github.com/NINAnor/NinaR)
 * En Tex-installasjon
-  - For Windows, see http://miktex.org/
-  - For Mac, see http://tug.org/mactex/
+  - For Windows, se http://miktex.org/
+  - For Mac, se http://tug.org/mactex/
   - For Linux, installere tex-live
 
-Når R-pakken `NinaR` er installert, finnes mallen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mall produseres gjennom `rmarkdown::draft("title", template="nina_kortrapport", package="NinaR")`.
+Når R-pakken `NinaR` er installert, finner man mallen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mall produseres gjennom `rmarkdown::draft("title", template="nina_kortrapport", package="NinaR")`.
   
-Høyst oppe i mallen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives in. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. 
+Høyst oppe i mallen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives in. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. Radnummer til review produseres gjennom `line_numbering: yes`. Selv-referensen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
 
 Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
 
-Dette templat baseres på R-pakken `Rmarkdown` [@rmarkdown], se for eksempel http://rmar\-kdown.rstudio.com/. Nina-pakken `NinaR` bruker kod fra @rticles for templater. 
-
 Ny side, hvis det ønskes for eksempel mellom ulike kapitel, lages gjennom å skrive `\newpage`.
 
-Spørsmål og synspunkter kan sendes til Jens Åström.
+Da denne malle er ny og relativt uprøvd, tag gjerne kontakt med Jens Åström så resultatet kan kvalitetssjekkes før publisering. Spørsmål og synspunkter kan også sendes til densamme.
 \newpage
+
+
 
 Resultater
 ========
