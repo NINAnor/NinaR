@@ -1,5 +1,5 @@
 ---
-title: "Nina grafik i figurer"
+title: "Nina graphics in figures"
 author: "Jens Åström"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -8,6 +8,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r, echo=F, message=F}
+require(NinaR)
+```
+
 
 Intro
 ==============
@@ -18,18 +22,47 @@ In addition, the package provides a function for adding the Nina logo to a plot.
 NinaPalette and NinaLogoPalette
 ===========
 
-R uses a default palette made up of the colors `r palette()`. These colors can be selected in figures by numbers e.g. `col=2` means the color red. The function `NinaPalette` and `NinaLogoPalette` provides similar functionality. 
+R uses a default palette made up of the colors `r palette()`. These colors can be selected in figures by numbers e.g. `col=2` means the color red. The function `NinaPalette` and `NinaLogoPalette` provides similar functionality by providing a new palette in line with the NINA graphical handbook. 
 
 To replace the default palette with the Nina palette:
 
-```{r}
+```{r palette}
 palette(NinaPalette())
 palette()
 ```
 
 Alternatively, the palette can be used directly in functions:
 
-```{r}
+```{r pallettefunction, fig.width=7, fig.height=5}
 require(NinaR)
 plot(10:1, cex=2, pch=16, col=NinaPalette())
 ```
+
+Transparency can be added with the `addAlpha` function.
+
+```{r addAlpha, fig.width=7, fig.height=5}
+set.seed(12345)
+barplot(runif(5), col=addAlpha(NinaPalette(), 0.4))
+```
+
+
+AddLogo
+=============
+
+The function `addLogo`, not surprisingly, adds a Nina logo to a figure. The default behaviour adds the logo to the right bottom corner, but the position and size can be specified to suit most needs.
+
+```{r addlogo, fig.width=7, fig.height=5}
+plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1)
+addLogo()
+```
+
+The logo can also be added in the background, with a faded tint, with help from the package `grImport` (loaded automatically). Note that you have to initiate a plot before adding the logo, and therefore you have to elements on top of the logo manually afterwards.
+
+```{r addbackgroundlogo, fig.width=7, fig.height=5}
+plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1, type="n")
+addLogo(x = 0.5, y = 0.5, size = 1)
+grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
+points((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16)
+```
+
+

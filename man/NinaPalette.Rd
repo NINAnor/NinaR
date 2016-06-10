@@ -19,10 +19,11 @@ Returns 5 figure colors
 Colors conform to the 'NINA Grafisk handbok'
 }
 \examples{
-NinaPalette()
+set.seed(12345)
+barplot(runif(5), col=NinaPalette())
 }
 \author{
-Jens Åström, Kari Sivertsen
+Jens Astrom, Kari Sivertsen
 }
 \seealso{
 \code{\link{NinaLogoPalette}}
