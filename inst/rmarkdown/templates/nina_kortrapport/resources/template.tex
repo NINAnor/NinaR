@@ -59,11 +59,12 @@ $endif$
 %Modify table of contents style
 %\usepackage{titlesec}
 \usepackage{titletoc}
-\setcounter{tocdepth}{2}
-\contentsmargin{0pt}
-\dottedcontents{section}[2.3em]{\bfseries}{2.3em}{5pt}
-\dottedcontents{subsection}[2.3em]{\bfseries}{2.3em}{5pt}
-\dottedcontents{subsubsection}[2.3em]{\bfseries}{2.3em}{5pt}
+\setcounter{tocdepth}{4}
+\contentsmargin{2.3em}
+\dottedcontents{section}[2.3em]{\bfseries}{1.3em}{5pt}
+\dottedcontents{subsection}[4.1em]{}{1.9em}{5pt}
+\dottedcontents{subsubsection}[6.6em]{}{2.6em}{5pt}
+\dottedcontents{subsubsubsection}[6.3em]{}{2.3em}{3pt}
 \usepackage{setspace}
 
 %To adjust margins and use left justification
@@ -73,6 +74,8 @@ $endif$
 %To adjust heading spacings
 \usepackage{titlesec}
 \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \newcommand{\smallspace}{\vspace{3mm}}
 \newcommand{\medspace}{\vspace{5mm}}
 
@@ -348,7 +351,7 @@ $foreword.location$, $foreword.date$, $foreword.name$
 
 
 \clearpage
-\setcounter{secnumdepth}{3}
+\setcounter{secnumdepth}{4}
 \setlength{\parskip}{6pt}
 
 $body$
