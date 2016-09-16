@@ -63,8 +63,8 @@ $endif$
 \contentsmargin{2.3em}
 \dottedcontents{section}[2.3em]{\bfseries}{1.3em}{5pt}
 \dottedcontents{subsection}[4.1em]{}{1.9em}{5pt}
-\dottedcontents{subsubsection}[6.6em]{}{2.6em}{5pt}
-\dottedcontents{subsubsubsection}[6.3em]{}{2.3em}{3pt}
+\dottedcontents{subsubsection}[6.6em]{}{2.9em}{5pt}
+\dottedcontents{paragraph}[10.2em]{}{3.6em}{5pt} %%too wide dots
 \usepackage{setspace}
 
 %To adjust margins and use left justification
@@ -73,9 +73,19 @@ $endif$
 
 %To adjust heading spacings
 \usepackage{titlesec}
-\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsubsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%To fix bug in titlesec 2.10.1 - that prevented section numbering
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+%end fix bug
+\titlespacing{\subsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing{\subsubsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
 \newcommand{\smallspace}{\vspace{3mm}}
 \newcommand{\medspace}{\vspace{5mm}}
 

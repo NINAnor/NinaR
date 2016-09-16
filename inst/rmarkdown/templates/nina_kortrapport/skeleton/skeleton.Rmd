@@ -63,8 +63,8 @@ Innledning
 
 Dette er et eksempel på en NINA kortrapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for kortrapporter. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/). Se exampelmallen for diverse funksjonalitet. Rstudio er særskilt tilpasset til `rmarkdown`, men mallen kan også brukes direkte i R (også via terminalen/Command Prompt). Kommandoet `rmarkdown::render("din_rapport.Rmd")` genererer en pdf, alternativt bruk knappen "Knit" i Rstudio.
 
-Fremgangsmåte
--------------
+## Fremgangsmåte
+
 
 *For å bruke mallen trengs:*
 
@@ -81,9 +81,15 @@ Høyst oppe i mallen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der di
 
 Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller ikke [@Pedersen2016]. 
 
+### Test sub sub heading
 Ny side, hvis det ønskes for eksempel mellom ulike kapitel, lages gjennom å skrive `\newpage`.
 
+### En til sub sub heading
 Da denne malle er ny og relativt uprøvd, tag gjerne kontakt med Jens Åström så resultatet kan kvalitetssjekkes før publisering. Spørsmål og synspunkter kan også sendes til densamme.
+
+\paragraph{Prøver meg på en sub sub sub heading}
+Obs at disse må skrives med `\paragraph{titell}`! Her står noe ennå mer detaljert. Dette må få en egen under under under-seksjon. Her skriver vi noe mer for å teste radbrytingen.
+
 \newpage
 
 
