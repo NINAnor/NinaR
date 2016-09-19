@@ -1,5 +1,17 @@
 # NinaR
-This is an R package that provides Rmarkdown templates practical functions for R users in NINA. Please contribute with R functions that you think is useful to other employees.
+This is an R package that provides Rmarkdown templates and various practical functions for R users in NINA. NINA-employees, please contribute with R functions that you think would be useful to others. 
+
+Currently, the package contains the functions:
+
+* addAlpha
+* addLogo
+* ninaLogoPalette
+* ninaPalette
+* nina_kortrapport
+* nina_slidy
+
+# To-do
+Given time and requests (particularly with resources), I would like to add a beamer template (for static PDF presentations) and a NINA report template (similar to the ninaKortrapport). Please contribute if you know your way around LaTeX.
 
 # Installation
 
@@ -7,11 +19,13 @@ Install from github.
 ```r
 devtools::install_github("NINAnor/NinaR")
 ```
-If you'd like the simple vignette of graphic functions (and suggested knitr package), do instead:
-
+To enable a simple vignette of current graphic functions (and install the suggested knitr package), do instead:
 ```r
 devtools::install_github("NINAnor/NinaR", build_vignettes = TRUE)
+
+vignette("Nina-figures")
 ```
+
 
 
 # Template usage
