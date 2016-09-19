@@ -35,7 +35,7 @@ Retreive an ISBN number and reportnumber from the NINA library and fill in the r
 
 \dontrun{
 library(rmarkdown)
-draft("MyArticle.Rmd", template = "nina_kortrapport", package = "NinaR")
+draft("MyArticle.Rmd", template = "ninaKortrapport", package = "NinaR")
 }
 
 }

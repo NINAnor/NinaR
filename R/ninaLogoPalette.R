@@ -10,7 +10,7 @@
 #' @seealso \code{\link{NinaPalette}}
 #' @examples
 #' set.seed(12345)
-#' barplot(runif(3), col=NinaLogoPalette())
+#' barplot(runif(3), col=ninaLogoPalette())
 #' @export
 
 

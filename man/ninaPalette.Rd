@@ -20,7 +20,7 @@ Colors conform to the 'NINA Grafisk handbok'
 }
 \examples{
 set.seed(12345)
-barplot(runif(5), col=NinaPalette())
+barplot(runif(5), col=ninaPalette())
 }
 \author{
 Jens Astrom, Kari Sivertsen

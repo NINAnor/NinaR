@@ -97,10 +97,10 @@ For more information on markdown syntax for presentations see the
 library(NinaR)
 
 # simple invocation
-render("pres.Rmd", nina_slidy.R())
+render("pres.Rmd", ninaSlidy.R())
 
 # specify an option for incremental rendering
-render("pres.Rmd", nina_slidy(incremental = TRUE))
+render("pres.Rmd", ninaSlidy(incremental = TRUE))
 }
 
 }
