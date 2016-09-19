@@ -39,7 +39,7 @@ englishkeywords:
   - word: [se nøkkelord]
 bibliography: mybibfile.bib
 output: 
-  NinaR::nina_kortrapport:
+  NinaR::ninaKortrapport:
     highlight: tango
     fig_caption: yes
 foreword: 

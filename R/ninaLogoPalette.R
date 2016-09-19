@@ -1,4 +1,4 @@
-#' NinaLogoPalette
+#' ninaLogoPalette
 #'
 #' Creates a NINA logo color palette
 #'
@@ -10,10 +10,10 @@
 #' @seealso \code{\link{NinaPalette}}
 #' @examples
 #' set.seed(12345)
-#' barplot(runif(3), col=NinaLogoPalette())
+#' barplot(runif(3), col=ninaLogoPalette())
 #' @export
 
 
-NinaLogoPalette <- function() {
+ninaLogoPalette <- function() {
   c("#A2AAAD", "#2DCCD3", "#FFB25B")
 }

@@ -35,14 +35,14 @@
 #' library(NinaR)
 #'
 #' # simple invocation
-#' render("pres.Rmd", nina_slidy.R())
+#' render("pres.Rmd", ninaSlidy.R())
 #'
 #' # specify an option for incremental rendering
-#' render("pres.Rmd", nina_slidy(incremental = TRUE))
+#' render("pres.Rmd", ninaSlidy(incremental = TRUE))
 #' }
 #'
 #' @export
-nina_slidy <- function(incremental = FALSE,
+ninaSlidy <- function(incremental = FALSE,
                                duration = NULL,
                                footer = NULL,
                                font_adjustment = 0,

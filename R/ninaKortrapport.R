@@ -25,11 +25,11 @@
 #'
 #' \dontrun{
 #' library(rmarkdown)
-#' draft("MyArticle.Rmd", template = "nina_kortrapport", package = "NinaR")
+#' draft("MyArticle.Rmd", template = "ninaKortrapport", package = "NinaR")
 #' }
 #'
 #' @export
-nina_kortrapport <- function(...,
+ninaKortrapport <- function(...,
                              keep_tex = TRUE,
                              md_extensions = c("-autolink_bare_uris","+header_attributes")) {
   inherit_pdf_document(...,
