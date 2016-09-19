@@ -1,4 +1,4 @@
-#' NinaLogoPalette
+#' ninaLogoPalette
 #'
 #' Creates a NINA logo color palette
 #'
@@ -14,6 +14,6 @@
 #' @export
 
 
-NinaLogoPalette <- function() {
+ninaLogoPalette <- function() {
   c("#A2AAAD", "#2DCCD3", "#FFB25B")
 }

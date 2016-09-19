@@ -42,7 +42,7 @@
 #' }
 #'
 #' @export
-nina_slidy <- function(incremental = FALSE,
+ninaSlidy <- function(incremental = FALSE,
                                duration = NULL,
                                footer = NULL,
                                font_adjustment = 0,

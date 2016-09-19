@@ -3,7 +3,7 @@ title: "Titell"
 subtitle: "Undertitell"
 author: "For Efternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
-output: NinaR::nina_slidy
+output: NinaR::ninaSlidy
 runtime: shiny
 ---
 
