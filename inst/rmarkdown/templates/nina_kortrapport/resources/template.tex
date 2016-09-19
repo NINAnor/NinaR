@@ -52,6 +52,12 @@ $endif$
 %To insert manual hyphens
 \usepackage{hyphenat}
 
+%To place table caption above table
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+\setlength{\belowcaptionskip}{3mm}
+
 %To refer to sections, figures and tables
 \usepackage{nameref}
 \newcommand*{\myref}[1]{\hyperref[{#1}]{\autoref*{#1} \nameref*{#1}}}
@@ -60,8 +66,10 @@ $endif$
 %\usepackage{titlesec}
 \usepackage{titletoc}
 \setcounter{tocdepth}{4}
-\contentsmargin{2.3em}
-\dottedcontents{section}[2.3em]{\bfseries}{1.3em}{5pt}
+%\contentsmargin{2.3em}
+\contentsmargin{0em}
+%\dottedcontents{section}[2.3em]{\bfseries}{1.3em}{5pt}
+\dottedcontents{section}[1.3em]{\bfseries}{1.3em}{5pt}
 \dottedcontents{subsection}[4.1em]{}{1.9em}{5pt}
 \dottedcontents{subsubsection}[6.6em]{}{2.9em}{5pt}
 \dottedcontents{paragraph}[10.2em]{}{3.6em}{5pt} %%too wide dots
