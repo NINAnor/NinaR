@@ -7,8 +7,8 @@ Currently, the package contains the functions:
 * addLogo
 * ninaLogoPalette
 * ninaPalette
-* nina_kortrapport
-* nina_slidy
+* ninaKortrapport
+* ninaSlidy
 
 # To-do
 Given time and requests (particularly with resources), I would like to add a beamer template (for static PDF presentations) and a NINA report template (similar to the ninaKortrapport). Please contribute if you know your way around LaTeX.
