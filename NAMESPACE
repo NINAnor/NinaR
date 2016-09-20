@@ -2,6 +2,7 @@
 
 export(addAlpha)
 export(addLogo)
+export(ninaBeamer)
 export(ninaKortrapport)
 export(ninaLogoPalette)
 export(ninaPalette)
