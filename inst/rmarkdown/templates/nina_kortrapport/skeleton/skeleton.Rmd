@@ -119,7 +119,7 @@ Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er ang
 ```{r test-chunk3, fig.cap="Ett exempel med NINAs grafpalett generert fra R \\label{xy_plot}"}
 old.mai<-par("mai")
 par(mai = old.mai * c(1, 2.3, 1, 1.5))
-palette(NinaPalette())
+palette(ninaPalette())
 set.seed(123)
 plot.mat<-matrix(rnorm(25, 40, sd=10), ncol=5, dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
 

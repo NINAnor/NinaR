@@ -1,7 +1,8 @@
 ---
-title: "Untitled"
-author: "Jens"
-date: "September 20, 2016"
+title: "Titell"
+subtitle: "Undertitell"
+author: "For Efternavn"
+date: "`r format(Sys.time(), '%d %b, %Y')`"
 output: NinaR::ninaBeamer
 ---
 
@@ -9,7 +10,9 @@ output: NinaR::ninaBeamer
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## Nina Beamer template
+
+This template is experimental and under construction. Currently it resembles the default beamer template.
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 

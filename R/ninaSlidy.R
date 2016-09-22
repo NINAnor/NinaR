@@ -1,16 +1,17 @@
-#' Convert to a slidy presentation with NINA format
+#' @title NINA slidy format.
 #'
-#' Code is borrowes heavily from rmarkdown
-#' Format for converting from R Markdown to a slidy presentation.
+#' @description
+#'  Provides a Slidy template for creating a htlm presentation that resemples the existing NINA
+#'  powerpoint template. The template is available in Rstudio through `New File ->
+#'  R Markdown -> From Template` but can also be retrieved as shown in the example below.
 #'
-#' @importFrom rmarkdown render_supporting_files
-#' @importFrom rmarkdown pandoc_highlight_args
-#' @importFrom rmarkdown html_document_base
-#' @importFrom rmarkdown rmarkdown_format
-#' @importFrom rmarkdown pandoc_options
-#' @importFrom rmarkdown knitr_options_html
-#' @importFrom rmarkdown output_format
+#'  The resulting presentation is best displayed in full screen mode in modern web browsers, Chrome
+#'  seem to work well, while Internet Explorer does not display these presentatins well
 #'
+#' @details
+#'  The function borrowes heavily from the Slidy template in the rmarkdown package.
+#'
+#' @import rmarkdown
 #'
 #' @param duration Duration (in minutes) of the slide deck. This value is used
 #'   to add a countdown timer to the slide footer.
@@ -34,11 +35,14 @@
 #'
 #' library(NinaR)
 #'
-#' # simple invocation
-#' render("pres.Rmd", ninaSlidy.R())
+#' # initiate a template manually
+#' draft("MyPresentation.Rmd", template = "nina_slidy", package = "NinaR")
+#'
+#' # simple manual invocation
+#' render("MyPresentation.Rmd", ninaSlidy.R())
 #'
 #' # specify an option for incremental rendering
-#' render("pres.Rmd", ninaSlidy(incremental = TRUE))
+#' render("MyPresentation.Rmd", ninaSlidy(incremental = TRUE))
 #' }
 #'
 #' @export
