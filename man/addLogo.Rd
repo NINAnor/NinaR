@@ -30,14 +30,14 @@ examples for usage.
 }
 \examples{
 ## Add small logo to right bottom corner
-plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1)
+plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1)
 addLogo()
 
 #Add large logo to background of plot
-plot((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16, las=1, type="n")
+plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1, type="n")
 addLogo(x = 0.5, y = 0.5, size = 1)
 grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
-points((1:10)^2, 1:10, col=NinaPalette(), cex=4, pch=16)
+points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
 }
 \author{
 Jens Astrom

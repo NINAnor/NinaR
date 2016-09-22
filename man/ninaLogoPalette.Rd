@@ -26,6 +26,6 @@ barplot(runif(3), col=ninaLogoPalette())
 Jens Åström, Kari Sivertsen
 }
 \seealso{
-\code{\link{NinaPalette}}
+\code{\link{ninaPalette}}
 }
 

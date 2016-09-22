@@ -14,7 +14,7 @@ Description: This package collects functions and templates of practical use
 License: GPL-3
 Depends: rmarkdown
 Suggests: knitr
-Imports: utils, rmarkdown, knitr, yaml
+Imports: utils, rmarkdown, knitr, yaml, grImport, grid
 LazyData: TRUE
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr

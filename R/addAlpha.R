@@ -7,10 +7,10 @@
 #' @inheritParams grDevices::col2rgb
 #' @return Returns colors with modified alpha channel
 #' @author Jens Åström
-#' @seealso \code{\link{NinaPalette}}
+#' @seealso \code{\link{ninaPalette}}
 #' @examples
 #' set.seed(12345)
-#' barplot(runif(5), col=addAlpha(NinaPalette(), 0.4))
+#' barplot(runif(5), col=addAlpha(ninaPalette(), 0.4))
 #' @export
 
 
