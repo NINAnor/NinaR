@@ -2,7 +2,7 @@
 % Please edit documentation in R/ninaSlidy.R
 \name{ninaSlidy}
 \alias{ninaSlidy}
-\title{Convert to a slidy presentation with NINA format}
+\title{NINA slidy format.}
 \usage{
 ninaSlidy(incremental = FALSE, duration = NULL, footer = NULL,
   font_adjustment = 0, fig_width = 8, fig_height = 6, fig_retina = if
@@ -25,11 +25,12 @@ presentation using the 'S' (smaller) and 'B' (bigger) keys.}
 
 \item{fig_height}{Default width (in inches) for figures}
 
-\item{fig_retina}{Scaling to perform for retina displays (defaults to 2, which
-currently works for all widely used retina displays). Set to \code{NULL} to
-prevent retina scaling. Note that this will always be \code{NULL} when
-\code{keep_md} is specified (this is because \code{fig_retina} relies on
-outputting HTML directly into the markdown document).}
+\item{fig_retina}{Scaling to perform for retina displays (defaults to 2 when
+\code{fig_caption} is \code{FALSE}, which currently works for all widely
+used retina displays). Set to \code{NULL} to prevent retina scaling. Note
+that this will always be \code{NULL} when \code{keep_md} is specified (this
+is because \code{fig_retina} relies on outputting HTML directly into the
+markdown document).}
 
 \item{fig_caption}{\code{TRUE} to render figures with captions}
 
@@ -82,10 +83,16 @@ additional details.}
 R Markdown output format to pass to \code{\link{render}}
 }
 \description{
-Code is borrowes heavily from rmarkdown
-Format for converting from R Markdown to a slidy presentation.
+Provides a Slidy template for creating a htlm presentation that resemples the existing NINA
+ powerpoint template. The template is available in Rstudio through `New File ->
+ R Markdown -> From Template` but can also be retrieved as shown in the example below.
+
+ The resulting presentation is best displayed in full screen mode in modern web browsers, Chrome
+ seem to work well, while Internet Explorer does not display these presentatins well
 }
 \details{
+The function borrowes heavily from the Slidy template in the rmarkdown package.
+
 See the \href{http://rmarkdown.rstudio.com/slidy_presentation_format.html}{online
 documentation} for additional details on using the \code{slidy_presentation} format.
 For more information on markdown syntax for presentations see the
@@ -96,11 +103,14 @@ For more information on markdown syntax for presentations see the
 
 library(NinaR)
 
-# simple invocation
-render("pres.Rmd", ninaSlidy.R())
+# initiate a template manually
+draft("MyPresentation.Rmd", template = "nina_slidy", package = "NinaR")
+
+# simple manual invocation
+render("MyPresentation.Rmd", ninaSlidy.R())
 
 # specify an option for incremental rendering
-render("pres.Rmd", ninaSlidy(incremental = TRUE))
+render("MyPresentation.Rmd", ninaSlidy(incremental = TRUE))
 }
 
 }

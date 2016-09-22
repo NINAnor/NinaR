@@ -55,6 +55,14 @@ inherit_pdf_document <- function(...) {
   fmt
 }
 
+# Call rmarkdown::pdf_documet and mark the return value as inheriting pdf_document
+inherit_beamer <- function(...) {
+  fmt <- rmarkdown::beamer_presentation(...)
+  fmt$inherits <- "beamer_presentation"
+  fmt
+}
+
+
 # Helper function to create a custom format derived from pdf_document
 # that includes a custom LaTeX template and custom CSL definition
 pdf_document_format <- function(..., format, template, csl) {
