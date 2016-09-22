@@ -7,7 +7,7 @@
 #' @param Function accepts no params
 #' @return Returns 3 logo colors
 #' @author Jens Åström, Kari Sivertsen
-#' @seealso \code{\link{NinaPalette}}
+#' @seealso \code{\link{ninaPalette}}
 #' @examples
 #' set.seed(12345)
 #' barplot(runif(3), col=ninaLogoPalette())
