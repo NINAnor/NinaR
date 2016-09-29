@@ -1,16 +1,17 @@
 ---
-title: "Titell"
-subtitle: "Undertitell"
+title: "En lite lengre titell"
+subtitle: "Med mer detaljer"
 author: "For Efternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
-output: NinaR::ninaBeamer
+output:
+  NinaR::ninaBeamer
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE, fig.align = 'center', dev= 'pdf', out.width = '0.8\\linewidth', out.height = '2in')
 ```
 
-## Nina Beamer template
+## Norsk institutt for naturforskning
 
 This template is experimental and under construction. Currently it resembles the default beamer template.
 
@@ -20,19 +21,41 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Slide with Bullets
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Item 1
+- Item 2
+    - Item 2a
+    - Item 2b
 
 ## Slide with R Output
 
-```{r cars, echo = TRUE}
-summary(cars)
+```{r cars, echo = TRUE }
+suppressPackageStartupMessages(require(NinaR))
+barplot(runif(5), col=ninaPalette())
 ```
 
 ## Slide with Plot
 
-```{r pressure}
-plot(pressure)
+```{r pressure, results='asis'}
+suppressPackageStartupMessages(require(xtable))
+print(xtable(head(cars)), comment=F)
 ```
 
+## Two column test
+
+\columnsbegin
+\column{.5\textwidth}
+
+```{r}
+y<-5+5
+y
+```
+
+\column{.5\textwidth}
+
+
+```{r}
+##This is good stuff
+x <- y+10
+```
+
+\columnsend

@@ -3,6 +3,9 @@
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
 \beamertemplatenavigationsymbols$if(navigation)$$navigation$$else$empty$endif$
+
+%%Group comment out font stuff
+\iffalse
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
@@ -27,6 +30,7 @@ $endif$
 $if(euro)$
   \newcommand{\euro}{€}
 $endif$
+%/
 $if(mainfont)$
     \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $endif$
@@ -44,6 +48,70 @@ $if(CJKmainfont)$
     \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
 $endif$
 \fi
+\fi
+%%End group comment font stuff
+
+%To workaround Pandoc limitation of two column layout
+\newcommand{\columnsbegin}{\begin{columns}}
+\newcommand{\columnsend}{\end{columns}}
+
+%Set fonts
+\usefonttheme{professionalfonts} % using non standard fonts for beamer
+\usefonttheme{serif} % default family is serif
+\usepackage{fontspec}
+\setmainfont{Verdana}
+\newfontfamily{\italic}{Verdana Italic}
+\newfontfamily{\bold}{Verdana Bold}
+
+%Set up custom colors
+\usepackage{xcolor}
+\usepackage{blindtext}
+\definecolor{darkOrange}{RGB}{245,127, 0}
+\definecolor{lightOrange}{RGB}{219,140, 68}
+\definecolor{ashgrey}{RGB}{128, 128, 128}
+\definecolor{darkgrey}{RGB}{66, 85, 99}
+\definecolor{footgrey}{RGB}{212, 215, 221}
+\definecolor{ninapalette1}{RGB}{0, 79, 113}
+
+%Set main font color
+\setbeamercolor{normal text}{fg=darkgrey}
+
+%Define items
+\setbeamercolor{item projected}{bg=red}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize subitem}[default]
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+
+\setbeamercolor*{itemize item}{fg=darkOrange}
+\setbeamercolor*{itemize subitem}{fg=ninapalette1}
+\setbeamercolor*{itemize subsubitem}{fg=red}
+
+
+%Define title page
+\setbeamercolor{title}{fg=footgrey}
+\defbeamertemplate*{title page}{customized}[1][]
+{
+\vspace{3cm}
+  \hfill\usebeamerfont{title}\usebeamercolor[fg]{title}\Huge{\inserttitle}\par
+  \hfill\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\Large{\insertsubtitle}\par
+  \bigskip
+  \hfill\usebeamerfont{author}\insertauthor\par
+  \hfill\usebeamerfont{institute}\insertinstitute\par
+  \hfill\usebeamerfont{date}\insertdate\par
+  \hfill\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+}
+
+%define frame title
+\setbeamercolor{frametitle}{fg=darkgrey}
+\setbeamertemplate{frametitle}
+{
+\begin{flushleft}
+\LARGE{\insertframetitle}\par
+\end{flushleft}
+}
+
 
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -227,7 +295,6 @@ $body$
 {
 \usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0011.pdf}}
 \begin{frame}
-blabla
 \end{frame}
 }
 \end{document}
