@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[10pt]{beamer}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
@@ -51,6 +51,9 @@ $endif$
 \fi
 %%End group comment font stuff
 
+%Set left margin
+\setlength{\leftmargini}{4pt}
+
 %To workaround Pandoc limitation of two column layout
 \newcommand{\columnsbegin}{\begin{columns}}
 \newcommand{\columnsend}{\end{columns}}
@@ -78,8 +81,14 @@ $endif$
 
 %Define items
 \setbeamercolor{item projected}{bg=red}
-\setbeamertemplate{itemize items}[circle]
-\setbeamertemplate{itemize subitem}[default]
+
+\makeatletter
+\defbeamertemplate{itemize item}{nina1}{\normalsize\raise0.5pt\hbox{\textbullet}}
+\defbeamertemplate{itemize subitem}{nina2}{\tiny\raise2.0pt\hbox{\donotcoloroutermaths$$\blacktriangleright$$}}
+\makeatother
+
+\setbeamertemplate{itemize items}[nina1]
+\setbeamertemplate{itemize subitem}[nina2]
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamercovered{transparent}
@@ -103,14 +112,78 @@ $endif$
   \hfill\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
 }
 
+%To alter line spacing
+\usepackage{setspace}
+
 %define frame title
 \setbeamercolor{frametitle}{fg=darkgrey}
-\setbeamertemplate{frametitle}
-{
-\begin{flushleft}
-\LARGE{\insertframetitle}\par
-\end{flushleft}
+%
+% \setbeamertemplate{frametitle}
+% {
+% \nointerlineskip
+% \begin{flushleft}
+% \begin{spacing}{0.5}
+% \vspace*{\fill}
+% \LARGE{\insertframetitle}\par
+% \nointerlineskip
+% \end{spacing}
+% \end{flushleft}
+% }
+
+
+
+% \makeatletter
+% \setbeamertemplate{frametitle}{
+%     \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+%     \@tempdima=\textwidth%
+%     \advance\@tempdima by\beamer@leftmargin%
+%     \advance\@tempdima by\beamer@rightmargin%
+%     \begin{beamercolorbox}[sep=0.3cm,ht=2.5em,dp=2ex,wd=\the\@tempdima]{frametitle}
+%         \usebeamerfont{frametitle}%
+%         %\vbox{}\vskip-1ex%
+%
+%         %\if@tempswa\else\csname beamer@ftecenter\endcsname\fi%
+%         %begin{flushleft}
+%         \vspace*{\fill}
+%         \begin{spacing}{0.5}
+%         %\strut
+%         \LARGE{\insertframetitle}
+%         %\strut\par%
+%         \end{spacing}
+%         %\end{flushleft}
+%         %\vspace*{\fill}
+%         \vskip-1ex%
+%         \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+%     \end{beamercolorbox}%
+% }
+% \makeatother
+
+\makeatletter
+\setbeamertemplate{frametitle}{
+    \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+    \@tempdima=\textwidth%
+    \advance\@tempdima by\beamer@leftmargin%
+    \advance\@tempdima by\beamer@rightmargin%
+    \hspace*{0.3cm} %%%%%%%%%%%%% For example insert shift to right
+    \begin{beamercolorbox}[sep=0.3cm,ht=2.5em,dp=2ex,wd=\the\@tempdima]{frametitle}
+        \usebeamerfont{frametitle}%
+        \vbox{}\vskip-1ex%
+        \if@tempswa\else\csname beamer@ftecenter\endcsname\fi%
+        \begin{spacing}{0.5}
+        \strut\LARGE{\insertframetitle}\strut\par%
+        \end{spacing}
+        {%
+            \ifx\insertframesubtitle\@empty%
+            \else%
+            {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+            \fi
+        }%
+        \vskip-1ex%
+        \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+    \end{beamercolorbox}%
 }
+\makeatother
+
 
 
 % use upquote if available, for straight quotes in verbatim environments
