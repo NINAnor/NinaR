@@ -1,4 +1,4 @@
-\documentclass[10pt]{beamer}
+\documentclass[12pt, t]{beamer}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
@@ -79,6 +79,16 @@ $endif$
 %Set main font color
 \setbeamercolor{normal text}{fg=darkgrey}
 
+%%Does not work.
+%Set itemize line spacing
+% \let\tempone\itemize
+% \let\temptwo\enditemize
+% \renewenvironment{itemize}{\tempone\addtolength{\itemsep}{0.5\baselineskip}}{\temptwo}
+%
+
+% To use lorem ipsum for testing
+\usepackage{blindtext}
+
 %Define items
 \setbeamercolor{item projected}{bg=red}
 
@@ -100,15 +110,16 @@ $endif$
 
 %Define title page
 \setbeamercolor{title}{fg=footgrey}
+\setbeamercolor{subtitle}{fg=ashgrey}
 \defbeamertemplate*{title page}{customized}[1][]
 {
 \vspace{3cm}
-  \hfill\usebeamerfont{title}\usebeamercolor[fg]{title}\Huge{\inserttitle}\par
+  \hfill\usebeamerfont{title}\usebeamercolor[fg]{title}\huge{\inserttitle}\par
   \hfill\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\Large{\insertsubtitle}\par
   \bigskip
-  \hfill\usebeamerfont{author}\insertauthor\par
-  \hfill\usebeamerfont{institute}\insertinstitute\par
-  \hfill\usebeamerfont{date}\insertdate\par
+  \hfill\usebeamerfont{author}\usebeamercolor[fg]{subtitle}\insertauthor\par
+  \hfill\usebeamerfont{institute}\usebeamercolor[fg]{subtitle}\insertinstitute\par
+  \hfill\usebeamerfont{date}\usebeamercolor[fg]{subtitle}\insertdate\par
   \hfill\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
 }
 
@@ -117,46 +128,9 @@ $endif$
 
 %define frame title
 \setbeamercolor{frametitle}{fg=darkgrey}
-%
-% \setbeamertemplate{frametitle}
-% {
-% \nointerlineskip
-% \begin{flushleft}
-% \begin{spacing}{0.5}
-% \vspace*{\fill}
-% \LARGE{\insertframetitle}\par
-% \nointerlineskip
-% \end{spacing}
-% \end{flushleft}
-% }
-
-
-
-% \makeatletter
-% \setbeamertemplate{frametitle}{
-%     \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
-%     \@tempdima=\textwidth%
-%     \advance\@tempdima by\beamer@leftmargin%
-%     \advance\@tempdima by\beamer@rightmargin%
-%     \begin{beamercolorbox}[sep=0.3cm,ht=2.5em,dp=2ex,wd=\the\@tempdima]{frametitle}
-%         \usebeamerfont{frametitle}%
-%         %\vbox{}\vskip-1ex%
-%
-%         %\if@tempswa\else\csname beamer@ftecenter\endcsname\fi%
-%         %begin{flushleft}
-%         \vspace*{\fill}
-%         \begin{spacing}{0.5}
-%         %\strut
-%         \LARGE{\insertframetitle}
-%         %\strut\par%
-%         \end{spacing}
-%         %\end{flushleft}
-%         %\vspace*{\fill}
-%         \vskip-1ex%
-%         \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
-%     \end{beamercolorbox}%
-% }
-% \makeatother
+\usepackage{calc}
+\newlength{\lengthb}
+\setlength{\lengthb}{\textwidth - 2em}
 
 \makeatletter
 \setbeamertemplate{frametitle}{
@@ -169,9 +143,9 @@ $endif$
         \usebeamerfont{frametitle}%
         \vbox{}\vskip-1ex%
         \if@tempswa\else\csname beamer@ftecenter\endcsname\fi%
-        \begin{spacing}{0.5}
+        %\begin{spacing}{0.5}
         \strut\LARGE{\insertframetitle}\strut\par%
-        \end{spacing}
+        %\end{spacing}
         {%
             \ifx\insertframesubtitle\@empty%
             \else%
@@ -289,7 +263,7 @@ $endif$
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  \setlength{\itemsep}{4pt}\setlength{\parskip}{0pt}}
 $if(numbersections)$
 \setcounter{secnumdepth}{5}
 $else$

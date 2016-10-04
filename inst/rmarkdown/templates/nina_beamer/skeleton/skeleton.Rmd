@@ -4,11 +4,18 @@ subtitle: "Med mer detaljer"
 author: "For Efternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
 output:
-  NinaR::ninaBeamer
+  NinaR::ninaBeamer:
+    fig_cap: FALSE
+    highlight: tango
+    incremental: FALSE
+    toc: FALSE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.align = 'center', dev= 'pdf', out.width = '0.8\\linewidth', out.height = '2in')
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = 'center', 
+                      dev= 'pdf', out.width = '0.8\\linewidth',
+                      tidy = T)
 ```
 
 ## Norsk institutt for naturforskning
@@ -19,24 +26,46 @@ This is an R Markdown presentation. Markdown is a simple formatting syntax for a
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
-## Slide with Bullets
 
-- Item 1
-- Item 2
-    - Item 2a
-    - Item 2b
+## Norsk institutt for naturforskning
 
-## Slide with R Output
+\columnsbegin
+\column{.6\textwidth}
 
-```{r cars, echo = TRUE }
+- Uavhengig stiftelse som forsker på natur og samspillet natur-samfunn
+- Fristilt fra miljøforvaltningen (DN) i 1998
+- 222 medarbeidere (2014)
+- 332 Mkr i omsetning (2014)
+- En till punkt för att testa
+- Och en till sista punkt
+- Får det plats en til?
+
+\column{.4\textwidth}
+
+![](images/ninalocations.png)
+
+\columnsend
+
+
+## Side med kulepunkter
+- Før det förste
+- Før det andre
+    - Å ene siden
+    - Å andre siden
+
+## Hva sker hvis man skriver en ganske lang titell da?
+
+```{r cars, echo = F }
 suppressPackageStartupMessages(require(NinaR))
 barplot(runif(5), col=ninaPalette())
 ```
 
-## Slide with Plot
+## Side med en tabell
+```{r, echo=F}
+suppressPackageStartupMessages(require(xtable))
+```
 
 ```{r pressure, results='asis'}
-suppressPackageStartupMessages(require(xtable))
 print(xtable(head(cars)), comment=F)
 ```
 
@@ -45,17 +74,44 @@ print(xtable(head(cars)), comment=F)
 \columnsbegin
 \column{.5\textwidth}
 
-```{r}
-y<-5+5
-y
+
+```{r, eval=F, tidy=F}
+library(ggplot2)
+# Let's use the 
+#diamonds dataset
+data(diamonds)
+ggplot(data=diamonds, 
+   aes(x=price, 
+     group=cut, 
+     fill=cut)) + 
+geom_density(adjust=1.5, 
+     alpha=0.2)
 ```
 
+\column{.65\textwidth}
+
+```{r, echo=F, out.width = '0.9\\linewidth'}
+
+# ggplot2 library
+library(ggplot2)
+# Let's use the diamonds dataset
+data(diamonds)
+#head(diamonds)
+
+# plot 2: Density plot with transparency (using the alpha argument):
+ggplot(data=diamonds,aes(x=price, group=cut, fill=cut)) + 
+    geom_density(adjust=1.5 , alpha=0.2)
+```
+
+\columnsend
+
+## Var börjar egentligen kolumnerna?
+
+\columnsbegin
 \column{.5\textwidth}
+Lite text här i den vänstra kolumnen. \blindtext
 
-
-```{r}
-##This is good stuff
-x <- y+10
-```
+\column{.65\textwidth}
+\blindtext
 
 \columnsend
