@@ -79,33 +79,25 @@ $endif$
 %Set main font color
 \setbeamercolor{normal text}{fg=darkgrey}
 
-%%Does not work.
-%Set itemize line spacing
-% \let\tempone\itemize
-% \let\temptwo\enditemize
-% \renewenvironment{itemize}{\tempone\addtolength{\itemsep}{0.5\baselineskip}}{\temptwo}
-%
+
+%Set itemize spacing
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\setlist[itemize,1]{label=$${\color{darkOrange}\normalsize\raise0.5pt\hbox{\textbullet}}$$}
+\setlist[itemize,2]{label=$${\color{ninapalette1}\tiny\raise2.0pt\hbox{\donotcoloroutermaths$$\blacktriangleright$$}}$$}
 
 % To use lorem ipsum for testing
 \usepackage{blindtext}
 
-%Define items
-\setbeamercolor{item projected}{bg=red}
+% make code-output smaller
+\usepackage{fancyvrb}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\tiny,commandchars=\\\{\}}
 
+% make console-output smaller:
 \makeatletter
-\defbeamertemplate{itemize item}{nina1}{\normalsize\raise0.5pt\hbox{\textbullet}}
-\defbeamertemplate{itemize subitem}{nina2}{\tiny\raise2.0pt\hbox{\donotcoloroutermaths$$\blacktriangleright$$}}
+\def\verbatim{\tiny\@verbatim \frenchspacing\@vobeyspaces \@xverbatim}
 \makeatother
-
-\setbeamertemplate{itemize items}[nina1]
-\setbeamertemplate{itemize subitem}[nina2]
-
-\setbeamertemplate{navigation symbols}{}
-\setbeamercovered{transparent}
-
-\setbeamercolor*{itemize item}{fg=darkOrange}
-\setbeamercolor*{itemize subitem}{fg=ninapalette1}
-\setbeamercolor*{itemize subsubitem}{fg=red}
 
 
 %Define title page
@@ -114,8 +106,10 @@ $endif$
 \defbeamertemplate*{title page}{customized}[1][]
 {
 \vspace{3cm}
+  \begin{flushright}
   \hfill\usebeamerfont{title}\usebeamercolor[fg]{title}\huge{\inserttitle}\par
   \hfill\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\Large{\insertsubtitle}\par
+  \end{flushright}
   \bigskip
   \hfill\usebeamerfont{author}\usebeamercolor[fg]{subtitle}\insertauthor\par
   \hfill\usebeamerfont{institute}\usebeamercolor[fg]{subtitle}\insertinstitute\par
