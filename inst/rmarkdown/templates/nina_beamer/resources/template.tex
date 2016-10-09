@@ -58,6 +58,7 @@ $endif$
 \newcommand{\columnsbegin}{\begin{columns}}
 \newcommand{\columnsend}{\end{columns}}
 
+
 %Set fonts
 \usefonttheme{professionalfonts} % using non standard fonts for beamer
 \usefonttheme{serif} % default family is serif
@@ -79,6 +80,9 @@ $endif$
 %Set main font color
 \setbeamercolor{normal text}{fg=darkgrey}
 
+%Try set code chunk paragraph spacing
+\addtobeamertemplate{verbatim begin}{}{\setlength{\parskip}{3pt plus 1pt minus 1pt}}
+
 
 %Set itemize spacing
 \usepackage{enumitem}
@@ -86,18 +90,11 @@ $endif$
 
 \setlist[itemize,1]{label=$${\color{darkOrange}\normalsize\raise0.5pt\hbox{\textbullet}}$$}
 \setlist[itemize,2]{label=$${\color{ninapalette1}\tiny\raise2.0pt\hbox{\donotcoloroutermaths$$\blacktriangleright$$}}$$}
+\setlist[itemize,3]{label=$${\color{ninapalette1}\tiny\raise2.0pt\hbox{\textbf-}}$$}
 
 % To use lorem ipsum for testing
 \usepackage{blindtext}
 
-% make code-output smaller
-\usepackage{fancyvrb}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\tiny,commandchars=\\\{\}}
-
-% make console-output smaller:
-\makeatletter
-\def\verbatim{\tiny\@verbatim \frenchspacing\@vobeyspaces \@xverbatim}
-\makeatother
 
 
 %Define title page
@@ -297,27 +294,6 @@ $if(institute)$
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
 $endif$
 \date{$date$}
-
-% To use background pdf as title and end page
-% \usepackage{eso-pic}
-%
-% \newcommand\TitleBackground{
-%     \put(0,0){
-%     \parbox[b][\paperheight]{\paperwidth}{%
-%     \vfill
-%     \centering
-%     \includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0001.pdf}
-%     \vfill
-%     }}}
-%
-% \newcommand\EndBackground{
-%     \put(0,0){
-%     \parbox[b][\paperheight]{\paperwidth}{%
-%     \vfill
-%     \centering
-%     \includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0010.pdf}
-%     \vfill
-%     }}}
 
 
 \usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0009.pdf}}

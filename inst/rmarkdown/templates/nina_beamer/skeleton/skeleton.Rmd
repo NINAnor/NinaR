@@ -1,7 +1,7 @@
 ---
-title: "En lite lengre titell"
-subtitle: "Med mer detaljer"
-author: "For Efternavn"
+title: "Titell"
+subtitle: "Sub-titell"
+author: "For Etternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
 output:
   NinaR::ninaBeamer:
@@ -13,18 +13,44 @@ output:
 
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.align = 'center', 
-                      dev= 'pdf', out.width = '0.8\\linewidth',
-                      tidy = T)
+# A lot of options can be tweaked through the knitr::opts_chunk, like below.
+# The use of 'tikz' is optional, and is used here to specify the font used
+# in figures, and to get figure text rendered nicely. 'Tikz' is a little bit slower
+# to render though and therefore we use 'cache=T'. Set this to false to force the 
+# figures to render.
+# pdf is also a good choice instead of 'tikz', but won't create as nice figure texts.
+
+# Other options are set in the YAML-section at the beginning of the file. See the rmarkdown
+# and knitr manuals to make sense of these. The date in the YAML-section can be replaced
+# with a static value.
+
+# Some trial and error is needed to get the figure and column sizes right.
+
+
+
+knitr::opts_chunk$set(comment=NA, collapse=T, cache=T, autodep=T,
+               dev="tikz", fig.width = 4.5,
+               fig.height = 4,
+               out.width = '0.9\\linewidth',
+               size ='footnotesize',
+               dev.args=list(pointsize=12),
+               message=F, warning=F, autodep=T)
+options(tikzDefaultEngine="xetex")
+options(tikzXelatexPackages=c(
+    "\\usepackage{tikz}\n",
+    "\\usepackage[active,tightpage,xetex]{preview}\n",
+    "\\usepackage{fontspec,xunicode}\n",
+    "\\setmainfont{Verdana}\n",
+    "\\PreviewEnvironment{pgfpicture}\n",
+    "\\setlength\\PreviewBorder{0pt}\n"))
+
 ```
 
-## Norsk institutt for naturforskning
+## Beamer-mall for NINA
 
-This template is experimental and under construction. Currently it resembles the default beamer template.
+This template is experimental and under construction. It resembles the ppt template quite well, but there are some tweaks left to be done. The code chunks should start higher up for instance.
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
 
 ## Norsk institutt for naturforskning
@@ -36,9 +62,7 @@ When you click the **Knit** button a document will be generated that includes bo
 - Fristilt fra miljøforvaltningen (DN) i 1998
 - 222 medarbeidere (2014)
 - 332 Mkr i omsetning (2014)
-- En till punkt för att testa
-- Och en till sista punkt
-- Får det plats en til?
+
 
 \column{.4\textwidth}
 
@@ -48,16 +72,17 @@ When you click the **Knit** button a document will be generated that includes bo
 
 
 ## Side med kulepunkter
-- Før det förste
+- Før det første
 - Før det andre
     - Å ene siden
     - Å andre siden
+        - For det tredje
 
 ## Hva sker hvis man skriver en ganske lang titell da?
 
 ```{r cars, echo = F }
 suppressPackageStartupMessages(require(NinaR))
-barplot(runif(5), col=ninaPalette())
+barplot(runif(5), col=ninaPalette(), las = 1)
 ```
 
 ## Side med en tabell
@@ -69,10 +94,10 @@ suppressPackageStartupMessages(require(xtable))
 print(xtable(head(cars)), comment=F)
 ```
 
-## Two column test
+## To-kolonne layout kan lages slik
 
 \columnsbegin
-\column{.5\textwidth}
+\column{.45\textwidth}
 
 
 ```{r, eval=F, tidy=F}
@@ -88,9 +113,9 @@ geom_density(adjust=1.5,
      alpha=0.2)
 ```
 
-\column{.65\textwidth}
+\column{.6\textwidth}
 
-```{r, echo=F, out.width = '0.9\\linewidth'}
+```{r, echo=F, out.width = '\\linewidth'}
 
 # ggplot2 library
 library(ggplot2)
@@ -105,13 +130,3 @@ ggplot(data=diamonds,aes(x=price, group=cut, fill=cut)) +
 
 \columnsend
 
-## Var börjar egentligen kolumnerna?
-
-\columnsbegin
-\column{.5\textwidth}
-Lite text här i den vänstra kolumnen. \blindtext
-
-\column{.65\textwidth}
-\blindtext
-
-\columnsend
