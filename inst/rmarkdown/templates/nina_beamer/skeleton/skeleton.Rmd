@@ -1,38 +1,132 @@
 ---
 title: "Titell"
-subtitle: "Undertitell"
-author: "For Efternavn"
+subtitle: "Sub-titell"
+author: "For Etternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
-output: NinaR::ninaBeamer
+output:
+  NinaR::ninaBeamer:
+    fig_cap: FALSE
+    highlight: tango
+    incremental: FALSE
+    toc: FALSE
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+
+```{r setup, echo=FALSE}
+# A lot of options can be tweaked through the knitr::opts_chunk, like below.
+# The use of 'tikz' is optional, and is used here to specify the font used
+# in figures, and to get figure text rendered nicely. 'Tikz' is a little bit slower
+# to render though and therefore we use 'cache=T'. Set this to false to force the 
+# figures to render.
+# pdf is also a good choice instead of 'tikz', but won't create as nice figure texts.
+
+# Other options are set in the YAML-section at the beginning of the file. See the rmarkdown
+# and knitr manuals to make sense of these. The date in the YAML-section can be replaced
+# with a static value.
+
+# Some trial and error is needed to get the figure and column sizes right.
+
+
+
+knitr::opts_chunk$set(comment=NA, collapse=T, cache=T, autodep=T,
+               dev="tikz", fig.width = 4.5,
+               fig.height = 4,
+               out.width = '0.9\\linewidth',
+               size ='footnotesize',
+               dev.args=list(pointsize=12),
+               message=F, warning=F, autodep=T)
+options(tikzDefaultEngine="xetex")
+options(tikzXelatexPackages=c(
+    "\\usepackage{tikz}\n",
+    "\\usepackage[active,tightpage,xetex]{preview}\n",
+    "\\usepackage{fontspec,xunicode}\n",
+    "\\setmainfont{Verdana}\n",
+    "\\PreviewEnvironment{pgfpicture}\n",
+    "\\setlength\\PreviewBorder{0pt}\n"))
+
 ```
 
-## Nina Beamer template
+## Beamer-mall for NINA
 
-This template is experimental and under construction. Currently it resembles the default beamer template.
+This template is experimental and under construction. It resembles the ppt template quite well, but there are some tweaks left to be done. The code chunks should start higher up for instance.
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
-## Slide with Bullets
+## Norsk institutt for naturforskning
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+\columnsbegin
+\column{.6\textwidth}
 
-## Slide with R Output
+- Uavhengig stiftelse som forsker på natur og samspillet natur-samfunn
+- Fristilt fra miljøforvaltningen (DN) i 1998
+- 222 medarbeidere (2014)
+- 332 Mkr i omsetning (2014)
 
-```{r cars, echo = TRUE}
-summary(cars)
+
+\column{.4\textwidth}
+
+![](images/ninalocations.png)
+
+\columnsend
+
+
+## Side med kulepunkter
+- Før det første
+- Før det andre
+    - Å ene siden
+    - Å andre siden
+        - For det tredje
+
+## Hva sker hvis man skriver en ganske lang titell da?
+
+```{r cars, echo = F }
+suppressPackageStartupMessages(require(NinaR))
+barplot(runif(5), col=ninaPalette(), las = 1)
 ```
 
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
+## Side med en tabell
+```{r, echo=F}
+suppressPackageStartupMessages(require(xtable))
 ```
+
+```{r pressure, results='asis'}
+print(xtable(head(cars)), comment=F)
+```
+
+## To-kolonne layout kan lages slik
+
+\columnsbegin
+\column{.45\textwidth}
+
+
+```{r, eval=F, tidy=F}
+library(ggplot2)
+# Let's use the 
+#diamonds dataset
+data(diamonds)
+ggplot(data=diamonds, 
+   aes(x=price, 
+     group=cut, 
+     fill=cut)) + 
+geom_density(adjust=1.5, 
+     alpha=0.2)
+```
+
+\column{.6\textwidth}
+
+```{r, echo=F, out.width = '\\linewidth'}
+
+# ggplot2 library
+library(ggplot2)
+# Let's use the diamonds dataset
+data(diamonds)
+#head(diamonds)
+
+# plot 2: Density plot with transparency (using the alpha argument):
+ggplot(data=diamonds,aes(x=price, group=cut, fill=cut)) + 
+    geom_density(adjust=1.5 , alpha=0.2)
+```
+
+\columnsend
 

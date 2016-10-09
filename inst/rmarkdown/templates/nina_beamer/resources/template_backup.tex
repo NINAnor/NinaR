@@ -1,11 +1,8 @@
-\documentclass[12pt, t]{beamer}
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(handout)$handout,$endif$$if(beamer)$ignorenonframetext,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
 \beamertemplatenavigationsymbols$if(navigation)$$navigation$$else$empty$endif$
-
-%%Group comment out font stuff
-\iffalse
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
@@ -30,7 +27,6 @@ $endif$
 $if(euro)$
   \newcommand{\euro}{€}
 $endif$
-%/
 $if(mainfont)$
     \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $endif$
@@ -48,109 +44,24 @@ $if(CJKmainfont)$
     \setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
 $endif$
 \fi
-\fi
-%%End group comment font stuff
-
-%Set left margin
-\setlength{\leftmargini}{4pt}
-
-%To workaround Pandoc limitation of two column layout
-\newcommand{\columnsbegin}{\begin{columns}}
-\newcommand{\columnsend}{\end{columns}}
-
-
-%Set fonts
-\usefonttheme{professionalfonts} % using non standard fonts for beamer
-\usefonttheme{serif} % default family is serif
-\usepackage{fontspec}
-\setmainfont{Verdana}
-\newfontfamily{\italic}{Verdana Italic}
-\newfontfamily{\bold}{Verdana Bold}
-
-%Set up custom colors
-\usepackage{xcolor}
-\usepackage{blindtext}
-\definecolor{darkOrange}{RGB}{245,127, 0}
-\definecolor{lightOrange}{RGB}{219,140, 68}
-\definecolor{ashgrey}{RGB}{128, 128, 128}
-\definecolor{darkgrey}{RGB}{66, 85, 99}
-\definecolor{footgrey}{RGB}{212, 215, 221}
-\definecolor{ninapalette1}{RGB}{0, 79, 113}
-
-%Set main font color
-\setbeamercolor{normal text}{fg=darkgrey}
-
-%Try set code chunk paragraph spacing
-\addtobeamertemplate{verbatim begin}{}{\setlength{\parskip}{3pt plus 1pt minus 1pt}}
-
-
-%Set itemize spacing
-\usepackage{enumitem}
-\setlist{nolistsep}
-
-\setlist[itemize,1]{label=$${\color{darkOrange}\normalsize\raise0.5pt\hbox{\textbullet}}$$}
-\setlist[itemize,2]{label=$${\color{ninapalette1}\tiny\raise2.0pt\hbox{\donotcoloroutermaths$$\blacktriangleright$$}}$$}
-\setlist[itemize,3]{label=$${\color{ninapalette1}\tiny\raise2.0pt\hbox{\textbf-}}$$}
-
-% To use lorem ipsum for testing
-\usepackage{blindtext}
-
-
-
-%Define title page
-\setbeamercolor{title}{fg=footgrey}
-\setbeamercolor{subtitle}{fg=ashgrey}
-\defbeamertemplate*{title page}{customized}[1][]
-{
-\vspace{3cm}
-  \begin{flushright}
-  \hfill\usebeamerfont{title}\usebeamercolor[fg]{title}\huge{\inserttitle}\par
-  \hfill\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\Large{\insertsubtitle}\par
-  \end{flushright}
-  \bigskip
-  \hfill\usebeamerfont{author}\usebeamercolor[fg]{subtitle}\insertauthor\par
-  \hfill\usebeamerfont{institute}\usebeamercolor[fg]{subtitle}\insertinstitute\par
-  \hfill\usebeamerfont{date}\usebeamercolor[fg]{subtitle}\insertdate\par
-  \hfill\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
-}
-
-%To alter line spacing
-\usepackage{setspace}
-
-%define frame title
-\setbeamercolor{frametitle}{fg=darkgrey}
-\usepackage{calc}
-\newlength{\lengthb}
-\setlength{\lengthb}{\textwidth - 2em}
-
-\makeatletter
-\setbeamertemplate{frametitle}{
-    \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
-    \@tempdima=\textwidth%
-    \advance\@tempdima by\beamer@leftmargin%
-    \advance\@tempdima by\beamer@rightmargin%
-    \hspace*{0.3cm} %%%%%%%%%%%%% For example insert shift to right
-    \begin{beamercolorbox}[sep=0.3cm,ht=2.5em,dp=2ex,wd=\the\@tempdima]{frametitle}
-        \usebeamerfont{frametitle}%
-        \vbox{}\vskip-1ex%
-        \if@tempswa\else\csname beamer@ftecenter\endcsname\fi%
-        %\begin{spacing}{0.5}
-        \strut\LARGE{\insertframetitle}\strut\par%
-        %\end{spacing}
-        {%
-            \ifx\insertframesubtitle\@empty%
-            \else%
-            {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
-            \fi
-        }%
-        \vskip-1ex%
-        \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
-    \end{beamercolorbox}%
-}
-\makeatother
-
-
-
+$if(theme)$
+\usetheme[$for(themeoptions)$$themeoptions$$sep$,$endfor$]{$theme$}
+$endif$
+$if(colortheme)$
+\usecolortheme{$colortheme$}
+$endif$
+$if(fonttheme)$
+\usefonttheme{$fonttheme$}
+$endif$
+$if(mainfont)$
+\usefonttheme{serif} % use mainfont rather than sansfont for slide text
+$endif$
+$if(innertheme)$
+\useinnertheme{$innertheme$}
+$endif$
+$if(outertheme)$
+\useoutertheme{$outertheme$}
+$endif$
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
@@ -205,7 +116,7 @@ $if(tables)$
 \makeatother
 $endif$
 $if(graphics)$
-%\usepackage{graphicx,grffile}
+\usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
@@ -254,7 +165,7 @@ $endif$
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
-  \setlength{\itemsep}{4pt}\setlength{\parskip}{0pt}}
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 $if(numbersections)$
 \setcounter{secnumdepth}{5}
 $else$
@@ -295,8 +206,27 @@ $if(institute)$
 $endif$
 \date{$date$}
 
+% To use background pdf as title and end page
+% \usepackage{eso-pic}
+%
+% \newcommand\TitleBackground{
+%     \put(0,0){
+%     \parbox[b][\paperheight]{\paperwidth}{%
+%     \vfill
+%     \centering
+%     \includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0001.pdf}
+%     \vfill
+%     }}}
+%
+% \newcommand\EndBackground{
+%     \put(0,0){
+%     \parbox[b][\paperheight]{\paperwidth}{%
+%     \vfill
+%     \centering
+%     \includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0010.pdf}
+%     \vfill
+%     }}}
 
-\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0009.pdf}}
 
 \begin{document}
 
@@ -310,8 +240,9 @@ $endif$
 $body$
 
 {
-\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{ppt/pg_0011.pdf}}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{ppt/pg_0011.pdf}}
 \begin{frame}
+blabla
 \end{frame}
 }
 \end{document}
