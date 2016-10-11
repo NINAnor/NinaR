@@ -311,6 +311,27 @@ li:before {
     color: #E57200; /* or whatever color you prefer */
 }
 
+
+li li:before {
+    content: "";
+    border-color: transparent #004F71;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+/*
+li li li:before {
+    content: "- ";
+    color: #004F71;
+}
+*/
+
+
 ul li {
   list-style: none;
   margin: 0.1em 0em 0.6em 0;
@@ -334,7 +355,7 @@ li ul li {
   padding: 0 0 0 0;
 }
 
-*/
+
 li li ul li {
   font-size: 85%;
   font-style: normal;
@@ -342,6 +363,8 @@ li li ul li {
   background: transparent;
   padding: 0 0 0 0;
 }
+
+
 li li li ul li {
   list-style-type: disc;
   background: transparent;
@@ -353,9 +376,11 @@ li ol li {
 }
 
 
+
 li li ol li {
   list-style-type: decimal;
 }
+*/
 
 /*
  setting class="outline on ol or ul makes it behave as an
