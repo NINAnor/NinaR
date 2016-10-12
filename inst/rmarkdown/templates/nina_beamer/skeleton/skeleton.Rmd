@@ -1,6 +1,6 @@
 ---
-title: "Titell"
-subtitle: "Sub-titell"
+title: "Title"
+subtitle: "Sub-title"
 author: "For Etternavn"
 date: "`r format(Sys.time(), '%d %b, %Y')`"
 output:
@@ -46,7 +46,7 @@ options(tikzXelatexPackages=c(
 
 ```
 
-## Beamer-mall for NINA
+## Beamer-template for NINA
 
 This template is experimental and under construction. It resembles the ppt template quite well, but there are some tweaks left to be done. The code chunks should start higher up for instance.
 
@@ -71,22 +71,22 @@ This is an R Markdown presentation. Markdown is a simple formatting syntax for a
 \columnsend
 
 
-## Side med kulepunkter
+## Slide with bullet points
 - Før det første
 - Før det andre
     - Å ene siden
     - Å andre siden
         - For det tredje
 
-## Hva sker hvis man skriver en ganske lang titell da?
+## Test of a rather long frame title looks like this
 
 ```{r cars, echo = F }
 suppressPackageStartupMessages(require(NinaR))
 barplot(runif(5), col=ninaPalette(), las = 1)
 ```
 
-## Side med en tabell
-```{r, echo=F}
+## Slide with a table
+```{r, echo=F, size=4}
 suppressPackageStartupMessages(require(xtable))
 ```
 
@@ -94,7 +94,7 @@ suppressPackageStartupMessages(require(xtable))
 print(xtable(head(cars)), comment=F)
 ```
 
-## To-kolonne layout kan lages slik
+## Two-column layout 
 
 \columnsbegin
 \column{.45\textwidth}
