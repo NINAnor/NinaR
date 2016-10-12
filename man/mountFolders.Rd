@@ -14,6 +14,8 @@ Mounts folders from the Nina Windows environment on Ninsrv16
 }
 \details{
 Only works when run on the Linux server, and stops if checks fail to identify the running machine as such.
+Meant to be run on the Rstudio-server at http://ninsrv16:8787
+
 The function calls the login script on NINSRV16, which mounts the folders:
 \itemize{
 \item Prosjekter (R:\\Prosjekter)
@@ -22,7 +24,8 @@ The function calls the login script on NINSRV16, which mounts the folders:
 \item grassdata (R:\\grassdata)
 \item Maler (R:\\Maler)
 }
-This should enable you to reach these folders through Rstudio-server at Ninsrv16.
+This should enable you to reach these folders through Rstudio-server at Ninsrv16. It is then not necessary to
+login via e.g. putty and.
 }
 \examples{
 \dontrun{
