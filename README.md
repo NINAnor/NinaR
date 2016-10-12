@@ -9,7 +9,11 @@ Currently, the package contains the functions:
 * ninaPalette
 * ninaKortrapport
 * ninaSlidy
-* ninaBeamer (experimental)
+* ninaBeamer
+* mountFolders
+* connectGrass
+* getGrassDailyTemp
+* getGrassDailyPrecip
 
 # To-do
 Given time and requests (particularly with resources), I would like to add a beamer template (for static PDF presentations) and a NINA report template (similar to the ninaKortrapport). Please contribute if you know your way around LaTeX.
