@@ -2,6 +2,10 @@
 
 export(addAlpha)
 export(addLogo)
+export(connectGrass)
+export(getGrassDailyPrecip)
+export(getGrassDailyTemp)
+export(mountFolders)
 export(ninaBeamer)
 export(ninaKortrapport)
 export(ninaLogoPalette)
