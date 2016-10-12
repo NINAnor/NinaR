@@ -30,7 +30,7 @@ tmp <- getGrassDailyTemp(points = points, start_time = "2014-01-01", end_time = 
 }
 }
 \author{
-Jens Astrom, Stefan Blumentrath
+Stefan Blumentrath, Jens Astrom
 }
 \seealso{
 \code{\link{getGrassDailyPrecip}}

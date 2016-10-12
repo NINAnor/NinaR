@@ -8,7 +8,7 @@
 #'
 #' @param Function accepts no params
 #' @return NULL
-#' @author Jens Astrom, Stefan Blumentrath
+#' @author Stefan Blumentrath, Jens Astrom
 #' @seealso \code{\link{getGrassDailyTemp}}
 #' @examples
 #' \dontrun{

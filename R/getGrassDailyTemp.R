@@ -11,7 +11,7 @@
 #' The data frame should have columns named "x" and "y" for the coordinates and a column named "site" with unique integer values.
 #' @return Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
 #' "value" containing the daily average temperature.
-#' @author Jens Astrom, Stefan Blumentrath
+#' @author Stefan Blumentrath, Jens Astrom
 #' @seealso \code{\link{getGrassDailyPrecip}}
 #' @examples
 #' \dontrun{

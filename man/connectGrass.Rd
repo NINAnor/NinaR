@@ -23,7 +23,7 @@ connectGrass()
 }
 }
 \author{
-Jens Astrom, Stefan Blumentrath
+Stefan Blumentrath, Jens Astrom
 }
 \seealso{
 \code{\link{getGrassDailyTemp}}
