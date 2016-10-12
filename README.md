@@ -31,6 +31,10 @@ devtools::install_github("NINAnor/NinaR", build_vignettes = TRUE)
 vignette("Nina-figures")
 ```
 
+To list all the available documentation:
+```r
+help(package="NinaR")
+```
 
 
 # Template usage
