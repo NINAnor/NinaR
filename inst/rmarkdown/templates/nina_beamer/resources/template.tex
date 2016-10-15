@@ -83,6 +83,10 @@ $endif$
 %Try set code chunk paragraph spacing
 \addtobeamertemplate{verbatim begin}{}{\setlength{\parskip}{3pt plus 1pt minus 1pt}}
 
+%Try to set code chunk size
+\usepackage{fancyvrb}
+\fvset{fontsize=\scriptsize}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{}
 
 %Set itemize spacing
 \usepackage{enumitem}
