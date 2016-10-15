@@ -31,10 +31,11 @@ output:
 knitr::opts_chunk$set(comment=NA, collapse=T, cache=T, autodep=T,
                dev="tikz", fig.width = 4.5,
                fig.height = 4,
-               out.width = '0.9\\linewidth',
+               out.width = '0.8\\linewidth',
                size ='footnotesize',
                dev.args=list(pointsize=12),
-               message=F, warning=F, autodep=T)
+               message=F, warning=F,
+               fig.align = 'center')
 options(tikzDefaultEngine="xetex")
 options(tikzXelatexPackages=c(
     "\\usepackage{tikz}\n",
@@ -46,11 +47,21 @@ options(tikzXelatexPackages=c(
 
 ```
 
-## Beamer-template for NINA
+## Beamer-malle for NINA
+```{r echo=F, results = 'asis'}
+cat("\\scriptsize")
+```
 
-This template is experimental and under construction. It resembles the ppt template quite well, but there are some tweaks left to be done. The code chunks should start higher up for instance.
+**Fra originalmallen:**
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+**NINA-anpassning:**
+
+Denne malle ligner Powerpoint-mallen ganske bra, men fortsatt er det noen ting som ikke overenstemmer helt. Funksjonaliteten i beamer er også litt mer begrenset. 
+
+Rent tekniskt starter teksten som en blanding av "Rmarkdown" og "R", og kjørs siden gjennom "Knitr" og blir til "markdown"-format. Dette bearbeides siden i "Pandoc" og konverteres til en PDF-fil med hjelp av "XeteX". Tanken er at det skal bli enklere enn å bruke ren \LaTeX, men de mange stegen gjør det også mer utfordrende og endre på standardoppsettet.
+
 
 
 ## Norsk institutt for naturforskning
@@ -71,21 +82,31 @@ This is an R Markdown presentation. Markdown is a simple formatting syntax for a
 \columnsend
 
 
-## Slide with bullet points
+## Størrelse på figurer
+
+Ibland kan det vare nødvendig å sette størrelsen på figurer slik
+
+```{r,  out.width = '80pt', dev='png', echo=F}
+knitr::include_graphics("images/ninalocations.png")
+
+```
+
+
+## Side with kulepunkter
 - Før det første
 - Før det andre
     - Å ene siden
     - Å andre siden
         - For det tredje
 
-## Test of a rather long frame title looks like this
+## En lite lengre titel for å se hvordan den fyller to rader
 
 ```{r cars, echo = F }
 suppressPackageStartupMessages(require(NinaR))
 barplot(runif(5), col=ninaPalette(), las = 1)
 ```
 
-## Slide with a table
+## Tabeller lages slik
 ```{r, echo=F, size=4}
 suppressPackageStartupMessages(require(xtable))
 ```
@@ -94,7 +115,7 @@ suppressPackageStartupMessages(require(xtable))
 print(xtable(head(cars)), comment=F)
 ```
 
-## Two-column layout 
+## Kolonner lages slik
 
 \columnsbegin
 \column{.45\textwidth}
@@ -115,7 +136,7 @@ geom_density(adjust=1.5,
 
 \column{.6\textwidth}
 
-```{r, echo=F, out.width = '\\linewidth'}
+```{r, echo=F}
 
 # ggplot2 library
 library(ggplot2)
@@ -130,3 +151,31 @@ ggplot(data=diamonds,aes(x=price, group=cut, fill=cut)) +
 
 \columnsend
 
+## Stor kod
+
+Størrelsen på fonten til kod er satt till "scriptsize", men kan endres i hver side slik:
+```{r, results='asis', echo=T}
+cat("\\fvset{fontsize=\\tiny}")
+```
+Mulige størrelser er:
+\columnsbegin
+\column{.3\textwidth}
+
+* \\tiny
+* \\scriptsize	
+* \\footnotesize	
+* \\small	
+
+\column{.3\textwidth}
+
+* \\normalsize
+* \\large	
+* \\Large	
+
+\column{.3\textwidth}
+
+* \\LARGE	
+* \\huge	
+* \\Huge
+
+\columnsend
