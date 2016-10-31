@@ -46,4 +46,4 @@ rmarkdown::draft("title", template="nina_kortrapport", package="NinaR")
 ``` 
 For further use, see the package rmarkdown, rticles or the templates themselves.
 
-Questions and suggestions can be added on this site (issues) or to Jens Åström (jens.astrom)
+Questions and suggestions can be added on this site (issues) or to **Jens Åström (jens.astrom)**
