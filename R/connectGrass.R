@@ -41,7 +41,7 @@ connectGrass <- function(){
   try(system( paste("grass72 -text -c -e", wd)))
 
   # Initialize GRASS session
-  initGRASS(gisBase ='/usr/local/grass-7.2.svn/', location = location, mapset = mapset, gisDbase = gisDbase, override = TRUE)
+  initGRASS(gisBase ='/usr/local/grass-7.2.1svn/', location = location, mapset = mapset, gisDbase = gisDbase, override = TRUE)
 }
 
 
