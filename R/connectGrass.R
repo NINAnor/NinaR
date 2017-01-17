@@ -42,6 +42,7 @@ connectGrass <- function(){
 
   # Initialize GRASS session
   initGRASS(gisBase ='/usr/local/grass-7.2.1svn/', location = location, mapset = mapset, gisDbase = gisDbase, override = TRUE)
+
 }
 
 

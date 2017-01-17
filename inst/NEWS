@@ -1,3 +1,7 @@
+NinaR 0.1.6
+-------------------
+Added getGrassMonthly* functions and updated connectGrass to reflect new install location
+
 NinaR 0.1.5
 -------------------
 Changed beamer code font size and minor edits to skeleton
