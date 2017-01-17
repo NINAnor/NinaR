@@ -1,0 +1,39 @@
+NinaR 0.1.6
+-------------------
+Added getGrassMonthly* functions and updated connectGrass to reflect new install location
+
+NinaR 0.1.5
+-------------------
+Changed beamer code font size and minor edits to skeleton
+
+NinaR 0.1.4
+----------------------
+Added some GRASS functions and mountFolders function.
+
+NinaR 0.1.3
+-----------------------
+Added ninaBeamer function, which provides a beamer (pdf) presentation template.
+
+NinaR 0.1.2
+------------------------
+Minor changes to templates and other fixes.
+
+NinaR 0.1.1
+--------------------------------
+Bug fixes.
+
+NinaR 0.1.0
+---------------------------------------------------------------------
+- First release version with working kortrapport and slidy templates.
+
+NinaR 0.0.3
+---------------------------------------------------------------------
+- First version with NINA presentation template using Slidy
+
+NinaR 0.0.2
+---------------------------------------------------------------------
+- First version with NINA shortreport template using LaTeX
+
+Nina 0.0.1
+---------------------------------------------------------------------
+- First commit to github

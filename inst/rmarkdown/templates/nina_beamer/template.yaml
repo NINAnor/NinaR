@@ -1,0 +1,5 @@
+name: NINA beamer presentation
+description: >
+ Template for creating a NINA beamer presentation
+create_dir: true
+

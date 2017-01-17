@@ -1,0 +1,5 @@
+name: NINA kortrapport
+description: >
+ Template for creating a NINA "kortrapport"
+create_dir: true
+
