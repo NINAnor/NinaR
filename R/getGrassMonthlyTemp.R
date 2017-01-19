@@ -11,6 +11,7 @@
 #' The data frame should have columns named "x" and "y" for the coordinates and a column named "site" with unique integer values.
 #' @param start_time Start time for data selection, in format "YYYY-MM-DD".
 #' @param end_time End time for data selection, in format "YYYY-MM-DD".
+#' @param where string of SQL that is interpreted as a "WHERE" clause. Typically used to specify a subset of the data, see example.
 #' @param type Type of data aggregation. "mean", "min", "max", "range", default is mean.
 #'
 #' @return Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
@@ -22,11 +23,15 @@
 #' connectGrass()
 #' points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 #' tmp <- getGrassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+#'
+#' ##Get data just for first 6 months
+#' tmp2 <- getGrassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('%m', start_time) <= '06'")
+#'
 #' }
 #' @export
 
 
-getGrassMonthlyTemp <- function(points, start_time, end_time, type=c("mean", "min", "max", "range")){
+getGrassMonthlyTemp <- function(points, start_time, end_time, where = null, type=c("mean", "min", "max", "range")){
 
   #Check that is is run on NINSRV16
   host<-NULL
@@ -35,8 +40,11 @@ getGrassMonthlyTemp <- function(points, start_time, end_time, type=c("mean", "mi
     stop("Must be run on Ninsrv16!")
   }
 
+  if(!is.null(where)){
+    time_cond <- paste("(start_time >='", start_time, "' AND start_time < '", end_time, "')" , " AND (", where," )", sep="")
+  } else
+    time_cond <- paste("start_time >='", start_time, "' AND start_time < '", end_time, "'" ,sep="")
 
-  time_cond <- paste("start_time >='", start_time, "' AND start_time < '", end_time, "'" ,sep="")
   type <- match.arg(type)
   selection <- paste("temperature_seNorge_1km_months_", type, "@gt_Meteorology_Norway_seNorge_temperature_months", sep="")
 

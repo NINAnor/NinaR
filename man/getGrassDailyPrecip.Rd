@@ -4,11 +4,17 @@
 \alias{getGrassDailyPrecip}
 \title{getGrassDailyPrecip}
 \usage{
-getGrassDailyPrecip(points, start_time, end_time)
+getGrassDailyPrecip(points, start_time, end_time, where = NULL)
 }
 \arguments{
 \item{points}{Data frame containing latitude and longitude in etrs89 / utm zone 33n (EPSG:25833). In practice, this is identical to UTM33n
 The data frame should have columns named "x" and "y" for the coordinates and a column named "site" with unique integer values.}
+
+\item{start_time}{Start time for data selection, in format "YYYY-MM-DD".}
+
+\item{end_time}{End time for data selection, in format "YYYY-MM-DD".}
+
+\item{where}{string of SQL that is interpreted as a "WHERE" clause. Typically used to specify a subset of the data, see example.}
 }
 \value{
 Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
@@ -27,6 +33,10 @@ by http://www.met.no, see ftp://ftp.met.no/projects/klimagrid/ for information.
 connectGrass()
 points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 tmp <- getGrassDailyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+
+tmp2 <- getGrassDailyPrecip(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
+where="(strftime('\%m', start_time) = '03' AND strftime('\%d', start_time) >= '15') OR
+(strftime('\%m', start_time) = '04' AND strftime('\%d', start_time) <= '15')")
 }
 }
 \author{

@@ -4,8 +4,8 @@
 \alias{getGrassMonthlyTemp}
 \title{getGrassMonthlyTemp}
 \usage{
-getGrassMonthlyTemp(points, start_time, end_time, type = c("mean", "min",
-  "max", "range"))
+getGrassMonthlyTemp(points, start_time, end_time, where = null,
+  type = c("mean", "min", "max", "range"))
 }
 \arguments{
 \item{points}{Data frame containing latitude and longitude in etrs89 / utm zone 33n (EPSG:25833). In practice, this is identical to UTM33n
@@ -14,6 +14,8 @@ The data frame should have columns named "x" and "y" for the coordinates and a c
 \item{start_time}{Start time for data selection, in format "YYYY-MM-DD".}
 
 \item{end_time}{End time for data selection, in format "YYYY-MM-DD".}
+
+\item{where}{string of SQL that is interpreted as a "WHERE" clause. Typically used to specify a subset of the data, see example.}
 
 \item{type}{Type of data aggregation. "mean", "min", "max", "range", default is mean.}
 }
@@ -34,6 +36,10 @@ by http://www.met.no, see ftp://ftp.met.no/projects/klimagrid/ for information.
 connectGrass()
 points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 tmp <- getGrassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+
+##Get data just for first 6 months
+tmp2 <- getGrassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('\%m', start_time) <= '06'")
+
 }
 }
 \author{
