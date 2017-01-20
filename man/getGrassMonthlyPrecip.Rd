@@ -4,7 +4,7 @@
 \alias{getGrassMonthlyPrecip}
 \title{getGrassMonthlyPrecip}
 \usage{
-getGrassMonthlyPrecip(points, start_time, end_time, where = null,
+getGrassMonthlyPrecip(points, start_time, end_time, where = NULL,
   type = c("sum", "avg"))
 }
 \arguments{

@@ -4,7 +4,7 @@
 \alias{getGrassMonthlyTemp}
 \title{getGrassMonthlyTemp}
 \usage{
-getGrassMonthlyTemp(points, start_time, end_time, where = null,
+getGrassMonthlyTemp(points, start_time, end_time, where = NULL,
   type = c("mean", "min", "max", "range"))
 }
 \arguments{

@@ -31,7 +31,7 @@
 #' @export
 
 
-getGrassMonthlyTemp <- function(points, start_time, end_time, where = null, type=c("mean", "min", "max", "range")){
+getGrassMonthlyTemp <- function(points, start_time, end_time, where = NULL, type=c("mean", "min", "max", "range")){
 
   #Check that is is run on NINSRV16
   host<-NULL
