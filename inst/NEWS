@@ -1,3 +1,7 @@
+NinaR 0.1.7
+-------------------
+Added package stringi as dependency
+
 NinaR 0.1.6
 -------------------
 Added getGrassMonthly* functions and updated connectGrass to reflect new install location
