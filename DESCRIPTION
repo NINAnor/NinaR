@@ -13,7 +13,7 @@ Description: This package collects functions and templates of practical use
     kortrapport template is heavily influenced by the rticles package
     by Rstudio.
 License: GPL-3
-Depends: rmarkdown
+Depends: rmarkdown, stringi
 Suggests: knitr
 Imports: utils, rmarkdown, knitr, yaml, grImport, grid, XML
 LazyData: TRUE
