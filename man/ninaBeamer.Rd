@@ -41,4 +41,3 @@ draft("MyArticle.Rmd", template = "ninaBeamer", package = "NinaR")
 \seealso{
 \url{http://miktex.or/download} for windows installation of LaTeX backbone.
 }
-

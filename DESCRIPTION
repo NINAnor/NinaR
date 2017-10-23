@@ -1,8 +1,8 @@
 Package: NinaR
 Type: Package
 Title: Document templates and functions for NINA
-Version: 0.1.6
-Date: 2016-10-15
+Version: 0.1.7
+Date: 2017-10-23
 Author: Jens Astrom
 Authors@R: c(
   person("Jens", "Astrom", role = c("aut", "cre"), email = "jens.astrom@nina.no")
@@ -13,9 +13,9 @@ Description: This package collects functions and templates of practical use
     kortrapport template is heavily influenced by the rticles package
     by Rstudio.
 License: GPL-3
-Depends: rmarkdown, stringi
+Depends: rmarkdown
 Suggests: knitr
-Imports: utils, rmarkdown, knitr, yaml, grImport, grid, XML, tikzDevice
+Imports: utils, rmarkdown, knitr, yaml, grImport, grid, XML, tikzDevice, stringi
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr

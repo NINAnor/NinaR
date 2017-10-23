@@ -14,4 +14,3 @@ for presentations and reports using RMarkdown syntax.
 To learn more about NinaR, start with the vignettes:
 \code{browseVignettes(package = "NinaR")}
 }
-

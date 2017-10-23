@@ -35,4 +35,3 @@ plot(hm)
 \author{
 Jens Astrom
 }
-

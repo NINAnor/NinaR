@@ -42,4 +42,3 @@ points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
 \author{
 Jens Astrom
 }
-

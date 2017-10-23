@@ -39,10 +39,9 @@ where="(strftime('\%m', start_time) = '03' AND strftime('\%d', start_time) >= '1
 (strftime('\%m', start_time) = '04' AND strftime('\%d', start_time) <= '15')")
 }
 }
-\author{
-Stefan Blumentrath, Jens Astrom
-}
 \seealso{
 \code{\link{getGrassDailyTemp}}
 }
-
+\author{
+Stefan Blumentrath, Jens Astrom
+}
