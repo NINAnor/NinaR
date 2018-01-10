@@ -54,4 +54,3 @@ render("MyReport.Rmd", ninaKortrapport.R())
 \url{http://miktex.or/download} for windows installation and
 \url{https://tug.org/mactex/} for Mac installation of LaTeX backbone.
 }
-

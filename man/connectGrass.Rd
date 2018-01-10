@@ -22,10 +22,9 @@ as the user that executes the function. This location is created if needed.
 connectGrass()
 }
 }
-\author{
-Stefan Blumentrath, Jens Astrom
-}
 \seealso{
 \code{\link{getGrassDailyTemp}}
 }
-
+\author{
+Stefan Blumentrath, Jens Astrom
+}

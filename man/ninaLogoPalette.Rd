@@ -22,10 +22,9 @@ Colors conform to the 'NINA Grafisk handbok'
 set.seed(12345)
 barplot(runif(3), col=ninaLogoPalette())
 }
-\author{
-Jens Åström, Kari Sivertsen
-}
 \seealso{
 \code{\link{ninaPalette}}
 }
-
+\author{
+Jens Åström, Kari Sivertsen
+}

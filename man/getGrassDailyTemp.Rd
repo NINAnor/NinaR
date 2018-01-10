@@ -40,10 +40,9 @@ tmp2 <- getGrassDailyTemp(points = points, start_time = "2013-01-01", end_time =
  (strftime('\%m', start_time) = '04' AND strftime('\%d', start_time) <= '15')")
 }
 }
-\author{
-Stefan Blumentrath, Jens Astrom
-}
 \seealso{
 \code{\link{getGrassDailyPrecip}}
 }
-
+\author{
+Stefan Blumentrath, Jens Astrom
+}

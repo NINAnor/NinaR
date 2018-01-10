@@ -42,10 +42,9 @@ tmp2 <- getGrassMonthlyPrecip(points = points, start_time = "2014-01-01", end_ti
 
 }
 }
-\author{
-Stefan Blumentrath, Jens Astrom
-}
 \seealso{
 \code{\link{getGrassMonthlyTemp}, \link{getGrassDailyPrecip}}
 }
-
+\author{
+Stefan Blumentrath, Jens Astrom
+}
