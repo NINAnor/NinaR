@@ -18,31 +18,33 @@
 
 
 connectGrass <- function(){
-
-  #Check that is is run on NINSRV16
-  host<-NULL
-  try(host <- system("hostname", intern = T))
-    if(host != "NINSRV16"){
-    stop("Must be run on Ninsrv16!")
-  }
-
-  require(rgrass7)
-
-  # Define GRASS working environment
-  user <- Sys.info()['user']
-  gisDbase <- '/data/grassdata'
-  location <- 'ETRS_33N'
-  mapset <- paste('u_', user, sep='')
-
-  # Full path to mapset
-  wd <- paste(gisDbase, location, mapset, sep='/')
-
-  # Create mapset if it does not exist
-  try(system( paste("grass72 -text -c -e", wd)))
-
-  # Initialize GRASS session
-  initGRASS(gisBase ='/usr/local/grass-7.2.1svn/', location = location, mapset = mapset, gisDbase = gisDbase, override = TRUE)
-
+    host <- NULL
+    try(host <- system("hostname", intern = T))
+    if (host == "ninrstudio01")
+    {
+      require(rgrass7)
+      user <- Sys.info()["user"]
+      gisDbase <- "/data/grass"
+      location <- "ETRS_33N"
+      mapset <- paste("u_", user, sep = "")
+      wd <- paste(gisDbase, location, mapset, sep = "/")
+      try(system(paste("grass72 -text -c -e", wd)))
+      initGRASS(gisBase = "/usr/lib/grass72/", location = location,
+                mapset = mapset, gisDbase = gisDbase, override = TRUE)
+    } else
+      if (host == "NINSRV16") {
+        require(rgrass7)
+        user <- Sys.info()["user"]
+        gisDbase <- "/data/grassdata"
+        location <- "ETRS_33N"
+        mapset <- paste("u_", user, sep = "")
+        wd <- paste(gisDbase, location, mapset, sep = "/")
+        try(system(paste("grass72 -text -c -e", wd)))
+        initGRASS(gisBase = "/usr/local/grass-7.2.1svn/", location = location,
+                  mapset = mapset, gisDbase = gisDbase, override = TRUE)
+      } else stop("Must be run on Ninsrv16 or Ninrstudio01!")
 }
+
+
 
 
