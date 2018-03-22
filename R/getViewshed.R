@@ -27,11 +27,9 @@
 getViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevation = 1.75, target_elevation = 0){
 
   #Check that is is run on NINSRV16
-  host<-"NULL"
-
-  try(host <- system("hostname", intern = T))
-  if(host != "NINSRV16"){
-    stop("Must be run on Ninsrv16!")
+  #Check that is is run on NINSRV16
+  if(!checkMachine()){
+    stop("Must be run on NINA servers!")
   }
 
   require(rgrass7)
