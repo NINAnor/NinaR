@@ -20,8 +20,7 @@
 connectGrass <- function(){
     host <- NULL
     try(host <- system("hostname", intern = T))
-    if (host == "ninrstudio01")
-    {
+    if (grepl("ninrstudio", host)) {
       require(rgrass7)
       user <- Sys.info()["user"]
       gisDbase <- "/data/grass"

@@ -34,10 +34,9 @@
 getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type=c("sum", "avg")){
 
   #Check that is is run on NINSRV16
-  host<-NULL
-  try(host <- system("hostname", intern = T))
-  if(host != "NINSRV16"){
-    stop("Must be run on Ninsrv16!")
+  #Check that is is run on NINSRV16
+  if(!checkMachine()){
+    stop("Must be run on NINA servers!")
   }
 
 
