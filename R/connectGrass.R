@@ -27,7 +27,7 @@ connectGrass <- function(){
       location <- "ETRS_33N"
       mapset <- paste("u_", user, sep = "")
       wd <- paste(gisDbase, location, mapset, sep = "/")
-      try(system(paste("grass72 -text -c -e", wd)))
+      try(system(paste("grass -text -c -e", wd)))
       initGRASS(gisBase = "/usr/lib/grass72/", location = location,
                 mapset = mapset, gisDbase = gisDbase, override = TRUE)
     } else
