@@ -28,7 +28,8 @@ connectGrass <- function(){
       mapset <- paste("u_", user, sep = "")
       wd <- paste(gisDbase, location, mapset, sep = "/")
       try(system(paste("grass -text -c -e", wd)))
-      initGRASS(gisBase = "/usr/lib/grass72/", location = location,
+      grasslib <- try(system('grass --config', intern=TRUE))[4]
+      initGRASS(gisBase = grasslib, location = location,
                 mapset = mapset, gisDbase = gisDbase, override = TRUE)
     } else
       if (host == "NINSRV16") {
