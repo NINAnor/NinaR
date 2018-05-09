@@ -1,7 +1,7 @@
-#' @title NINA kortrapport format.
+#' @title NINA Report format.
 #'
 #' @description
-#'  Provides an Rmarkdown template for creating a NINA "kortrapport", conforming to the
+#'  Provides an Rmarkdown template for creating a NINA Report, conforming to the
 #'  existing NINA word template. The template is available in Rstudio through `New File ->
 #'  R Markdown -> From Template` but can also be retrieved as shown in the example below.
 #'
@@ -32,19 +32,19 @@
 #' \dontrun{
 #' # initiate a template
 #' library(rmarkdown)
-#' draft("MyReport.Rmd", template = "nina_kortrapport", package = "NinaR")
+#' draft("MyReport.Rmd", template = "nina_rapport", package = "NinaR")
 #'
 #' #render an article manually
-#' render("MyReport.Rmd", ninaKortrapport.R())
+#' render("MyReport.Rmd", ninaRrapport.R())
 #'
 #' }
 #'
 #' @export
-ninaKortrapport <- function(...,
+ninaRapport <- function(...,
                              keep_tex = TRUE,
                              md_extensions = c("-autolink_bare_uris","+header_attributes")) {
   inherit_pdf_document(...,
-                       template = find_resource("nina_kortrapport", "template.tex"),
+                       template = find_resource("nina_rapport", "template.tex"),
                        keep_tex = keep_tex,
                        md_extensions = md_extensions,
                        latex_engine = "xelatex")

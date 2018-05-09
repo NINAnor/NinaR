@@ -1,4 +1,4 @@
-#' connectGrass
+#' grassConnect
 #'
 #' Connects to GRASS on the Linux server at NINA.
 #'
@@ -9,15 +9,15 @@
 #' @param Function accepts no params
 #' @return NULL
 #' @author Stefan Blumentrath, Jens Astrom
-#' @seealso \code{\link{getGrassDailyTemp}}
+#' @seealso \code{\link{grassDailyTemp}}
 #' @examples
 #' \dontrun{
-#' connectGrass()
+#' grassConnect()
 #' }
 #' @export
 
 
-connectGrass <- function(){
+grassConnect <- function(){
     host <- NULL
     try(host <- system("hostname", intern = T))
     if (grepl("ninrstudio", host)) {

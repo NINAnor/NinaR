@@ -1,4 +1,4 @@
-#' getViewshed
+#' grassViewshed
 #'
 #' Calculate a viewshed from a given point based on a 10m DEM
 #'
@@ -16,7 +16,7 @@
 #' @author  Jens Astrom
 #' @examples
 #' \dontrun{
-#' hm <- getViewshed(xycoords = data.frame("x" = 310400, "y" = 6991600), dist=1000)
+#' hm <- grassViewshed(xycoords = data.frame("x" = 310400, "y" = 6991600), dist=1000)
 #' plot(hm)
 #' }
 #' @export
@@ -24,7 +24,7 @@
 
 
 
-getViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevation = 1.75, target_elevation = 0){
+grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevation = 1.75, target_elevation = 0){
 
   #Check that is is run on NINSRV16
   #Check that is is run on NINSRV16

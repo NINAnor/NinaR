@@ -1,4 +1,4 @@
-#' getGrassMonthlyPrecip
+#' grassMonthlyPrecip
 #'
 #' Fetch monthly average precipitation from given points
 #'
@@ -17,21 +17,21 @@
 #' @return Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
 #' "value" containing the monthly precipitation values in requested aggregate form.
 #' @author Stefan Blumentrath, Jens Astrom
-#' @seealso \code{\link{getGrassMonthlyTemp}, \link{getGrassDailyPrecip}}
+#' @seealso \code{\link{grassMonthlyTemp}, \link{grassDailyPrecip}}
 #' @examples
 #' \dontrun{
-#' connectGrass()
+#' grassConnect()
 #' points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
-#' tmp <- getGrassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+#' tmp <- grassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 #'
 #' ##Get data just for first 6 months
-#' tmp2 <- getGrassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('%m', start_time) <= '06'")
+#' tmp2 <- grassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('%m', start_time) <= '06'")
 #'
 #' }
 #' @export
 
 
-getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type=c("sum", "avg")){
+grassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type=c("sum", "avg")){
 
   #Check that is is run on NINSRV16
   #Check that is is run on NINSRV16
