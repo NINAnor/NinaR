@@ -2,9 +2,9 @@
 
 export(addAlpha)
 export(addLogo)
-export(getGrassDailyTemp)
 export(grassConnect)
 export(grassDailyPrecip)
+export(grassDailyTemp)
 export(grassMonthlyPrecip)
 export(grassMonthlyTemp)
 export(grassViewshed)

@@ -1,4 +1,4 @@
-#' getGrassDailyTemp
+#' grassDailyTemp
 #'
 #' Fetch daily average temperatures from given points
 #'
@@ -16,22 +16,22 @@
 #' @return Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
 #' "value" containing the daily average temperature.
 #' @author Stefan Blumentrath, Jens Astrom
-#' @seealso \code{\link{getGrassDailyPrecip}}
+#' @seealso \code{\link{grassDailyPrecip}}
 #' @examples
 #' \dontrun{
 #' connectGrass()
 #' points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
-#' tmp <- getGrassDailyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+#' tmp <- grassDailyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 #'
 #' ##Get values from middle of march to middle of april for two years
-#' tmp2 <- getGrassDailyTemp(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
+#' tmp2 <- grassDailyTemp(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
 #'  where="(strftime('%m', start_time) = '03' AND strftime('%d', start_time) >= '15') OR
 #'  (strftime('%m', start_time) = '04' AND strftime('%d', start_time) <= '15')")
 #' }
 #' @export
 
 
-getGrassDailyTemp <- function(points, start_time, end_time, where=NULL){
+grassDailyTemp <- function(points, start_time, end_time, where=NULL){
 
   #Check that is is run on NINSRV16
   host<-NULL
