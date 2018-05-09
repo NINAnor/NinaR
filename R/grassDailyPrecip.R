@@ -1,9 +1,9 @@
-#' getGrassMonthlyPrecip
+#' grassDailyPrecip
 #'
-#' Fetch monthly average precipitation from given points
+#' Fetch daily precipitation sums from given points
 #'
 #' Only works when run on the Linux server, and stops if checks fail to identify the running machine as such.
-#' The function retreives monthly temperature values from the GRASS database on NINSRV16. The data is distributed
+#' The function retreives daily precipitation sums from the GRASS database on NINSRV16. The data is distributed
 #' by http://www.met.no, see ftp://ftp.met.no/projects/klimagrid/ for information.
 #'
 #'
@@ -12,26 +12,25 @@
 #' @param start_time Start time for data selection, in format "YYYY-MM-DD".
 #' @param end_time End time for data selection, in format "YYYY-MM-DD".
 #' @param where string of SQL that is interpreted as a "WHERE" clause. Typically used to specify a subset of the data, see example.
-#' @param type Type of data aggregation.  "sum" and "avg" allowed, default is sum
 #'
 #' @return Returns a data frame containing "x", "y", "site", "start" = starting point of record, "end" = end point of record (in this case none), and
-#' "value" containing the monthly precipitation values in requested aggregate form.
+#' "value" containing the daily precipitation.
 #' @author Stefan Blumentrath, Jens Astrom
-#' @seealso \code{\link{getGrassMonthlyTemp}, \link{getGrassDailyPrecip}}
+#' @seealso \code{\link{grassDailyTemp}}
 #' @examples
 #' \dontrun{
-#' connectGrass()
+#' grassConnect()
 #' points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
-#' tmp <- getGrassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
+#' tmp <- grassDailyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 #'
-#' ##Get data just for first 6 months
-#' tmp2 <- getGrassMonthlyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('%m', start_time) <= '06'")
-#'
+#'tmp2 <- grassDailyPrecip(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
+#'where="(strftime('%m', start_time) = '03' AND strftime('%d', start_time) >= '15') OR
+#'(strftime('%m', start_time) = '04' AND strftime('%d', start_time) <= '15')")
 #' }
 #' @export
 
 
-getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type=c("sum", "avg")){
+grassDailyPrecip <- function(points, start_time, end_time, where=NULL){
 
   #Check that is is run on NINSRV16
   host<-NULL
@@ -46,9 +45,6 @@ getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type
   } else
     time_cond <- paste("start_time >='", start_time, "' AND start_time < '", end_time, "'" ,sep="")
 
-  type <- match.arg(type)
-  selection <- paste("precipitation_seNorge_1km_", type, "@gt_Meteorology_Norway_seNorge_precipitation_months", sep="")
-
   # Get bounding box of all points
   max_x <- max(points$x)
   max_y <- max(points$y)
@@ -59,7 +55,7 @@ getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type
   execGRASS("g.region", align="dem_10m_nosefi@PERMANENT", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p")
 
   # Add mapset containing time series data
-  execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_months,gt_Meteorology_Norway_seNorge_temperature_months")
+  execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_days,gt_Meteorology_Norway_seNorge_temperature_days")
 
   # Query time series at vector points, transfer result into R
   execGRASS("t.connect", flags = "d")
@@ -67,11 +63,15 @@ getGrassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type
 
 
   cat("This can take some time...")
-  temp_monthly <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
-                          strds=selection,
+  precip_daily <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
+                          strds="precipitation_seNorge_1km_days@gt_Meteorology_Norway_seNorge_precipitation_days",
                           where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
 
-  con <- textConnection(temp_monthly)
+  con <- textConnection(precip_daily)
   out <- read.csv(con, header=TRUE)
   return(out)
 }
+
+
+
+
