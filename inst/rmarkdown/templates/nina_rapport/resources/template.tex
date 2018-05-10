@@ -198,15 +198,17 @@ $endif$
 \begin{titlepage}
 \thispagestyle{titlefooter}
 \begin{tikzpicture}[remember picture,overlay]
- \fill[footgrey] (-4,1) rectangle (-.2,-6);
+ \node (a) at (-4,1) {};
+ \node (b) at (-.2,-6) {};
+ \fill[footgrey] (a) rectangle (b);
 \end{tikzpicture}
 \Huge{$title$} \par\vspace{.5cm}
 \huge{$subtitle$} \par\vspace{1cm}
 $for(author)$
 \LARGE{$author.name$} \par
 $endfor$
- \begin{tikzpicture}[remember picture,overlay]
-   \node at (current page.center) {\includegraphics[width=21.5cm]{title_img.png}};
+ \begin{tikzpicture}[remember picture,overlay, anchor=south west]
+   \node at ([yshift=4.1cm,xshift=-0.2cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{title_img.png}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
