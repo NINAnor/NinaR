@@ -20,6 +20,9 @@ ISBN_end: 1234-5
 self-ref: Brum, O., Robin, K. 2016.  En veldig bra titel. NINA.
 access: Åpen
 secure_pdf:
+cover_picture: coverPicture.png
+cover_picture_text: Forsidebildetekst
+cover_picture_photographer: Fotografnavn
 line_numbering:
 qualitycontrol: [xx]
 boss_sign: Forskningssjef [fylles ut av forskningssjefen] (sign.)
@@ -47,7 +50,8 @@ foreword:
     location: [Sted, forord]
     date: [Dato, forord]
     name: [Prosjektleder]
-sammendrag: [Sammendrag inn her]
+sammendrag: [Tekst inn her, et kort resymé av innholdet. Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her. Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.]
+abstract: [Tekst inn her, et kort resymé av innholdet. Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her. Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.]
 ---
 
 ```{r setup, echo=F, message=F, warning=F}

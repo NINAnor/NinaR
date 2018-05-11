@@ -18,9 +18,12 @@ $endif$
 \bibliographystyle{abbrvnat}
 \usepackage[hidelinks,
             pdfauthor={
-            $for(author)$
-              $author.name$,~
-              $endfor$
+            $for(first_author)$
+              $first_author.name$
+            $endfor$
+             $for(second_authors)$
+              ,~$second_authors.name$
+             $endfor$
             },
             pdftitle={$title$},
             pdfsubject={$subtitle$},
@@ -104,6 +107,11 @@ $endif$
 \usepackage{graphicx}
 %\usepackage{epstopdf}
 
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{xstring}
+\usepackage{forloop}
+
 
 %Modify headers and footers
 \usepackage{fancyhdr}
@@ -120,11 +128,12 @@ $endif$
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
   \begin{center}
-  \vspace{-1cm}
+  \vspace{-1.2cm}
   \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
+  \vspace{.2cm}
   \end{center}
   \lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-   \rfoot{\vspace{2.0cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
+   \rfoot{\vspace{2.2cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -135,12 +144,35 @@ $endif$
 
 %Define endpage footer
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
+
   \fancyhf{}
   \fancyfootoffset[R]{0cm}
   \begin{center}
-  \vfill{}ISSN: 2464-2797 \\
-ISBN: 978-82-426-$ISBN_end$
-\end{center}
+    \vspace{-1.2cm}
+    \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
+
+ \begin{tikzpicture}[remember picture,overlay]
+ \node (a) at (12,6) {};
+ \node (b) at (15,-.5) {};
+ \coordinate[above=2.5cm of b,xshift=-2cm]  (legend);
+ \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
+ \fill[footgrey] (a) rectangle (b);
+ \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+ \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+\end{tikzpicture}
+    \begin{minipage}{0.45\linewidth}
+    {\begin{flushleft}\begin{em}\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning, NINA,}} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
+
+    \bigskip
+    NINA ble etablert i 1988. Hovedkontoret er i Trondheim, med avdelingskontorer i Tromsø, Lillehammer, Bergen og Oslo. I tillegg driver NINA Sæterfjellet avlsstasjon for fjellrev på Oppdal, og forskningsstasjonen for vill laksefisk på Ims i Rogaland.
+
+    \bigskip
+    NINAs virksomhet omfatter både forskning og utredning, miljøoveråking, rådgivning og evaluering. NINA har stor bredde i kompetanse og erfaring med både naturvitere og samfunnsvitere i staben. Vi har kunnskap om artene, naturtypene, sammfunnets bruk av naturen og sammenhenger med de store drivkreftene i naturen. \end{em}\end{flushleft}}
+    \end{minipage}
+    \vspace{3cm}
+    \vfill{}ISSN: 2464-2797 \\
+  ISBN: 978-82-426-$ISBN_end$
+  \end{center}
   \lfoot{\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
 \narrow
@@ -152,7 +184,9 @@ E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{4.7cm}\hfill\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}
+   \rfoot{\vspace{3cm}\hspace{-2cm}\includegraphics[height=1.6cm]{logo.eps}\\
+   \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
+   }
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -164,8 +198,8 @@ http://www.nina.no
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\clearpage~\pagestyle{endfooter}
-  }{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
+  \ifthispageodd{\fancyhf{}\newgeometry{bottom=6.5cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0cm}\null\clearpage~\pagestyle{endfooter}
+  }{\fancyhf{}\newgeometry{bottom=6.5cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0cm}\null\pagestyle{endfooter}}
 }
 \AtEndDocument{\OpenNewPageIfNeeded}
 
@@ -193,22 +227,29 @@ $endif$
 
 \begin{document}
 
-\newgeometry{bottom=5.5cm, top=5cm}
+\newgeometry{bottom=6cm, top=4.6cm}
 
 \begin{titlepage}
 \thispagestyle{titlefooter}
 \begin{tikzpicture}[remember picture,overlay]
  \node (a) at (-4,1) {};
- \node (b) at (-.2,-6) {};
+ \node (b) at (-.2,-5.5) {};
+ \coordinate[above=2.5cm of b,xshift=-.5cm]  (legend);
+ \coordinate[below=.5cm of a,xshift=2.8cm]  (rapportnr);
  \fill[footgrey] (a) rectangle (b);
+ \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+ \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
 \end{tikzpicture}
-\Huge{$title$} \par\vspace{.5cm}
-\huge{$subtitle$} \par\vspace{1cm}
-$for(author)$
-\LARGE{$author.name$} \par
+\Huge{$title$} \par\vspace{.3cm}
+\huge{$subtitle$} \par\vspace{.6cm}
+$for(first_author)$
+\hspace{0cm}\LARGE{$first_author.name$}
+$endfor$
+$for(second_authors)$
+\hspace{-2mm},~\LARGE{$second_authors.name$}
 $endfor$
  \begin{tikzpicture}[remember picture,overlay, anchor=south west]
-   \node at ([yshift=4.1cm,xshift=-0.2cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{title_img.png}};
+  \node at ([yshift=4.55cm,xshift=-0.2cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
@@ -249,10 +290,12 @@ vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og 
 
 \Huge{$title$} \par\vspace{.5cm}
 \huge{$subtitle$} \par\vspace{1cm}
-$for(author)$
-\hspace{0cm}\LARGE{$author.name$} \par
+$for(first_author)$
+\hspace{0cm}\LARGE{$first_author.name$} \par
 $endfor$
-
+$for(second_authors)$
+\LARGE{$second_authors.name$} \par
+$endfor$
 
 \clearpage
 \newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
@@ -285,6 +328,8 @@ $customer$ \par \smallspace
 $customer_ref$ \par \smallspace
 {\footnotesize{KONTAKTPERSON(ER) HOS OPPDRAGSGIVER/BIDRAGSYTER}} \par
 $customer_contact$ \par \smallspace
+{\footnotesize{FORSIDEBILDE}} \par
+$cover_picture_text$~ \copyright~ $cover_picture_photographer$ \par \smallspace
 {\footnotesize{NØKKELORD}} \par\smallskip
 $for(keywords)$
 \small{\hyp{} $keywords.word$} \par
@@ -306,7 +351,7 @@ $endfor$
 \hspace{-.25cm}
 \begin{tabular}[t]{l@{}}
 \textbf{NINA hovedkontor} \\
-Postboks 5685 Sluppen\\
+Postboks 5685 Torgarden\\
 7485 Trondheim\\
 Telefon: 73 80 14 00
 \end{tabular}
@@ -349,14 +394,36 @@ $sammendrag$} \\
 
 \vspace{1cm}
 \small
-$for(author)$
-$author.name$, $author.address$, $author.email$  \par
+$for(first_author)$
+$first_author.name$, $first_author.address$, $first_author.email$  \par
+$endfor$
+$for(second_authors)$
+$second_authors.name$, $second_authors.address$, $second_authors.email$  \par
 $endfor$
 \normalsize
-
-
-
 \clearpage
+
+\setcounter{secnumdepth}{0}
+\section{Abstract}
+
+
+\footnotesize{$self-ref$} – NINA Rapport $reportnr$ \pageref{LastPage} s.\par
+\vspace{0.5cm}
+\normalsize{
+$abstract$} \\
+
+\vspace{1cm}
+\small
+$for(first_author)$
+$first_author.name$, $first_author.address$, $first_author.email$  \par
+$endfor$
+$for(second_authors)$
+$second_authors.name$, $second_authors.address$, $second_authors.email$  \par
+$endfor$
+\normalsize
+\clearpage
+
+
 \doublespacing
 \tableofcontents
 \addcontentsline{toc}{section}{Innhold}
