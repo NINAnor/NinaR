@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+author: ""
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  NinaR::jensAnalysis:
+    highlight: tango
+    fig_caption: yes
+    toc: yes
+---
+
+
+```{r, include = F}
+require(tidyverse)
+require(DBI)
+require(RPostgres)
+require(ggplot2)
+require(xtable)
+require(NinaR)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, tidy = T)
+options(xtable.comment = F, xtable.include.rownames = F, nina.logo.y.pos = 0.15)
+palette(ninaPalette())
+```
+
+
+
+```{r, include = F}
+con <- dbConnect(Postgres(), host = "ninpgsql03.nina.no", dbname = "gisdata", user = "postgjest", password = "gjestpost")
+```

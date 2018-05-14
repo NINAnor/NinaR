@@ -32,7 +32,9 @@
 #' points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
 #' @export
 
-addLogo <- function(x = 0.85, y = 0.1, size = 0.2) {
+addLogo <- function(x = getOption("nina.logo.x.pos", 0.85),
+                    y = getOption("nina.logo.y.pos", 0.1),
+                    size = 0.2) {
 require(grImport)
 require(grid) ##Necessary?
 

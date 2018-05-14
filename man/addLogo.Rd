@@ -4,7 +4,8 @@
 \alias{addLogo}
 \title{addLogo}
 \usage{
-addLogo(x = 0.85, y = 0.1, size = 0.2)
+addLogo(x = getOption("nina.logo.x.pos", 0.85),
+  y = getOption("nina.logo.y.pos", 0.1), size = 0.2)
 }
 \arguments{
 \item{x}{x-position in percentage values (0-1) of
