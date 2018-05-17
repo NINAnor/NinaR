@@ -152,28 +152,28 @@ $endif$
     \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
 
  \begin{tikzpicture}[remember picture,overlay]
- \node (a) at (12,6) {};
- \node (b) at (15,-.5) {};
+ \node (a) at (12,4.5) {};
+ \node (b) at (15,-2) {};
  \coordinate[above=2.5cm of b,xshift=-2cm]  (legend);
  \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
  \fill[footgrey] (a) rectangle (b);
  \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
  \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
 \end{tikzpicture}
-    \begin{minipage}{0.45\linewidth}
-    {\begin{flushleft}\begin{em}\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning, NINA,}} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
+    \begin{minipage}{0.386\linewidth}
+    {\begin{flushleft}\color{darkgrey}\vspace{1.2cm}\large\narrow\em{\textbf{Norsk institutt for naturforskning, NINA,} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
 
     \bigskip
     NINA ble etablert i 1988. Hovedkontoret er i Trondheim, med avdelingskontorer i Tromsø, Lillehammer, Bergen og Oslo. I tillegg driver NINA Sæterfjellet avlsstasjon for fjellrev på Oppdal, og forskningsstasjonen for vill laksefisk på Ims i Rogaland.
 
     \bigskip
-    NINAs virksomhet omfatter både forskning og utredning, miljøoveråking, rådgivning og evaluering. NINA har stor bredde i kompetanse og erfaring med både naturvitere og samfunnsvitere i staben. Vi har kunnskap om artene, naturtypene, sammfunnets bruk av naturen og sammenhenger med de store drivkreftene i naturen. \end{em}\end{flushleft}}
+    NINAs virksomhet omfatter både forskning og utredning, miljøoveråking, rådgivning og evaluering. NINA har stor bredde i kompetanse og erfaring med både naturvitere og samfunnsvitere i staben. Vi har kunnskap om artene, naturtypene, sammfunnets bruk av naturen og sammenhenger med de store drivkreftene i naturen.} \end{flushleft}}
     \end{minipage}
     \vspace{3cm}
-    \vfill{}ISSN: 2464-2797 \\
-  ISBN: 978-82-426-$ISBN_end$
+    \vfill{}{\normalsize{ISSN: 2464-2797 \\
+  ISBN: 978-82-426-$ISBN_end$}}
   \end{center}
-  \lfoot{\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
+  \lfoot{\color{darkgrey}\vspace{0.5cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
 \narrow
 \large NINA Hovedkontor\\
@@ -184,22 +184,53 @@ E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{3cm}\hspace{-2cm}\includegraphics[height=1.6cm]{logo.eps}\\
+   \rfoot{\vspace{2cm}\hspace{-3cm}\includegraphics[height=1.6cm]{logo.eps}\\
    \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
    }
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
+    %(current page.west|-current page footer area.north west)
     rectangle
-  (current page.east|-current page footer area.south east);
+  (current page.east|-current page footer area.north east);
+  %(current page text area.south west);
   \end{tikzpicture}
+
+%  \tikz[remember picture,overlay] {%
+%  \draw [blue,line width=2mm]
+%  (current page.south west)
+%  rectangle
+%  (current page.north east)
+%  ;
+%  \draw [green]
+%  (current page text area.south west)
+%  rectangle
+%  (current page text area.north east)
+%  ;
+%  \draw [yellow]
+%  (current page marginpar area.south west)
+%  rectangle
+%  (current page marginpar area.north east)
+%  ;
+%  \draw [red]
+%  (current page header area.south west)
+%  rectangle
+%  (current page header area.north east)
+%  ;
+%  \draw [orange]
+%  (current page footer area.south west)
+% rectangle
+%  (current page footer area.north east)
+%  ;
+%  }%
+
 }
 
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{bottom=6.5cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0cm}\null\clearpage~\pagestyle{endfooter}
-  }{\fancyhf{}\newgeometry{bottom=6.5cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0cm}\null\pagestyle{endfooter}}
+  \ifthispageodd{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\clearpage~\pagestyle{endfooter}
+  }{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\pagestyle{endfooter}}
 }
 \AtEndDocument{\OpenNewPageIfNeeded}
 
