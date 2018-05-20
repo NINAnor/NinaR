@@ -1,10 +1,11 @@
 ---
 title: [Skriv in titell nivå 1 her]
 subtitle: [Skriv in titell nivå 2 her]
-author:
+first_author:
   - name: [Skriv in forfatter her]
     address: [Author adress]
     email: for.efternavn@nina.no
+second_authors:
   - name: [Skriv in forfatter her]
     address: [Author adress]
     email: for.efternavn@nina.no

@@ -115,6 +115,7 @@ $endif$
 
 %Modify headers and footers
 \usepackage{fancyhdr}
+\newsavebox{\myheadbox}
 \pagestyle{fancy}
 \addtolength{\headheight}{2pt}
 \renewcommand{\headrulewidth}{0pt}
@@ -152,9 +153,9 @@ $endif$
     \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
 
  \begin{tikzpicture}[remember picture,overlay]
- \node (a) at (12,4.5) {};
+ \node (a) at (11.5,4.5) {};
  \node (b) at (15,-2) {};
- \coordinate[above=2.5cm of b,xshift=-2cm]  (legend);
+ \coordinate[above=2.5cm of b,xshift=-2.5cm]  (legend);
  \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
  \fill[footgrey] (a) rectangle (b);
  \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
@@ -176,7 +177,7 @@ $endif$
   \lfoot{\color{darkgrey}\vspace{0.5cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
 \narrow
-\large NINA Hovedkontor\\
+\normalsize NINA Hovedkontor\\
 Postadresse: Postboks 5685 Torgarden, 7485 Trondheim\\
 Besøks-/leveringsadresse: Høgskoleringen 9, 7034 Trondheim\\
 Telefon: 73 80 14 00, Telefaks: 73 80 14 01\\
@@ -184,9 +185,11 @@ E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{2cm}\hspace{-3cm}\includegraphics[height=1.6cm]{logo.eps}\\
-   \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
-   }
+  % \rfoot{\vspace{2cm}\hspace{-3cm}\includegraphics[height=1.6cm]{logo.eps}\\
+  % \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
+  % }
+  \rfoot{\vspace{2.3cm}\textsc{\savebox{\myheadbox}{\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}\makebox[\wd\myheadbox][c]{\includegraphics[height=1.6cm]{logo.eps}}\\\usebox{\myheadbox}}}
+
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -280,7 +283,7 @@ $for(second_authors)$
 \hspace{-2mm},~\LARGE{$second_authors.name$}
 $endfor$
  \begin{tikzpicture}[remember picture,overlay, anchor=south west]
-  \node at ([yshift=4.55cm,xshift=-0.2cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{$cover_picture$}};
+  \node at ([yshift=4.55cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
