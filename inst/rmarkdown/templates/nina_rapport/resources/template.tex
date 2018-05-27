@@ -133,9 +133,18 @@ $endif$
   \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
   \vspace{.2cm}
   \end{center}
-  \lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-   \rfoot{\vspace{2.2cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
-    \begin{tikzpicture}[remember picture,overlay]
+  \begin{tikzpicture}[remember picture,overlay]
+    \node (a) at (-4,-1.7) {};
+    \node (b) at (0.45,-8.1) {};
+    \coordinate[above=2.5cm of b,xshift=-.6cm]  (legend);
+    \coordinate[below=.49cm of a,xshift=3.4cm]  (rapportnr);
+    \fill[footgrey] (a) rectangle (b);
+    \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+    \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+ \end{tikzpicture}
+\lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
+\rfoot{\vspace{2.2cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
+\begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
     rectangle
@@ -261,19 +270,11 @@ $endif$
 
 \begin{document}
 
-\newgeometry{bottom=6cm, top=4.6cm}
+\newgeometry{bottom=6cm, top=4.6cm, left=3.2cm, right=1.5cm}
 
 \begin{titlepage}
 \thispagestyle{titlefooter}
-\begin{tikzpicture}[remember picture,overlay]
- \node (a) at (-4,1) {};
- \node (b) at (-.2,-5.5) {};
- \coordinate[above=2.5cm of b,xshift=-.5cm]  (legend);
- \coordinate[below=.5cm of a,xshift=2.8cm]  (rapportnr);
- \fill[footgrey] (a) rectangle (b);
- \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
- \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
-\end{tikzpicture}
+
 \Huge{$title$} \par\vspace{.3cm}
 \huge{$subtitle$} \par\vspace{.6cm}
 $for(first_author)$
@@ -283,7 +284,7 @@ $for(second_authors)$
 \hspace{-2mm},~\LARGE{$second_authors.name$}
 $endfor$
  \begin{tikzpicture}[remember picture,overlay, anchor=south west]
-  \node at ([yshift=4.55cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.5cm, height=14.0cm]{$cover_picture$}};
+  \node at ([yshift=4.75cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
