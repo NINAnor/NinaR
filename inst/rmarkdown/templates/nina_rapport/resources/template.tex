@@ -15,7 +15,7 @@ $endif$
 
 %For references
 \usepackage{natbib}
-\bibliographystyle{abbrvnat}
+\bibliographystyle{nina}
 \usepackage[hidelinks,
             pdfauthor={
             $for(first_author)$
@@ -143,7 +143,7 @@ $endif$
     \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
  \end{tikzpicture}
 \lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-\rfoot{\vspace{2.2cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
+\rfoot{\vspace{2.2cm}\hfill\Large\lightGrey{\narrow{Norsk institutt for naturforskning}}}
 \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -320,7 +320,7 @@ vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og 
 \setcounter{page}{1}
 \fancyfoot[C]{
 \newgeometry{bottom=3cm, top=3cm, right=3cm}
-\hfill\Large{\narrowbold{Norsk institutt for naturforskning}}}
+\hfill\LARGE{\narrowbold{Norsk institutt for naturforskning}}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
@@ -342,35 +342,35 @@ $endfor$
 
 \normalsize
 
-\footnotesize{$self-ref$}- NINA Rapport $reportnr$ \pageref{LastPage} s. \par \smallspace
+\footnotesize{$self-ref$}NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
 $location$, \ninadate\today \par \smallspace
 ISSN: 2464-2797 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
-{\footnotesize{RETTIGHETSHAVER}} \par
+{\scriptsize{RETTIGHETSHAVER}} \par
 © Norsk institutt for naturforskning  \par
 Publikasjonen kan siteres fritt med kildeangivelse \par \smallspace
-{\footnotesize{TILGJENGELIGHET}} \par
+{\scriptsize{TILGJENGELIGHET}} \par
 $access$ \par \smallspace
-{\footnotesize{PUBLISERINGSTYPE}} \par
+{\scriptsize{PUBLISERINGSTYPE}} \par
 Digitalt dokument (pdf) \par \smallspace
-{\footnotesize{KVALITETSSIKRET AV}} \par
+{\scriptsize{KVALITETSSIKRET AV}} \par
 $qualitycontrol$ \par \smallspace
-{\footnotesize{ANSVARLIG SIGNATUR}} \par
+{\scriptsize{ANSVARLIG SIGNATUR}} \par
 Forskningssjef $boss_sign$ \par \smallspace
-{\footnotesize{OPPDRAGSGIVER(E)/BIDRAGSYTER(E)}} \par
+{\scriptsize{OPPDRAGSGIVER(E)/BIDRAGSYTER(E)}} \par
 $customer$ \par \smallspace
-{\footnotesize{OPPDRAGSGIVERS REFERANSE}} \par
+{\scriptsize{OPPDRAGSGIVERS REFERANSE}} \par
 $customer_ref$ \par \smallspace
-{\footnotesize{KONTAKTPERSON(ER) HOS OPPDRAGSGIVER/BIDRAGSYTER}} \par
+{\scriptsize{KONTAKTPERSON(ER) HOS OPPDRAGSGIVER/BIDRAGSYTER}} \par
 $customer_contact$ \par \smallspace
-{\footnotesize{FORSIDEBILDE}} \par
+{\scriptsize{FORSIDEBILDE}} \par
 $cover_picture_text$~ \copyright~ $cover_picture_photographer$ \par \smallspace
-{\footnotesize{NØKKELORD}} \par\smallskip
+{\scriptsize{NØKKELORD}} \par\smallskip
 $for(keywords)$
 \small{\hyp{} $keywords.word$} \par
 $endfor$
 \vspace{5mm}
-KEY WORDS \par\smallskip
+{\scriptsize{KEY WORDS}} \par\smallskip
 $for(englishkeywords)$
 \small{\hyp{} $englishkeywords.word$} \par
 $endfor$
@@ -381,7 +381,7 @@ $endfor$
 
 \begin{minipage}{\linewidth}
 \scriptsize{KONTAKTOPPLYSNINGER} \par\smallspace
-\footnotesize
+\scriptsize
 \leavevmode\hbox to \linewidth{%
 \hspace{-.25cm}
 \begin{tabular}[t]{l@{}}
@@ -400,15 +400,21 @@ Telefon: 73 80 14 00
 \hfill
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Tromsø} \\
-Framsenteret \\
+Postboks 6606 Langnes \\
 9296 Tromsø \\
 Telefon: 77 75 04 00
 \end{tabular}%
 \hfill
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Lillehammer} \\
-Fakkelgården \\
+Vormstuguvegen 40 \\
 2624 Lillehammer \\
+Telefon: 73 80 14 00
+\end{tabular}%
+\begin{tabular}[t]{l@{}}
+\textbf{NINA Bergen} \\
+Thrmølensgate 55 \\
+5006 Bergen \\
 Telefon: 73 80 14 00
 \end{tabular}%
 }
@@ -422,7 +428,7 @@ www.nina.no
 \section{Sammendrag}
 
 
-\footnotesize{$self-ref$} – NINA Rapport $reportnr$ \pageref{LastPage} s.\par
+\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
 \vspace{0.5cm}
 \normalsize{
 $sammendrag$} \\
@@ -442,7 +448,7 @@ $endfor$
 \section{Abstract}
 
 
-\footnotesize{$self-ref$} – NINA Rapport $reportnr$ \pageref{LastPage} s.\par
+\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
 \vspace{0.5cm}
 \normalsize{
 $abstract$} \\
@@ -470,7 +476,7 @@ $endfor$
 \normalsize
 $foreword.text$\par
 \medskip
-$foreword.location$, $foreword.date$, $foreword.name$
+$foreword.date$, $foreword.name$
 
 
 
