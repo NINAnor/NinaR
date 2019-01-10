@@ -24,8 +24,9 @@ require(NinaR)
 ```{r setup, include=FALSE}
 #This is optional
 #I choose the 'styler' package for tidying the code to preserve indentations
-#I set the cutoff for code tidying to 60
-#I want all figures as png and pdf in high quality in a subfolder called figure
+#I set the cutoff for code tidying to 60, but this doesn't currently work with styler.
+#Set tidy = True to get the knitr default
+#I want all figures as png and pdf in high quality in a subfolder called figure 
 
 knitr::opts_chunk$set(echo = TRUE, 
                       tidy = "styler",
@@ -43,7 +44,7 @@ palette(ninaPalette())
 
 
 
-```{r, include = F}
+```{r, include = F, eval = F}
 #This connects to the gisdatabase. 
 #Use for example dbGetQuery(con, "SELECT * FROM ....") to query the database
 con <- dbConnect(Postgres(), 
