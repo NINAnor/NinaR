@@ -4,8 +4,8 @@
 \alias{ninaBeamer}
 \title{NINA beamer format.}
 \usage{
-ninaBeamer(..., keep_tex = TRUE, md_extensions = c("-autolink_bare_uris",
-  "+header_attributes"))
+ninaBeamer(..., keep_tex = TRUE,
+  md_extensions = c("-autolink_bare_uris", "+header_attributes"))
 }
 \arguments{
 \item{...}{Additional arguments to \code{rmarkdown::beamer_presentation}}

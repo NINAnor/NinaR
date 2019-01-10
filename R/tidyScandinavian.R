@@ -1,10 +1,12 @@
+#' tidyScandinavian
+#'
 #' Convert unicoe hestring characters to Scandinavian letters
 #'
 #' This is a convenience function that translates Scandinavian hestringadecimal characters into proper letters.
+#' @encoding UTF-8
 #'
-#'
-#' @author Diana Bowler, Jens Åström
-#'
+#' @author Diana Bowler, Jens Astrom
+#' @name tidyScandinavian
 #' @examples
 #' #to use
 #' myData <- data.frame("locations" = c(1, 2, 3),
@@ -13,9 +15,9 @@
 #'                                   "G\xe6len"))
 #'
 #' myData$tidyName <- tidyScandinavian(myData$messyNames)
-#'
+#' @export
 
-tidyScandinavian <- function(string) {
+tidyScandinavian <- function(string = NULL) {
 
   string <- as.character(string)
   string <- gsub("\xb0", "°", string)

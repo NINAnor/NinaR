@@ -33,5 +33,5 @@ barplot(runif(5), col=addAlpha(ninaPalette(), 0.4))
 \code{\link{ninaPalette}}
 }
 \author{
-Jens Åström
+Jens Astrom
 }

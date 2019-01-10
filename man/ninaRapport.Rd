@@ -4,8 +4,8 @@
 \alias{ninaRapport}
 \title{NINA Report format.}
 \usage{
-ninaRapport(..., keep_tex = TRUE, md_extensions = c("-autolink_bare_uris",
-  "+header_attributes"))
+ninaRapport(..., keep_tex = TRUE,
+  md_extensions = c("-autolink_bare_uris", "+header_attributes"))
 }
 \arguments{
 \item{...}{Additional arguments to \code{rmarkdown::pdf_document}}

@@ -4,8 +4,8 @@
 \alias{jensAnalysis}
 \title{NINA Analysis pdf format.}
 \usage{
-jensAnalysis(..., keep_tex = TRUE, md_extensions = c("-autolink_bare_uris",
-  "+header_attributes"))
+jensAnalysis(..., keep_tex = TRUE,
+  md_extensions = c("-autolink_bare_uris", "+header_attributes"))
 }
 \arguments{
 \item{...}{Additional arguments to \code{rmarkdown::pdf_document}}

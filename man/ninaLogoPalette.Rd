@@ -26,5 +26,5 @@ barplot(runif(3), col=ninaLogoPalette())
 \code{\link{ninaPalette}}
 }
 \author{
-Jens Åström, Kari Sivertsen
+Jens Astrom, Kari Sivertsen
 }

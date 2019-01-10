@@ -10,13 +10,13 @@ mountFolders()
 \item{The}{function takes no parameters but asks for the password in an interactive prompt}
 }
 \description{
-Mounts folders from the Nina Windows environment on Ninsrv16
+Mounts folders from the Nina Windows environment on Ninsrv16 or ninrstudio03
 }
 \details{
-Only works when run on the Linux server, and stops if checks fail to identify the running machine as such.
-Meant to be run on the Rstudio-server at http://ninsrv16:8787
+Only works when run on these Linux server, and stops if checks fail to identify the running machine as such.
+Meant to be run on the Rstudio-server at http://ninsrv16:8787 or ninrstudio03.nina.no
 
-The function calls the login script on NINSRV16, which mounts the folders:
+The function calls the login script on the servers which mounts the folders:
 \itemize{
 \item Prosjekter (R:\\Prosjekter)
 \item winhome (M:\\)
@@ -24,8 +24,8 @@ The function calls the login script on NINSRV16, which mounts the folders:
 \item grassdata (R:\\grassdata)
 \item Maler (R:\\Maler)
 }
-This should enable you to reach these folders through Rstudio-server at Ninsrv16. It is then not necessary to
-login via e.g. putty and.
+
+On ninrstudio03 the folders in R:\ is available through HOME\Mounted or HOME\Mounts
 }
 \examples{
 \dontrun{

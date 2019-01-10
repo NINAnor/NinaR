@@ -5,11 +5,12 @@
 \title{NINA slidy format.}
 \usage{
 ninaSlidy(incremental = FALSE, duration = NULL, footer = NULL,
-  font_adjustment = 0, fig_width = 8, fig_height = 6, fig_retina = if
-  (!fig_caption) 2, fig_caption = TRUE, dev = "png", smart = TRUE,
-  self_contained = TRUE, highlight = "default", mathjax = "default",
-  template = "default", css = NULL, includes = NULL, keep_md = FALSE,
-  lib_dir = NULL, md_extensions = NULL, pandoc_args = NULL, ...)
+  font_adjustment = 0, fig_width = 8, fig_height = 6,
+  fig_retina = if (!fig_caption) 2, fig_caption = TRUE, dev = "png",
+  smart = TRUE, self_contained = TRUE, highlight = "default",
+  mathjax = "default", template = "default", css = NULL,
+  includes = NULL, keep_md = FALSE, lib_dir = NULL,
+  md_extensions = NULL, pandoc_args = NULL, ...)
 }
 \arguments{
 \item{duration}{Duration (in minutes) of the slide deck. This value is used
@@ -23,7 +24,7 @@ presentation using the 'S' (smaller) and 'B' (bigger) keys.}
 
 \item{fig_width}{Default width (in inches) for figures}
 
-\item{fig_height}{Default width (in inches) for figures}
+\item{fig_height}{Default height (in inches) for figures}
 
 \item{fig_retina}{Scaling to perform for retina displays (defaults to 2, which
 currently works for all widely used retina displays). Set to \code{NULL} to
@@ -43,7 +44,7 @@ ellipses.}
 dependencies, using data: URIs to incorporate the contents of linked
 scripts, stylesheets, images, and videos. Note that even for self contained
 documents MathJax is still loaded externally (this is necessary because of
-it's size).}
+its size).}
 
 \item{highlight}{Syntax highlighting style. Supported styles include
 "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn",
