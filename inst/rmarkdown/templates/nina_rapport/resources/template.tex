@@ -14,13 +14,16 @@ $if(line_numbering)$
 $endif$
 
 %For references
-\usepackage{natbib}
-\bibliographystyle{abbrvnat}
+%\usepackage{natbib} %%Handled by pandoc!
+%\bibliographystyle{nina}
 \usepackage[hidelinks,
             pdfauthor={
-            $for(author)$
-              $author.name$,~
-              $endfor$
+            $for(first_author)$
+              $first_author.name$
+            $endfor$
+             $for(second_authors)$
+              ,~$second_authors.name$
+             $endfor$
             },
             pdftitle={$title$},
             pdfsubject={$subtitle$},
@@ -104,9 +107,15 @@ $endif$
 \usepackage{graphicx}
 %\usepackage{epstopdf}
 
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{xstring}
+\usepackage{forloop}
+
 
 %Modify headers and footers
 \usepackage{fancyhdr}
+\newsavebox{\myheadbox}
 \pagestyle{fancy}
 \addtolength{\headheight}{2pt}
 \renewcommand{\headrulewidth}{0pt}
@@ -119,9 +128,23 @@ $endif$
 \usepackage{tikzpagenodes}
 \fancypagestyle{titlefooter}{% Define title footer (change to svg logo)
   \fancyhf{}
-  \lfoot{\vspace{1.3cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-   \rfoot{\vspace{2.5cm}\hfill\Large\darkGrey{\narrow{Norsk institutt for naturforskning}}}
-    \begin{tikzpicture}[remember picture,overlay]
+  \begin{center}
+  \vspace{-1.2cm}
+  \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
+  \vspace{.2cm}
+  \end{center}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node (a) at (-4,-1.7) {};
+    \node (b) at (0.45,-8.1) {};
+    \coordinate[above=2.5cm of b,xshift=-.6cm]  (legend);
+    \coordinate[below=.49cm of a,xshift=3.4cm]  (rapportnr);
+    \fill[footgrey] (a) rectangle (b);
+    \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+    \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+ \end{tikzpicture}
+\lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
+\rfoot{\vspace{2.2cm}\hfill\Large\lightGrey{\narrow{Norsk institutt for naturforskning}}}
+\begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
     rectangle
@@ -131,37 +154,95 @@ $endif$
 
 %Define endpage footer
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
+
   \fancyhf{}
   \fancyfootoffset[R]{0cm}
   \begin{center}
-  \vfill{}ISSN: 2464-2797 \\
-ISBN: 978-82-426-$ISBN_end$
-\end{center}
-  \lfoot{\color{darkgrey}\vspace{1.2cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
+    \vspace{-1.2cm}
+    \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
+
+ \begin{tikzpicture}[remember picture,overlay]
+ \node (a) at (11.5,4.5) {};
+ \node (b) at (15,-2) {};
+ \coordinate[above=2.5cm of b,xshift=-2.5cm]  (legend);
+ \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
+ \fill[footgrey] (a) rectangle (b);
+ \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+ \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+\end{tikzpicture}
+    \begin{minipage}{0.386\linewidth}
+    {\begin{flushleft}\color{darkgrey}\vspace{1.2cm}\large\narrow\em{\textbf{Norsk institutt for naturforskning, NINA,} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
+
+    \bigskip
+    NINA ble etablert i 1988. Hovedkontoret er i Trondheim, med avdelingskontorer i Tromsø, Lillehammer, Bergen og Oslo. I tillegg driver NINA Sæterfjellet avlsstasjon for fjellrev på Oppdal, og forskningsstasjonen for vill laksefisk på Ims i Rogaland.
+
+    \bigskip
+    NINAs virksomhet omfatter både forskning og utredning, miljøoveråking, rådgivning og evaluering. NINA har stor bredde i kompetanse og erfaring med både naturvitere og samfunnsvitere i staben. Vi har kunnskap om artene, naturtypene, sammfunnets bruk av naturen og sammenhenger med de store drivkreftene i naturen.} \end{flushleft}}
+    \end{minipage}
+    \vspace{3cm}
+    \vfill{}{\normalsize{ISSN: 2464-2797 \\
+  ISBN: 978-82-426-$ISBN_end$}}
+  \end{center}
+  \lfoot{\color{darkgrey}\vspace{0.5cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
 \begingroup
 \narrow
-\large NINA Hovedkontor\\
-Postadresse: Postboks 5685 Sluppen, 7485 Trondheim\\
+\normalsize NINA Hovedkontor\\
+Postadresse: Postboks 5685 Torgarden, 7485 Trondheim\\
 Besøks-/leveringsadresse: Høgskoleringen 9, 7034 Trondheim\\
 Telefon: 73 80 14 00, Telefaks: 73 80 14 01\\
 E-post: firmapost@nina.no\\
 Organisasjonsnummer 9500 37 687\\
 http://www.nina.no
 \endgroup}
-   \rfoot{\vspace{4.7cm}\hfill\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}
+  % \rfoot{\vspace{2cm}\hspace{-3cm}\includegraphics[height=1.6cm]{logo.eps}\\
+  % \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
+  % }
+  \rfoot{\vspace{2.3cm}\textsc{\savebox{\myheadbox}{\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}\makebox[\wd\myheadbox][c]{\includegraphics[height=1.6cm]{logo.eps}}\\\usebox{\myheadbox}}}
+
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
+    %(current page.west|-current page footer area.north west)
     rectangle
-  (current page.east|-current page footer area.south east);
+  (current page.east|-current page footer area.north east);
+  %(current page text area.south west);
   \end{tikzpicture}
+
+%  \tikz[remember picture,overlay] {%
+%  \draw [blue,line width=2mm]
+%  (current page.south west)
+%  rectangle
+%  (current page.north east)
+%  ;
+%  \draw [green]
+%  (current page text area.south west)
+%  rectangle
+%  (current page text area.north east)
+%  ;
+%  \draw [yellow]
+%  (current page marginpar area.south west)
+%  rectangle
+%  (current page marginpar area.north east)
+%  ;
+%  \draw [red]
+%  (current page header area.south west)
+%  rectangle
+%  (current page header area.north east)
+%  ;
+%  \draw [orange]
+%  (current page footer area.south west)
+% rectangle
+%  (current page footer area.north east)
+%  ;
+%  }%
+
 }
 
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\clearpage~\pagestyle{endfooter}
-  }{\fancyhf{}\newgeometry{bottom=7cm, top=2cm, left=1.5cm, right=1.5cm}\null\pagestyle{endfooter}}
+  \ifthispageodd{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\clearpage~\pagestyle{endfooter}
+  }{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\pagestyle{endfooter}}
 }
 \AtEndDocument{\OpenNewPageIfNeeded}
 
@@ -189,27 +270,22 @@ $endif$
 
 \begin{document}
 
-\newgeometry{bottom=5.5cm, top=2cm}
+\newgeometry{bottom=6cm, top=4.6cm, left=3.2cm, right=1.5cm}
+
 \begin{titlepage}
-
 \thispagestyle{titlefooter}
-\begin{center}
-\vspace{-1cm}
-\Large\shadOrange{\narrow{\textbf{www.nina.no}}}
-\end{center}
-\vspace{2cm}
 
-%\hspace{-1cm}
-\Huge{\darkGrey{\narrowbold{\textbf{NINA}}~\narrow{Kortrapport}}} \hspace{.7cm} \textbf{\orange{$reportnr$}}
-\vspace{2cm}
-
-\Huge{$title$} \par\vspace{.5cm}
-\huge{$subtitle$} \par\vspace{1cm}
-
-$for(author)$
-\LARGE{$author.name$} \par
+\Huge{$title$} \par\vspace{.3cm}
+\huge{$subtitle$} \par\vspace{.6cm}
+$for(first_author)$
+\hspace{0cm}\LARGE{$first_author.name$}
 $endfor$
-
+$for(second_authors)$
+\hspace{-2mm},~\LARGE{$second_authors.name$}
+$endfor$
+ \begin{tikzpicture}[remember picture,overlay, anchor=south west]
+  \node at ([yshift=4.75cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
+ \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
 \newgeometry{bottom=3cm, top=3cm, left=2.5cm, right=2.5cm}
@@ -220,19 +296,23 @@ $endfor$
 
 
 \subsection*{\small{NINA Rapport}}
-{\small Dette er en elektronisk serie fra 2005 som erstatter de tidligere seriene NINA Fagrapport, NINA Oppdragsmelding og NINA Project Report. Normalt er dette NINAs rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.}
-
-\subsection*{\small{NINA Kortrapport}}
-{\small Dette er en enklere og ofte kortere rapportform til oppdragsgiver, gjerne for prosjekt med mindre arbeidsomfang enn det som ligger til grunn for NINA Rapport. Det er ikke krav om sammendrag på engelsk. Rapportserien kan også benyttes til framdriftsrapporter eller foreløpige meldinger til oppdragsgiver.}
+{\small Dette er NINAs ordinære rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel
+fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier.
+NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.}
 
 \subsection*{\small{NINA Temahefte}}
-{\small Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer vekt på illustrasjoner enn NINA Rapport.}
+{\small Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og
+serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige
+problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer
+vekt på illustrasjoner enn NINA Rapport.}
 
 \subsection*{\small{NINA Fakta}}
-{\small Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større publikum. De sendes til presse, ideelle organisasjoner, naturforvaltningen på ulike nivå, politikere og andre spesielt interesserte. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.}
+{\small Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større
+publikum. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.}
 
 \subsection*{\small{Annen publisering}}
-{\small I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.}
+{\small I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine
+vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.}
 
 \clearpage
 \newgeometry{bottom=3cm, top=3cm}
@@ -240,15 +320,17 @@ $endfor$
 \setcounter{page}{1}
 \fancyfoot[C]{
 \newgeometry{bottom=3cm, top=3cm, right=3cm}
-\hfill\Large{\narrowbold{Norsk institutt for naturforskning}}}
+\hfill\LARGE{\narrowbold{Norsk institutt for naturforskning}}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
 \huge{$subtitle$} \par\vspace{1cm}
-$for(author)$
-\hspace{0cm}\LARGE{$author.name$} \par
+$for(first_author)$
+\hspace{0cm}\LARGE{$first_author.name$} \par
 $endfor$
-
+$for(second_authors)$
+\LARGE{$second_authors.name$} \par
+$endfor$
 
 \clearpage
 \newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
@@ -256,37 +338,39 @@ $endfor$
 \fancyhf{}
 \pagestyle{fancy}
 \fancyfoot[c]{\ruleline{\thepage}}
-\fancyhead[c]{\ruleline{\tiny{NINA Kortrapport $reportnr$}}}
+\fancyhead[c]{\ruleline{\tiny{NINA Rapport $reportnr$}}}
 
 \normalsize
 
-\footnotesize{$self-ref$}- NINA Kortrapport $reportnr$ \pageref{LastPage} s. \par \smallspace
+\footnotesize{$self-ref$}NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
 $location$, \ninadate\today \par \smallspace
 ISSN: 2464-2797 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
-{\footnotesize{RETTIGHETSHAVER}} \par
+{\scriptsize{RETTIGHETSHAVER}} \par
 © Norsk institutt for naturforskning  \par
 Publikasjonen kan siteres fritt med kildeangivelse \par \smallspace
-{\footnotesize{TILGJENGELIGHET}} \par
+{\scriptsize{TILGJENGELIGHET}} \par
 $access$ \par \smallspace
-{\footnotesize{PUBLISERINGSTYPE}} \par
+{\scriptsize{PUBLISERINGSTYPE}} \par
 Digitalt dokument (pdf) \par \smallspace
-{\footnotesize{KVALITETSSIKRET AV}} \par
+{\scriptsize{KVALITETSSIKRET AV}} \par
 $qualitycontrol$ \par \smallspace
-{\footnotesize{ANSVARLIG SIGNATUR}} \par
+{\scriptsize{ANSVARLIG SIGNATUR}} \par
 Forskningssjef $boss_sign$ \par \smallspace
-{\footnotesize{OPPDRAGSGIVER(E)/BIDRAGSYTER(E)}} \par
+{\scriptsize{OPPDRAGSGIVER(E)/BIDRAGSYTER(E)}} \par
 $customer$ \par \smallspace
-{\footnotesize{OPPDRAGSGIVERS REFERANSE}} \par
+{\scriptsize{OPPDRAGSGIVERS REFERANSE}} \par
 $customer_ref$ \par \smallspace
-{\footnotesize{KONTAKTPERSON(ER) HOS OPPDRAGSGIVER/BIDRAGSYTER}} \par
+{\scriptsize{KONTAKTPERSON(ER) HOS OPPDRAGSGIVER/BIDRAGSYTER}} \par
 $customer_contact$ \par \smallspace
-{\footnotesize{NØKKELORD}} \par\smallskip
+{\scriptsize{FORSIDEBILDE}} \par
+$cover_picture_text$~ \copyright~ $cover_picture_photographer$ \par \smallspace
+{\scriptsize{NØKKELORD}} \par\smallskip
 $for(keywords)$
 \small{\hyp{} $keywords.word$} \par
 $endfor$
 \vspace{5mm}
-KEY WORDS \par\smallskip
+{\scriptsize{KEY WORDS}} \par\smallskip
 $for(englishkeywords)$
 \small{\hyp{} $englishkeywords.word$} \par
 $endfor$
@@ -297,12 +381,12 @@ $endfor$
 
 \begin{minipage}{\linewidth}
 \scriptsize{KONTAKTOPPLYSNINGER} \par\smallspace
-\footnotesize
+\scriptsize
 \leavevmode\hbox to \linewidth{%
 \hspace{-.25cm}
 \begin{tabular}[t]{l@{}}
 \textbf{NINA hovedkontor} \\
-Postboks 5685 Sluppen\\
+Postboks 5685 Torgarden\\
 7485 Trondheim\\
 Telefon: 73 80 14 00
 \end{tabular}
@@ -316,15 +400,21 @@ Telefon: 73 80 14 00
 \hfill
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Tromsø} \\
-Framsenteret \\
+Postboks 6606 Langnes \\
 9296 Tromsø \\
 Telefon: 77 75 04 00
 \end{tabular}%
 \hfill
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Lillehammer} \\
-Fakkelgården \\
+Vormstuguvegen 40 \\
 2624 Lillehammer \\
+Telefon: 73 80 14 00
+\end{tabular}%
+\begin{tabular}[t]{l@{}}
+\textbf{NINA Bergen} \\
+Thrmølensgate 55 \\
+5006 Bergen \\
 Telefon: 73 80 14 00
 \end{tabular}%
 }
@@ -338,21 +428,43 @@ www.nina.no
 \section{Sammendrag}
 
 
-\footnotesize{$self-ref$} – NINA Kortrapport $reportnr$ \pageref{LastPage} s.\par
+\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
 \vspace{0.5cm}
 \normalsize{
 $sammendrag$} \\
 
 \vspace{1cm}
 \small
-$for(author)$
-$author.name$, $author.address$, $author.email$  \par
+$for(first_author)$
+$first_author.name$, $first_author.address$, $first_author.email$  \par
+$endfor$
+$for(second_authors)$
+$second_authors.name$, $second_authors.address$, $second_authors.email$  \par
 $endfor$
 \normalsize
-
-
-
 \clearpage
+
+\setcounter{secnumdepth}{0}
+\section{Abstract}
+
+
+\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
+\vspace{0.5cm}
+\normalsize{
+$abstract$} \\
+
+\vspace{1cm}
+\small
+$for(first_author)$
+$first_author.name$, $first_author.address$, $first_author.email$  \par
+$endfor$
+$for(second_authors)$
+$second_authors.name$, $second_authors.address$, $second_authors.email$  \par
+$endfor$
+\normalsize
+\clearpage
+
+
 \doublespacing
 \tableofcontents
 \addcontentsline{toc}{section}{Innhold}
@@ -364,7 +476,7 @@ $endfor$
 \normalsize
 $foreword.text$\par
 \medskip
-$foreword.location$, $foreword.date$, $foreword.name$
+$foreword.date$, $foreword.name$
 
 
 
