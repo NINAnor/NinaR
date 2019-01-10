@@ -89,7 +89,8 @@ Når R-pakken `NinaR` er installert, finner man malen i Rstudio gjennom `File ->
   
 Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives in. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. Radnummer til review produseres gjennom `line_numbering: yes`. Selv-referensen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
 
-Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. 
+Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Referansenes stil er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
+
 
 ### Test sub sub heading
 For å lage en "pagebreak", for eksempel mellom ulike kapitel, skriv `\newpage`.

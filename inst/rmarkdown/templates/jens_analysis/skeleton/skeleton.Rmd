@@ -11,6 +11,7 @@ output:
 
 
 ```{r, include = F}
+#Some common packages, loading rmarkdown doesn't like the messages from tidyverse, so we don't include this in the document'
 require(tidyverse)
 require(DBI)
 require(RPostgres)
@@ -21,6 +22,7 @@ require(NinaR)
 
 
 ```{r setup, include=FALSE}
+#This is optional
 #I choose the 'styler' package for tidying the code to preserve indentations
 #I set the cutoff for code tidying to 60
 #I want all figures as png and pdf in high quality in a subfolder called figure
