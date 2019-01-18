@@ -3,17 +3,26 @@ This is an R package that provides Rmarkdown templates and various practical fun
 
 Currently, the package contains the functions:
 
-* addAlpha
-* addLogo
-* ninaLogoPalette
-* ninaPalette
-* ninaKortrapport
+* addAlpha	
+* addLogo	
+* grassConnect	
+* grassDailyPrecip	
+* grassDailyTemp	
+* grassMonthlyPrecip	
+* grassMonthlyTemp	
+* grassViewshed	
+* jensAnalysis	
+* mountFolders	
+* ninaBeamer	
+* ninaLogoPalette	
+* ninaPalette	
+* ninaRapport	
 * ninaSlidy
-* ninaBeamer
-* mountFolders
-* connectGrass
-* getGrassDailyTemp
-* getGrassDailyPrecip
+* postgreSQLConnect	
+* tidyScandinavian
+
+# NOTE!
+At the moment, some functions have not been updated from using the old server (ninsrv16) to the new one (ninrstudio03). So some grass functions doesn't work currently. s
 
 # To-do
 Given time and requests (particularly with resources), I would like to add a NINA report template (similar to the ninaKortrapport). Please contribute if you know your way around LaTeX.
