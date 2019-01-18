@@ -49,9 +49,16 @@ grassDailyTemp <- function(points, start_time, end_time, where=NULL){
   max_y <- max(points$y)
   min_x <- min(points$x)
   min_y <- min(points$y)
+  dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
+
 
   # set the computational region first to the raster map and extent of your points:
-  execGRASS("g.region", align="dem_10m_nosefi@PERMANENT", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p")
+  execGRASS("g.region", align = dem,
+            n = as.character(max_y),
+            s = as.character(min_y),
+            e = as.character(max_x),
+            w = as.character(min_x),
+            flags = "p")
 
   # Add mapset containing time series data
   execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_days,gt_Meteorology_Norway_seNorge_temperature_days")
