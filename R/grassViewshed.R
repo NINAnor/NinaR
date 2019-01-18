@@ -48,13 +48,14 @@ grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevatio
   max_y <- my_point$y + 1.1*dist
   min_x <- my_point$x - 1.1*dist
   min_y <- my_point$y - 1.1*dist
+  dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   ##Set g.region
-  execGRASS("g.region", align = "dem_10m_nosefi@PERMANENT",
+  execGRASS("g.region", align = dem,
             n = as.character(max_y), s = as.character(min_y), e = as.character(max_x),
             w = as.character(min_x))
   ##Get viewshed
-  execGRASS("r.viewshed", parameters = list(input = "dem_10m_nosefi@PERMANENT", output = "viewshed_raster",
+  execGRASS("r.viewshed", parameters = list(input = dem, output = "viewshed_raster",
                                             coordinates = c(my_point$x, my_point$y),
                                             observer_elevation = observer_elevation,
                                             target_elevation = target_elevation,
