@@ -25,7 +25,7 @@ The function calls the login script on the servers which mounts the folders:
 \item Maler (R:\\Maler)
 }
 
-On ninrstudio03 the folders in R:\ is available through HOME\Mounted or HOME\Mounts
+On ninrstudio03 the folders in R:\ is available through HOME\\Mounted or HOME\\Mounts
 }
 \examples{
 \dontrun{

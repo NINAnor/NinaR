@@ -14,7 +14,7 @@
 #' \item Maler (R:\\Maler)
 #' }
 #'
-#' On ninrstudio03 the folders in R:\ is available through HOME\Mounted or HOME\Mounts
+#' On ninrstudio03 the folders in R:\ is available through HOME\\Mounted or HOME\\Mounts
 #'
 #'
 #'

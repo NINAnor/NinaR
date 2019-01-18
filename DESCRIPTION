@@ -1,7 +1,7 @@
 Package: NinaR
 Type: Package
 Title: Document templates and functions for NINA
-Version: 0.2.1.000
+Version: 0.2.1.001
 Date: 2019-01-10
 Author: Jens Åström
 Authors@R: c(
