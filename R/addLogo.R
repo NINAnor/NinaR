@@ -35,12 +35,10 @@
 addLogo <- function(x = getOption("nina.logo.x.pos", 0.85),
                     y = getOption("nina.logo.y.pos", 0.1),
                     size = 0.2) {
-require(grImport)
-require(grid) ##Necessary?
 
-#PostScriptTrace(system.file("img/logo.ps", package = "NinaR"))
-logo <- readPicture(system.file("img/logo.ps.xml", package = "NinaR"))
-pushViewport(plotViewport())
-grid.picture(logo, width = size, x = unit(x, "npc"), y = unit(y, "npc"))
+
+logo <- grImport::readPicture(system.file("img/logo.ps.xml", package = "NinaR"))
+grid::pushViewport(grid::plotViewport())
+grImport::grid.picture(logo, width = size, x = unit(x, "npc"), y = unit(y, "npc"))
 }
 
