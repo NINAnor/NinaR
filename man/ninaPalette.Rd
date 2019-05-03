@@ -4,16 +4,16 @@
 \alias{ninaPalette}
 \title{ninaPalette}
 \usage{
-ninaPalette()
+ninaPalette(palette = "main", reverse = FALSE, ...)
 }
 \arguments{
-\item{Function}{accepts no params}
+\item{palette}{choose between "main" and "logo" palettes.}
 }
 \value{
-Returns 5 figure colors
+Returns the 5 or 3 NINA figure colors
 }
 \description{
-# Creates a NINA figure color palette
+Creates a NINA figure color palette
 }
 \details{
 Colors conform to the 'NINA Grafisk handbok'
@@ -26,5 +26,5 @@ barplot(runif(5), col=ninaPalette())
 \code{\link{ninaLogoPalette}}
 }
 \author{
-Jens Astrom, Kari Sivertsen
+Jens Astrom, Kari Sivertsens
 }

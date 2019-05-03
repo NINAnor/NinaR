@@ -10,12 +10,14 @@ vignette: >
 ---
 ```{r, echo=F, message=F}
 require(NinaR)
+require(grid)
+require(ggplot2)
 ```
 
 
 Intro
 ==============
-The `NinaR` package provides functions for using the recommended NINA colors in R-figures. Currently, the package provides palette functions for providing accent colors and the colors found in the logotype, and a function that adds transparency to colors as an alpha channel.
+The `NinaR` package provides functions for using the recommended NINA colors in R-figures. Currently, the package provides a standard palette function for providing accent colors and the colors found in the logotype, and a function that adds transparency to colors as an alpha channel. It also contains a ggplot2 color scale for fills and colors.
 
 In addition, the package provides a function for adding the Nina logo to a plot.
 
@@ -65,4 +67,32 @@ grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
 points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
 ```
 
+ggplot2
+============
+
+I have also added two ggplot scales, `scale_fill_nina` and `scale_color_nina`. As the names suggests, they should be used in cases where you define colors by the fill or color aesthetics, respectively. Both have the options to define the palettes, which are "main" and "logo" at the moment, and if the scale is discrete or not (continuous). These aren't the prettiest examples, but you get the picture. I plan to add more palettes later on, for example some to use with continous gradients.
+
+```{r scale_fill_nina_continous, fig.width=7, fig.height=5}
+g <- ggplot(faithfuld, aes(waiting, eruptions))
+g + geom_raster(aes(fill = density)) +
+  scale_fill_nina(discrete = F)
+```
+
+```{r scale_fill_nina_discrete, fig.width=7, fig.height=5}
+g <- ggplot(mpg, aes(class))
+g + geom_bar(aes(fill = drv)) +
+   scale_fill_nina(palette = "logo")
+```
+
+```{r scale_color_nina_discrete, fig.width=7, fig.height=5}
+g <- ggplot(mpg, aes(cyl, hwy)) 
+g + geom_point(aes(colour = drv)) +
+   scale_color_nina(discrete = T)
+```
+
+```{r scale_color_nina_continuous, fig.width=7, fig.height=5}
+g <- ggplot(mpg, aes(cty, hwy)) 
+g + geom_point(aes(colour = cyl)) +
+   scale_color_nina(discrete = F)
+```
 

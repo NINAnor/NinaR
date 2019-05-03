@@ -13,7 +13,7 @@ ninaLogoPalette()
 Returns 3 logo colors
 }
 \description{
-Creates a NINA logo color palette
+Depreciated function, is surpassed by ninaPalette and will be deleted in the future. Creates a NINA logo color palette
 }
 \details{
 Colors conform to the 'NINA Grafisk handbok'

@@ -1,6 +1,6 @@
 #' ninaLogoPalette
 #'
-#' Creates a NINA logo color palette
+#' Depreciated function, is surpassed by ninaPalette and will be deleted in the future. Creates a NINA logo color palette
 #'
 #' Colors conform to the 'NINA Grafisk handbok'
 #'
@@ -16,5 +16,5 @@
 #' @export
 
 ninaLogoPalette <- function(){
-  c("#A2AAAD", "#2DCCD3", "#FFB25B")
+  ninaPalette(palette = "logo")
 }
