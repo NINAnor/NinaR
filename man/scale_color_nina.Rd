@@ -8,7 +8,7 @@ scale_color_nina(palette = "main", discrete = TRUE, reverse = FALSE,
   ...)
 }
 \arguments{
-\item{palette}{Character name of palette in ninaPalette}
+\item{palette}{Character name of palette in ninaPalette, see \link{ninaPalette}}
 
 \item{discrete}{Boolean indicating whether color aesthetic is discrete or not}
 
@@ -22,4 +22,12 @@ ggplot2 color scales for NINA colors
 }
 \details{
 Shamelessly taken from https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2
+}
+\examples{
+
+ggplot(mpg, aes(cyl, hwy)) +
+geom_point(aes(colour = drv)) +
+  scale_color_nina(discrete = T)
+
+
 }

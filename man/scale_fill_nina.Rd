@@ -8,7 +8,7 @@ scale_fill_nina(palette = "main", discrete = TRUE, reverse = FALSE,
   ...)
 }
 \arguments{
-\item{palette}{Character name of palette in ninaPalette}
+\item{palette}{Character name of palette in ninaPalette, see \link{ninaPalette}}
 
 \item{discrete}{Boolean indicating whether color aesthetic is discrete or not}
 
@@ -22,4 +22,17 @@ ggplot fill scale constructor for NINA colors
 }
 \details{
 Shamelessly taken from https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2
+}
+\examples{
+
+par(ask =T)
+
+ g <- ggplot(faithfuld, aes(waiting, eruptions))
+ g + geom_raster(aes(fill = density)) +
+   scale_fill_nina(discrete = F)
+
+ g <- ggplot(mpg, aes(class))
+ g + geom_bar(aes(fill = drv)) +
+   scale_fill_nina(palette = "logo")
+
 }
