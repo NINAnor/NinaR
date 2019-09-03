@@ -9,6 +9,8 @@ output:
     highlight: tango
     incremental: FALSE
     toc: FALSE
+    includes:
+      in_header: header.tex
 ---
 
 

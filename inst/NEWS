@@ -1,3 +1,8 @@
+NinaR 0.2.2.002
+-------------------
+Added nina ggplot color scales
+Fixed enumerated lists in NINA beamer template
+
 NinaR 0.1.7
 -------------------
 Added package stringi as dependency
