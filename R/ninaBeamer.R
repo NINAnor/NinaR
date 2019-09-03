@@ -31,9 +31,9 @@ ninaBeamer <- function(...,
                              keep_tex = TRUE,
                              md_extensions = c("-autolink_bare_uris","+header_attributes")) {
   inherit_beamer(...,
-                       template = find_resource("nina_beamer", "template.tex"),
-                       keep_tex = keep_tex,
-                       md_extensions = md_extensions,
-                       latex_engine = "xelatex")
+                 template = find_resource("nina_beamer", "template.tex"),
+                 keep_tex = keep_tex,
+                 md_extensions = md_extensions,
+                 latex_engine = "xelatex")
 
 }
