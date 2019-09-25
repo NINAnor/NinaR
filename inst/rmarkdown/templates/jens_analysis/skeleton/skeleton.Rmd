@@ -45,11 +45,10 @@ palette(ninaPalette())
 
 
 ```{r, include = F, eval = F}
-#This connects to the gisdatabase. 
+#This connects to the gisdatabase with a DBI connection named `con`.
 #Use for example dbGetQuery(con, "SELECT * FROM ....") to query the database
-con <- dbConnect(Postgres(), 
-                 host = "gisdata-db.nina.no", 
+postgreSQLConnect(host = "gisdata-db.nina.no", 
                  dbname = "gisdata", 
-                 user = "postgjest", 
+                 username = "postgjest", 
                  password = "gjestpost")
 ```

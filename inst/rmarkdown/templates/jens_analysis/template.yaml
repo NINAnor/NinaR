@@ -1,5 +1,5 @@
 name: NINA Analysis (Jens)
 description: >
  Template for a pdf Analysis with NINA modifications
-create_dir: true
+create_dir: false
 
