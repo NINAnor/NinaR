@@ -53,12 +53,38 @@ nina_palettes <- list(
 )
 
 
+# ninaPaletteGgplot <- function(palette = "main", reverse = FALSE, ...) {
+#   pal <- nina_palettes[[palette]]
+#
+#   if (reverse) pal <- rev(pal)
+#
+#   colorRampPalette(pal, ...)
+# }
+
+
 ninaPaletteGgplot <- function(palette = "main", reverse = FALSE, ...) {
   pal <- nina_palettes[[palette]]
+  if(reverse) pal <- rev(pal)
 
-  if (reverse) pal <- rev(pal)
+  manual_pal(unname(pal),
+             ...)
 
-  colorRampPalette(pal, ...)
 }
 
 
+manual_pal <- function(values,
+                       ...)
+{
+  force(values)
+  function(n) {
+    n_values <- length(values)
+    if (n <= n_values) {
+      return(values[seq_len(n)])
+
+    } else {
+      colorRampPalette(values,
+                       ...)(n)
+    }
+
+  }
+}
