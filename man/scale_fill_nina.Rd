@@ -4,18 +4,25 @@
 \alias{scale_fill_nina}
 \title{scale_fill_nina}
 \usage{
-scale_fill_nina(palette = "main", discrete = TRUE, reverse = FALSE,
-  ...)
+scale_fill_nina(
+  palette = "main",
+  discrete = TRUE,
+  reverse = FALSE,
+  name = waiver(),
+  ...
+)
 }
 \arguments{
-\item{palette}{Character name of palette in ninaPalette, see \link{ninaPalette}}
+\item{palette}{Character name of palette in ninaPalette, "main" and "logo" represents separate officially defined palettes. Others are various combinations of these colors, most usefull for continuous scales. See \link{ninaPalette}.}
 
-\item{discrete}{Boolean indicating whether color aesthetic is discrete or not}
+\item{discrete}{Boolean indicating whether color aesthetic is discrete or not.}
 
-\item{reverse}{Boolean indicating whether the palette should be reversed}
+\item{reverse}{Boolean indicating whether the palette should be reversed.}
+
+\item{name}{The name of the legend. Defaults to waiver(), in which case the name of the scale is taken from the first mapping used for that aesthetic. If NULL, the legend title will be omitted.}
 
 \item{...}{Additional arguments passed to discrete_scale() or
-scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE}
+scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE.}
 }
 \description{
 ggplot fill scale constructor for NINA colors
@@ -29,7 +36,9 @@ par(ask =T)
 
  g <- ggplot(faithfuld, aes(waiting, eruptions))
  g + geom_raster(aes(fill = density)) +
-   scale_fill_nina(discrete = F)
+   scale_fill_nina(discrete = F,
+                   name = "Eruptions",
+                   palette = "darkblue-green")
 
  g <- ggplot(mpg, aes(class))
  g + geom_bar(aes(fill = drv)) +

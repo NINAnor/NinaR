@@ -7,7 +7,7 @@
 ninaPalette(palette = "main", reverse = FALSE, ...)
 }
 \arguments{
-\item{palette}{choose between "main" and "logo" palettes.}
+\item{palette}{choose between "main" and "logo" palettes, or some combinations of the colors in `ninaColors()`. See \link{nina_palettes}.}
 }
 \value{
 Returns the 5 or 3 NINA figure colors

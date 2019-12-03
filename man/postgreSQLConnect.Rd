@@ -4,11 +4,24 @@
 \alias{postgreSQLConnect}
 \title{postgreSQLConnect}
 \usage{
-postgreSQLConnect(username = "postgjest", password = "gjestpost",
-  host = "gisdata-db.nina.no", dbname = "gisdata", ...)
+postgreSQLConnect(
+  username = "postgjest",
+  password = "gjestpost",
+  host = "gisdata-db.nina.no",
+  dbname = "gisdata",
+  ...
+)
 }
 \arguments{
-\item{Function}{accepts no params}
+\item{username}{Defaults to "postgjest"}
+
+\item{password}{Defaunts to "gjestpost"}
+
+\item{host}{Database server name (DNS). Defaults to gisdata-db.nina.no}
+
+\item{dbname}{Database name. Defaults to gisdata.}
+
+\item{...}{Additional arguments passed to the RPostgres driver (dbConnect,PqDriver-method {RPostgres}). Use for example bigint = "integer" to avoid integer64 data types.}
 }
 \description{
 Connects to the PostgreSQL database gisdata-db.nina.no.

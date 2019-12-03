@@ -4,8 +4,13 @@
 \alias{grassMonthlyTemp}
 \title{grassMonthlyTemp}
 \usage{
-grassMonthlyTemp(points, start_time, end_time, where = NULL,
-  type = c("mean", "min", "max", "range"))
+grassMonthlyTemp(
+  points,
+  start_time,
+  end_time,
+  where = NULL,
+  type = c("mean", "min", "max", "range")
+)
 }
 \arguments{
 \item{points}{Data frame containing latitude and longitude in etrs89 / utm zone 33n (EPSG:25833). In practice, this is identical to UTM33n

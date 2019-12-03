@@ -4,7 +4,7 @@
 #'
 #' Colors conform to the 'NINA Grafisk handbok'
 #'
-#' @param palette choose between "main" and "logo" palettes.
+#' @param palette choose between "main" and "logo" palettes, or some combinations of the colors in `ninaColors()`. See \link{nina_palettes}.
 #' @return Returns the 5 or 3 NINA figure colors
 #' @author Jens Astrom, Kari Sivertsens
 #' @seealso \code{\link{ninaLogoPalette}}
@@ -15,7 +15,7 @@
 
 ninaPalette <- function(palette = "main", reverse = FALSE, ...) {
 
-  palette <- match.arg(palette, c("main", "logo"))
+  palette <- match.arg(palette, names(nina_palettes))
 
   pal <- nina_palettes[[palette]]
 
@@ -24,11 +24,32 @@ ninaPalette <- function(palette = "main", reverse = FALSE, ...) {
   pal
 }
 
-
+#' @export
 nina_palettes <- list(
   `main`  = ninaColors("dark blue", "blue", "orange", "purple", "green"),
 
-  `logo`  = ninaColors("grey", "light blue", "yellow")
+  `logo`  = ninaColors("grey", "light blue", "yellow"),
+
+  `darkblue-blue` = ninaColors("dark blue", "blue"),
+
+  `darkblue-orange` = ninaColors("dark blue", "orange"),
+
+  `blue-orange` =  ninaColors("blue", "orange"),
+
+  `orange-purple` =  ninaColors("orange", "purple"),
+
+  `purple-green` =  ninaColors("purple", "green"),
+
+  `darkblue-orange` = ninaColors("dark blue", "orange"),
+
+  `darkblue-green` = ninaColors("dark blue", "green"),
+
+  `orange-green` = ninaColors("orange", "green"),
+
+  `grey-yellow` = ninaColors("grey", "yellow"),
+
+  `lightblue-yellow` = ninaColors("light blue", "yellow")
+
 )
 
 

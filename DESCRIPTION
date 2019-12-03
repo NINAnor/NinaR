@@ -1,8 +1,8 @@
 Package: NinaR
 Type: Package
 Title: Document templates and functions for NINA
-Version: 0.2.2.003
-Date: 2019-09-25
+Version: 0.2.2.1
+Date: 2019-12-03
 Author: Jens Åström
 Authors@R: c(
   person("Jens", "Åström", role = c("aut", "cre"), email = "jens.astrom@nina.no")
@@ -19,5 +19,5 @@ Suggests: knitr
 Imports: utils, rmarkdown, knitr, yaml, grImport, grid, XML, tikzDevice, stringi, NCmisc
 LazyData: TRUE
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 VignetteBuilder: knitr

@@ -3,7 +3,6 @@
 \docType{package}
 \name{NinaR}
 \alias{NinaR}
-\alias{NinaR-package}
 \title{NinaR: document templates and functions for NINA}
 \description{
 NinaR provides helper functions for using NINA color schemes

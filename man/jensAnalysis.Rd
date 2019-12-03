@@ -4,8 +4,11 @@
 \alias{jensAnalysis}
 \title{NINA Analysis pdf format.}
 \usage{
-jensAnalysis(..., keep_tex = TRUE,
-  md_extensions = c("-autolink_bare_uris", "+header_attributes"))
+jensAnalysis(
+  ...,
+  keep_tex = TRUE,
+  md_extensions = c("-autolink_bare_uris", "+header_attributes")
+)
 }
 \arguments{
 \item{...}{Additional arguments to \code{rmarkdown::pdf_document}}
@@ -13,7 +16,7 @@ jensAnalysis(..., keep_tex = TRUE,
 \item{keep_tex}{Keep the intermediate tex file used in the conversion to PDF}
 
 \item{md_extensions}{Markdown extensions to be added or removed from the
-default definition or R Markdown. See the \code{\link{rmarkdown_format}} for
+default definition or R Markdown. See the \code{\link[rmarkdown]{rmarkdown_format}} for
 additional details.}
 }
 \value{

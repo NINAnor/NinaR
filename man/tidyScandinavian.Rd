@@ -16,9 +16,9 @@ This is a convenience function that translates Scandinavian hestringadecimal cha
 \examples{
 #to use
 myData <- data.frame("locations" = c(1, 2, 3),
-                     "messyNames" = c("Tr\\xf8ndelag",
-                                  "\\xf6stersund",
-                                  "G\\xe6len"))
+                     "messyNames" = c("Tr\xf8ndelag",
+                                  "\xf6stersund",
+                                  "G\xe6len"))
 
 myData$tidyName <- tidyScandinavian(myData$messyNames)
 }

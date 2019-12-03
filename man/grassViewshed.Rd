@@ -4,8 +4,13 @@
 \alias{grassViewshed}
 \title{grassViewshed}
 \usage{
-grassViewshed(xycoords, return = TRUE, dist = 100,
-  observer_elevation = 1.75, target_elevation = 0)
+grassViewshed(
+  xycoords,
+  return = TRUE,
+  dist = 100,
+  observer_elevation = 1.75,
+  target_elevation = 0
+)
 }
 \arguments{
 \item{xycoords}{data frame containing columns "x" and "y" containint longitude and latitude in EPSG:25833}
