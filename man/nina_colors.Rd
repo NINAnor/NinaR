@@ -4,7 +4,9 @@
 \name{nina_colors}
 \alias{nina_colors}
 \title{ninaColors}
-\format{An object of class \code{character} of length 8.}
+\format{
+An object of class \code{character} of length 8.
+}
 \usage{
 nina_colors
 }

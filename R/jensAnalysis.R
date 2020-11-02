@@ -40,7 +40,7 @@
 #'
 #' @export
 jensAnalysis <- function(...,
-                             keep_tex = TRUE,
+                             keep_tex = FALSE,
                              md_extensions = c("-autolink_bare_uris","+header_attributes")) {
   inherit_pdf_document(...,
                        template = find_resource("jens_analysis", "template.tex"),

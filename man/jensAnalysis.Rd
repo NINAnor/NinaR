@@ -6,7 +6,7 @@
 \usage{
 jensAnalysis(
   ...,
-  keep_tex = TRUE,
+  keep_tex = FALSE,
   md_extensions = c("-autolink_bare_uris", "+header_attributes")
 )
 }
