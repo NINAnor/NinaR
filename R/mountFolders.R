@@ -1,9 +1,9 @@
 #' mountFolders
 #'
-#' Mounts folders from the Nina Windows environment on Ninsrv16 or ninrstudio03
+#' Mounts folders from the Nina Windows environment on ninrstudiox
 #'
 #' Only works when run on these Linux server, and stops if checks fail to identify the running machine as such.
-#' Meant to be run on the Rstudio-server at http://ninsrv16:8787 or ninrstudio03.nina.no
+#' Meant to be run on the Rstudio-server at ninrstudio03.nina.no
 #'
 #' The function calls the login script on the servers which mounts the folders:
 #' \itemize{
@@ -29,25 +29,13 @@
 
 mountFolders <- function(){
 
-  #Check that is is run on NINSRV16 or ninrstudio03
-  host<-NULL
-  try(host <- system("hostname", intern = T))
-
-  if(host != "NINSRV16" & host != "ninrstudio03"){
-    stop("Must be run on Ninsrv16 or ninrstudio03!")
-  }
-
-    #Ask for password
+  #Ask for password
   passw <- .rs.askForPassword("Enter your Windows password:")
 
-  if(host == "NINSRV16"){
-  #Run mount script
-  system("/usr/bin/mount.sh", input = passw)
-  } else system("/usr/bin/kinit", input = passw)
+  # Try to reset credits
+  try(system("/usr/bin/kinit", input = passw), silent=TRUE)
 
   #Delete password string (not sure is needed)
   rm(passw)
-
-
 
 }
