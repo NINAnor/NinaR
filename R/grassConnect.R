@@ -17,32 +17,27 @@
 #' @export
 
 
-grassConnect <- function(){
+grassConnect <- function(location="ETRS_33N", mapset="user"){
     host <- NULL
     try(host <- system("hostname", intern = T))
     if (grepl("ninrstudio", host)) {
       require(rgrass7)
-      user <- Sys.info()["user"]
       gisDbase <- "/data/grass"
-      location <- "ETRS_33N"
-      mapset <- paste("u_", user, sep = "")
-      wd <- paste(gisDbase, location, mapset, sep = "/")
-      try(system(paste("grass -text -c -e", wd)))
-      grasslib <- try(system('grass --config', intern=TRUE))[4]
-      initGRASS(gisBase = grasslib, location = location,
-                mapset = mapset, gisDbase = gisDbase, override = TRUE)
-    } else
-      if (host == "NINSRV16") {
-        require(rgrass7)
-        user <- Sys.info()["user"]
-        gisDbase <- "/data/grassdata"
-        location <- "ETRS_33N"
-        mapset <- paste("u_", user, sep = "")
+      #location <- "ETRS_33N"
+      if(mapset=="user") {
+          user <- Sys.info()["user"]
+          mapset <- paste("u_", user, sep = "")
+      }
+      if(TRUE %in% startsWith(mapset, c("u_", "p_", "g_", "gt_"))) {
         wd <- paste(gisDbase, location, mapset, sep = "/")
-        try(system(paste("grass72 -text -c -e", wd)))
-        initGRASS(gisBase = "/usr/local/grass-7.2.1svn/", location = location,
+        try(system(paste("grass -text -c -e", wd)))
+        grasslib <- try(system('grass --config path', intern=TRUE))
+        initGRASS(gisBase = grasslib, location = location,
                   mapset = mapset, gisDbase = gisDbase, override = TRUE)
-      } else stop("Must be run on Ninsrv16 or Ninrstudio01!")
+      } else {
+        stop("Mapset name does not follow naming convention! Please check: http://web.nina.no/giswiki/doku.php?id=ninsrv16:grassgisbase")
+      }
+    }  else stop("Must be run on one of NINAs Linux servers!")
 }
 
 
