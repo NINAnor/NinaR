@@ -147,7 +147,7 @@ Eksisterende bilder kan også legges till gjennom vanlig markdown syntax. Noter 
 Hvis man trenger fler muligheter for definisjon av størrelse på en ferdig bilde, kan man også inkludere den med et avsnitt R-kod.
 
 ```{r timer, echo = F, out.width = '10cm', fig.align = 'center', dev ='pdf', fig.cap = "NINA-logoen i større format \\label{logo_stor}"}
-knitr::include_graphics("logo")
+knitr::include_graphics("logo.eps")
 ```
 
 
