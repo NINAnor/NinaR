@@ -10,11 +10,11 @@ mountFolders()
 \item{The}{function takes no parameters but asks for the password in an interactive prompt}
 }
 \description{
-Mounts folders from the Nina Windows environment on Ninsrv16 or ninrstudio03
+Mounts folders from the Nina Windows environment on ninrstudiox
 }
 \details{
 Only works when run on these Linux server, and stops if checks fail to identify the running machine as such.
-Meant to be run on the Rstudio-server at http://ninsrv16:8787 or ninrstudio03.nina.no
+Meant to be run on the Rstudio-server at ninrstudio03.nina.no
 
 The function calls the login script on the servers which mounts the folders:
 \itemize{

@@ -4,7 +4,7 @@
 \alias{grassConnect}
 \title{grassConnect}
 \usage{
-grassConnect()
+grassConnect(location = "ETRS_33N", mapset = "user")
 }
 \arguments{
 \item{Function}{accepts no params}
