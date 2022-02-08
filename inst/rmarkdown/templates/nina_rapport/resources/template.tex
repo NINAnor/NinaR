@@ -7,6 +7,19 @@ $endif$
 %For fill text
 \usepackage{blindtext}
 
+%For equations
+\usepackage{amsmath}
+%\savesymbol{medspace}
+%\usepackage{txfonts}
+
+%for tables spanning pages
+\usepackage{longtable}
+
+%Force floats to appear after text
+%\usepackage{flafter}
+
+
+
 %For linenumbers
 $if(line_numbering)$
 \usepackage{lineno}
@@ -23,6 +36,9 @@ $endif$
             $endfor$
              $for(second_authors)$
               ,~$second_authors.name$
+             $endfor$
+            $for(last_author)$
+              ,~$last_author.name$
              $endfor$
             },
             pdftitle={$title$},
@@ -51,9 +67,13 @@ $endif$
 \setmainfont{Arial}
 \newfontfamily{\narrow}{Arial Narrow}
 \newfontfamily{\narrowbold}{Arial Narrow Bold}
+%\restoresymbol{fontspec}{medspace}
 
 %To insert manual hyphens
 \usepackage{hyphenat}
+
+%To set caption font
+\usepackage[font=it,labelfont=bf]{caption}
 
 %To place table caption above table
 \usepackage{float}
@@ -73,7 +93,7 @@ $endif$
 \contentsmargin{0em}
 %\dottedcontents{section}[2.3em]{\bfseries}{1.3em}{5pt}
 \dottedcontents{section}[1.3em]{\bfseries}{1.3em}{5pt}
-\dottedcontents{subsection}[4.1em]{}{1.9em}{5pt}
+\dottedcontents{subsection}[4.1em]{}{2.9em}{5pt}
 \dottedcontents{subsubsection}[6.6em]{}{2.9em}{5pt}
 \dottedcontents{paragraph}[10.2em]{}{3.6em}{5pt} %%too wide dots
 \usepackage{setspace}
@@ -98,7 +118,7 @@ $endif$
 \titlespacing*{\paragraph}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 
 \newcommand{\smallspace}{\vspace{3mm}}
-\newcommand{\medspace}{\vspace{5mm}}
+%\newcommand{\medspace}{\vspace{5mm}}
 
 %Adjust paragraph indentations
 %\setlength{\parindent}{0pt}
@@ -180,7 +200,7 @@ $endif$
     NINAs virksomhet omfatter både forskning og utredning, miljøoveråking, rådgivning og evaluering. NINA har stor bredde i kompetanse og erfaring med både naturvitere og samfunnsvitere i staben. Vi har kunnskap om artene, naturtypene, sammfunnets bruk av naturen og sammenhenger med de store drivkreftene i naturen.} \end{flushleft}}
     \end{minipage}
     \vspace{3cm}
-    \vfill{}{\normalsize{ISSN: 2464-2797 \\
+    \vfill{}{\normalsize{ISSN: 1504-3312 \\
   ISBN: 978-82-426-$ISBN_end$}}
   \end{center}
   \lfoot{\color{darkgrey}\vspace{0.5cm}\Large\narrow{\textbf{Norsk institutt for naturforskning}}\\
@@ -278,12 +298,16 @@ $endif$
 \Huge{$title$} \par\vspace{.3cm}
 \huge{$subtitle$} \par\vspace{.6cm}
 $for(first_author)$
-\hspace{0cm}\LARGE{$first_author.name$}
+\hspace{0cm}\Large{$first_author.name$},
 $endfor$
 $for(second_authors)$
-\hspace{-2mm},~\LARGE{$second_authors.name$}
+\hspace{-2mm}~\Large{$second_authors.name$},
 $endfor$
- \begin{tikzpicture}[remember picture,overlay, anchor=south west]
+$for(last_author)$
+\hspace{-2mm}~\Large{$last_author.name$}
+$endfor$
+
+\begin{tikzpicture}[remember picture,overlay, anchor=south west]
   \node at ([yshift=4.75cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
@@ -331,6 +355,9 @@ $endfor$
 $for(second_authors)$
 \LARGE{$second_authors.name$} \par
 $endfor$
+$for(last_author)$
+\LARGE{$last_author.name$} \par
+$endfor$
 
 \clearpage
 \newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
@@ -342,9 +369,9 @@ $endfor$
 
 \normalsize
 
-\footnotesize{$self-ref$}NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
+\footnotesize{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
 $location$, \ninadate\today \par \smallspace
-ISSN: 2464-2797 \par
+ISSN: 1504-3312 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
 {\scriptsize{RETTIGHETSHAVER}} \par
 © Norsk institutt for naturforskning  \par
@@ -393,8 +420,8 @@ Telefon: 73 80 14 00
 \hfill
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Oslo} \\
-Gaustadalléen 21 \\
-0349 Oslo \\
+Sognsveien 68 \\
+0855 Oslo \\
 Telefon: 73 80 14 00
 \end{tabular}%
 \hfill
@@ -413,7 +440,7 @@ Telefon: 73 80 14 00
 \end{tabular}%
 \begin{tabular}[t]{l@{}}
 \textbf{NINA Bergen} \\
-Thrmølensgate 55 \\
+Thormøhlensgate 55 \\
 5006 Bergen \\
 Telefon: 73 80 14 00
 \end{tabular}%
@@ -441,6 +468,9 @@ $endfor$
 $for(second_authors)$
 $second_authors.name$, $second_authors.address$, $second_authors.email$  \par
 $endfor$
+$for(last_author)$
+$last_author.name$, $last_author.address$, $last_author.email$  \par
+$endfor$
 \normalsize
 \clearpage
 
@@ -461,6 +491,9 @@ $endfor$
 $for(second_authors)$
 $second_authors.name$, $second_authors.address$, $second_authors.email$  \par
 $endfor$
+$for(last_author)$
+$last_author.name$, $last_author.address$, $last_author.email$  \par
+$endfor$
 \normalsize
 \clearpage
 
@@ -476,7 +509,9 @@ $endfor$
 \normalsize
 $foreword.text$\par
 \medskip
-$foreword.date$, $foreword.name$
+$foreword.location$, $foreword.date$\par
+\medskip
+$foreword.name$
 
 
 

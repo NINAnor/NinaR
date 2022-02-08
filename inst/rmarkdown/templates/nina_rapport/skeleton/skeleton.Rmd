@@ -12,7 +12,8 @@ second_authors:
   - name: [Skriv in forfatter her]
     address: [Author adress]
     email: for.efternavn@nina.no
-  - name: [Skriv in forfatter her]
+last_author:    
+  - name: [Skriv in siste forfatter her]
     address: [Author adress]
     email: for.efternavn@nina.no
 reportnr: 1234
@@ -51,7 +52,11 @@ foreword:
     text: [Forord inn her]
     location: [Sted, forord]
     name: [Prosjektleder]
-sammendrag: Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her.} Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.
+sammendrag: |
+  Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her.} Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.\
+  \
+  Seksjoner og tomme rader mellom dem er litt tricky å få til i YAML-avsnittet, men det kan gjøres slik. Tomme rader i forordet kan også lages på samme måte.
+  
 abstract: Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her.} Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.
 ---
 
@@ -67,12 +72,10 @@ options(width = 60,
 
 ```
 
-Innledning
-==================
+# Innledning {#inl}
 Dette er et eksempel på en NINA Rapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for rapporter. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/). Rstudio er særskilt tilpasset til `rmarkdown`, men mallen kan også brukes direkte i R (også via terminalen/Command Prompt). Kommandoet `rmarkdown::render("din_rapport.Rmd")` genererer en pdf, alternativt bruk knappen "Knit" i Rstudio.
 
 ## Fremgangsmåte
-
 
 *For å bruke mallen trengs:*
 
@@ -93,10 +96,12 @@ Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Peder
 
 
 ### Test sub sub heading
-For å lage en "pagebreak", for eksempel mellom ulike kapitel, skriv `\newpage`.
+For å lage en "pagebreak", for eksempel mellom ulike kapitel, skriv `\newpage`. `\clearpage` fungerer lignede, men da tvinges det frem en plassering av alle bilder til nå, og da kan de ofte havne på en egen side. Prøv deg frem.
 
 ### En til sub sub heading
-Da denne malle er ny og relativt uprøvd, tag gjerne kontakt med Jens Åström så resultatet kan kvalitetssjekkes før publisering. Spørsmål og synspunkter kan også sendes til densamme.
+Da denne malle er fortsatt ikke perfekt, men har blitt brukt (og godjkent av Biblioteket og brukt for et prosjekt til Miljødirektoratet). Spørsmål og synspunkter kan også sendes til Jens Åström. 
+
+Det kan gå kjappere å skrive rapporter i dette format, men det gjenstår ofte noen småfix med formateringer på slutten. Plassering av bilder kan til hvis grad styres gjennom å endre på størrelsen til dem (f.eks. out.width eller fig.width), eller gjennom å overstyre plasseringen (f.eks. fig.pos = "!hb"). Men alt er ikke mulig å styre helt så foreløpig må man akseptere noen plasseringer. 
 
 \paragraph{Prøver meg på en sub sub sub heading}
 Obs at 4-nivåseksjoner må skrives med `\paragraph{titell}`!
@@ -105,7 +110,7 @@ Obs at 4-nivåseksjoner må skrives med `\paragraph{titell}`!
 
 
 
-Resultater
+Resultater {#res}
 ========
 R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokumentet.
 
@@ -151,7 +156,8 @@ knitr::include_graphics("logo.eps")
 ```
 
 
-Vi kan også referere til bilder, for eksempel til figur \ref{logoen}, som er inkludert i mallen. Notere at man må ha to `\\` for figurer laget i R men en `\` for  "eksterne" bilder. 
+Vi kan også referere til bilder, for eksempel til figur \ref{logoen}, som er inkludert i mallen. Notere at man må ha to `\\` for figurer laget i R men en `\` for  "eksterne" bilder. Man kan referere til seksjoner ved å angi en referanse i headingen `{#seksjon}`. Se dette eksempel for å referere til innledningen i kapittel \ref{inl}.
+
 
 \clearpage
 
