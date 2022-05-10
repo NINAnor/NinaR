@@ -26,12 +26,6 @@ Currently, the package contains the functions:
 * scale_fill_nina
 * tidyScandinavian
 
-# NOTE!
-At the moment, some functions have not been updated from using the old server (ninsrv16) to the new one (ninrstudio03). So some grass functions might not work.
-
-# To-do
-I have added a NINA report template (similar to the old ninaKortrapport), but this is untested in a real case. Please test it and you are most welcome to contribute if you know your way around LaTeX.
-
 # Installation
 
 Install from github.
