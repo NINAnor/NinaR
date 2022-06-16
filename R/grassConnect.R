@@ -20,7 +20,7 @@
 grassConnect <- function(location="ETRS_33N", mapset="user"){
     host <- NULL
     try(host <- system("hostname", intern = T))
-    if (grepl("ninrstudio", host)) {
+    if (grepl("ninrstudio|ningis", host)) {
       require(rgrass7)
       gisDbase <- "/data/grass"
       #location <- "ETRS_33N"
