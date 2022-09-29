@@ -40,6 +40,7 @@ Currently, the package contains the functions:
 -   scale_fill_nina
 -   tidyScandinavian
 
+
 # NOTE!
 
 At the moment, some functions have not been updated from using the old
