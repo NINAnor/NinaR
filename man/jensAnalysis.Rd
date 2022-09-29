@@ -16,7 +16,7 @@ jensAnalysis(
 \item{keep_tex}{Keep the intermediate tex file used in the conversion to PDF}
 
 \item{md_extensions}{Markdown extensions to be added or removed from the
-default definition or R Markdown. See the \code{\link[rmarkdown]{rmarkdown_format}} for
+default definition of R Markdown. See the \code{\link[rmarkdown]{rmarkdown_format}} for
 additional details.}
 }
 \value{
