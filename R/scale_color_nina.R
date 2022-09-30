@@ -39,13 +39,13 @@ scale_color_nina <- function(palette = "main",
   pal <- ninaPaletteGgplot(palette = palette, reverse = reverse)
 
   if (discrete) {
-    discrete_scale("colour",
+    ggplot2::discrete_scale("colour",
                    paste0("NINA", palette),
                    palette = pal,
                    name = name,
                    ...)
   } else {
-    scale_color_gradientn(colours = pal(256),
+    ggplot2::scale_color_gradientn(colours = pal(256),
                           name = name,
                           ...)
   }

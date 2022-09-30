@@ -33,18 +33,20 @@ scale_fill_nina <- function(palette = "main",
                             name = waiver(),
                             ...) {
 
-  palette <- match.arg(palette, names(nina_palettes))
+  palette <- match.arg(palette,
+                       names(nina_palettes))
 
-  pal <- ninaPaletteGgplot(palette = palette, reverse = reverse)
+  pal <- ninaPaletteGgplot(palette = palette,
+                           reverse = reverse)
 
   if (discrete) {
-    discrete_scale("fill",
+    ggplot2::discrete_scale("fill",
                    paste0("NINA", palette),
                    palette = pal,
                    name = name,
                    ...)
   } else {
-    scale_fill_gradientn(colours = pal(256),
+    ggplot2::scale_fill_gradientn(colours = pal(256),
                          name = name,
                          ...)
   }
