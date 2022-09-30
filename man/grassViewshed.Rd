@@ -24,6 +24,9 @@ grassViewshed(
 \item{target_elevation}{numerical. The user can change this using option target_elevation to determine
 if objects of a given height would be visible.}
 }
+\value{
+A SpatVector object (terra)
+}
 \description{
 Calculate a viewshed from a given point based on a 10m DEM
 }
@@ -33,10 +36,21 @@ The function returns (optional) an SP class dataframe with a viewshed, i.e. area
 }
 \examples{
 \dontrun{
-hm <- grassViewshed(xycoords = data.frame("x" = 310400, "y" = 6991600), dist=1000)
-plot(hm)
+test_view <- grassViewshed(xycoords = data.frame("x" = 310400,
+                                                "y" = 6991600),
+                          dist=1000)
+
+
+terra::plot(test_view)
+
+test_view_sf <- sf::st_as_sf(test_view)
+ggplot(test_view_sf) +
+geom_sf(aes(fill = value)) +
+scale_fill_nina(discrete = FALSE)
+
+
 }
 }
 \author{
-Jens Astrom
+Jens Åström
 }
