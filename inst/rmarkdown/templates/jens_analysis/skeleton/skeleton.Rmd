@@ -47,7 +47,7 @@ palette(ninaPalette())
 
 
 ```{r, include = F, eval = F}
-# This connects to the gisdatabase with a DBI connection named `con`.
+# This connects to the gisdatabase with a DBI connection named `con`, as the guest user. 
 # Use for example dbGetQuery(con, "SELECT * FROM ....") to query the database
 postgreSQLConnect(
   host = "gisdata-db.nina.no",
@@ -59,21 +59,23 @@ postgreSQLConnect(
 
 
 ```{r, include = F, eval = F}
-#To log into something with your own user, it's good practice not to store passwords in the script.
-##I store the username and passwords in a file in my home folder, that only the owner can read.
-#Not the prettiest solution, since I read in the info in plain text, but we delete the objects in the same code chunk so it works. 
-##Here I also specify that big integers should be converted to integers in R. 
-##There are some functions that don't have support for bigints in R at the moment.
+#You can also log in as your own user, but never store your credentials in a script!
+## If you have database specific credentials, you could store the username and passwords in a file in your home folder, which you set up so that only you can read (chmod 600 ~/filename).
 
 source("~/.rpgpass")
-
 postgreSQLConnect(
   host = "gisdata-db.nina.no",
   dbname = "gisdata",
   username = username,
-  password = password,
-  bigint  = "integer"
+  password = password
 )
-
 rm(list = c("username", "password"))
+
+
+#You could also use the .pgpass file as shown in https://www.postgresql.org/docs/current/libpq-pgpass.html. Then you don't have to provide your credentials at all. gisdata-db.nina.no doesn't synk it's credentials to the Windows password servers yet though, so this only works (for me) with other databases. 
+
+con <- dbConnect(RPostgres::Postgres(),
+                 host = "ninradardata01.nina.no",
+                 dbname = "insect_monitoring")
+
 ```
