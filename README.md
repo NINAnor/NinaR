@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![](https://img.shields.io/badge/devel%20version-0.2.2.6-blue.svg)](https://github.com/NINAnor/NinaR)
+[![](https://img.shields.io/badge/devel%20version-0.2.2.7-blue.svg)](https://github.com/NINAnor/NinaR)
 [![](https://www.r-pkg.org/badges/version/NinaR)](https://cran.r-project.org/package=NinaR)
 [![](https://img.shields.io/github/languages/code-size/NINAnor/NinaR.svg)](https://github.com/NINAnor/NinaR)
 <!-- badges: end -->
@@ -19,6 +19,7 @@ Currently, the package contains the functions:
 
 -   addAlpha
 -   addLogo
+-   add_logo
 -   checkWorkload
 -   grassConnect
 -   grassDailyPrecip
@@ -39,7 +40,6 @@ Currently, the package contains the functions:
 -   scale_color_nina
 -   scale_fill_nina
 -   tidyScandinavian
-
 
 # NOTE!
 

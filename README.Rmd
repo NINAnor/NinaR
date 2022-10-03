@@ -31,6 +31,7 @@ Currently, the package contains the functions:
 
 * addAlpha
 * addLogo
+* add_logo
 * checkWorkload
 * grassConnect
 * grassDailyPrecip

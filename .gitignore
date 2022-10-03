@@ -5,3 +5,5 @@
 inst/doc
 temp/
 *Thumbs.db
+/doc/
+/Meta/
