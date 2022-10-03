@@ -1,3 +1,7 @@
+NinaR 0.2.2.7
+-------------------
+Added ggplot 2 version of addLogo in function add_logo
+
 NinaR 0.2.2.002
 -------------------
 Added nina ggplot color scales

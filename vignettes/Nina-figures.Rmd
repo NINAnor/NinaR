@@ -12,6 +12,10 @@ vignette: >
 require(NinaR)
 require(grid)
 require(ggplot2)
+knitr::opts_chunk$set(
+  dev = 'svg'
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 
@@ -95,4 +99,23 @@ g <- ggplot(mpg, aes(cty, hwy))
 g + geom_point(aes(colour = cyl)) +
    scale_color_nina(discrete = F)
 ```
+
+add_logo for ggplots
+=============
+There is also a ggplot version of the add logo funtion, called add_logo. This adds an svg version of the logo to an existing ggplot. It requires some tinkering with the position, size, and the thickness of the line strokes of the logo. As of yet it doesn't have a transparancy option.
+
+
+```{r add_logo, fig.width=7, fig.height=5}
+g <- ggplot(mpg, aes(cty, hwy))  +
+  geom_point(aes(colour = cyl)) +
+   scale_color_nina(discrete = F) +
+  add_logo(xmin = 25,
+           xmax = 30,
+           stroke_scale = 0.3)
+
+g
+
+```
+
+
 
