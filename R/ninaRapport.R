@@ -46,8 +46,8 @@ ninaRapport <- function(...,
   fmt <- inherit_pdf_document(...,
                        template = find_resource("nina_rapport", "template.tex"),
                        keep_tex = keep_tex,
-                       md_extensions = md_extensions,
-                       latex_engine = "xelatex")
+                       md_extensions = md_extensions
+                       )
 
   fmt$pandoc$args <- c(fmt$pandoc$args, "--csl", "nina.csl")
 

@@ -40,6 +40,10 @@ $endif$
 %\usepackage{natbib} %%Handled by pandoc!
 %\bibliographystyle{nina}
 \usepackage[hidelinks,
+            pdfborder={0 0 0},
+            colorlinks = true,
+            linkcolor = black,
+            urlcolor = darkblue,
             pdfauthor={
             $for(first_author)$
               $first_author.name$
@@ -73,11 +77,16 @@ $endif$
 \monthname[\THEMONTH]~ \THEYEAR}
 
 %Set fonts
+%Note that we need to suppress ligaturs to mimic standard windows behaviour with Calibri
 \usepackage{fontspec}
-\setmainfont{Carlito}
-\newfontfamily{\narrow}{Arial Narrow}
-\newfontfamily{\narrowbold}{Arial Narrow Bold}
+\defaultfontfeatures{Ligatures={NoRequired, NoCommon, NoContextual}}
+\setmainfont{Calibri}
+\newfontfamily{\narrow}{Calibri}
+\newfontfamily{\narrowbold}{Calibri Bold}
+\newfontfamily{\arialnarrow}{Arial Narrow}
+\newfontfamily{\arialnarrowbold}{Arial Narrow Bold}
 %\restoresymbol{fontspec}{medspace}
+
 
 %To insert manual hyphens
 \usepackage{hyphenat}
@@ -164,16 +173,16 @@ $endif$
   \vspace{.2cm}
   \end{center}
   \begin{tikzpicture}[remember picture,overlay]
-    \node (a) at (-4,-1.7) {};
-    \node (b) at (0.45,-8.1) {};
+    \node (a) at (-4,-1.68) {};
+    \node (b) at (0.37,-8.12) {};
     \coordinate[above=2.5cm of b,xshift=-.6cm]  (legend);
     \coordinate[below=.49cm of a,xshift=3.4cm]  (rapportnr);
     \fill[footgrey] (a) rectangle (b);
     \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
-    \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+    \node at (rapportnr) {\color{orange}\Large{\narrowbold{$reportnr$}}};
  \end{tikzpicture}
 \lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-\rfoot{\vspace{2.2cm}\hfill\Large\lightGrey{\narrow{Norsk institutt for naturforskning}}}
+\rfoot{\vspace{2.2cm}\hfill\Large\color{darkgrey}{\narrow{Norsk institutt for naturforskning}}}
 \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -181,6 +190,21 @@ $endif$
   (current page.east|-current page footer area.south east);
   \end{tikzpicture}
 }
+
+ \usepackage{tikzpagenodes}
+
+
+% one way of including bg-pic
+% \usepackage{eso-pic}
+% \newcommand\BackgroundPic{%
+% \put(0,0){%
+% \parbox[b][\paperheight]{\paperwidth}{%
+% \vfill
+% \centering
+% \includegraphics[width=\paperwidth,height=\paperheight,%
+% keepaspectratio]{title_page_bg.png}%
+% \vfill
+% }}}
 
 %Define endpage footer
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
@@ -292,6 +316,7 @@ $endif$
 \definecolor{ashgrey}{RGB}{128, 128, 128}
 \definecolor{darkgrey}{RGB}{66, 85, 99}
 \definecolor{footgrey}{RGB}{212, 215, 221}
+\definecolor{darkblue}{RGB}{0, 79, 113}
 
 \newcommand{\shadOrange}[1]{\textcolor{lightOrange}{#1}}
 \newcommand{\orange}[1]{\textcolor{darkOrange}{#1}}
@@ -299,11 +324,19 @@ $endif$
 \newcommand{\darkGrey}[1]{\textcolor{darkgrey}{#1}}
 
 \begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
 
 \newgeometry{bottom=6cm, top=4.6cm, left=3.2cm, right=1.5cm}
 
 \begin{titlepage}
+%Testing out title page bg-pic
 \thispagestyle{titlefooter}
+
+%Testing out tikz title page bg-pic
+% \begin{tikzpicture}[remember picture,overlay, anchor=south west]
+%   \node at (current page.south west){\includegraphics[width=\paperwidth,height=\paperheight,%
+%  keepaspectratio]{title_page_bg.png}};
+% \end{tikzpicture}
 
 \Huge{$title$} \par\vspace{.3cm}
 \huge{$subtitle$} \par\vspace{.6cm}
@@ -318,7 +351,7 @@ $for(last_author)$
 $endfor$
 
 \begin{tikzpicture}[remember picture,overlay, anchor=south west]
-  \node at ([yshift=4.75cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
+  \node at ([yshift=4.77cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
@@ -327,34 +360,28 @@ $endfor$
 \cfoot{}
 
 \section*{\narrow{NINAs publikasjoner}}
-
+\hspace{1ex}
 
 \subsection*{\small{NINA Rapport}}
-{\small Dette er NINAs ordinære rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel
-fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier.
-NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.}
+{\normalsize Dette er NINAs ordinære rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på engelsk, som NINA Report.
+}
 
 \subsection*{\small{NINA Temahefte}}
-{\small Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og
-serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige
-problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer
-vekt på illustrasjoner enn NINA Rapport.}
+{\normalsize Heftene utarbeides etter behov og serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige problemstillinger i samfunnet. Heftene har vanligvis en populærvitenskapelig form med vekt på illustrasjoner. NINA Temahefte kan også utgis på engelsk, som NINA Special Report.}
 
 \subsection*{\small{NINA Fakta}}
-{\small Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større
+{\normalsize Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større
 publikum. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.}
 
 \subsection*{\small{Annen publisering}}
-{\small I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine
-vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.}
-
+{\normalsize I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine forsk- ningsresultater i internasjonale vitenskapelige journaler og i populærfaglige bøker og tidsskrifter.}
 \clearpage
 \newgeometry{bottom=3cm, top=3cm}
 %Page 3
 \setcounter{page}{1}
 \fancyfoot[C]{
-\newgeometry{bottom=3cm, top=3cm, right=3cm}
-\hfill\LARGE{\narrowbold{Norsk institutt for naturforskning}}}
+\newgeometry{bottom=2.6cm, top=3cm, right=2cm}
+\hfill\Large{\narrowbold{Norsk institutt for naturforskning}}}
 \vspace{2cm}
 
 \Huge{$title$} \par\vspace{.5cm}
@@ -379,13 +406,14 @@ $endfor$
 
 \normalsize
 
-\footnotesize{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
+\footnotesize{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par \smallspace
 $location$, \ninadate\today \par \smallspace
 ISSN: 1504-3312 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
 {\scriptsize{RETTIGHETSHAVER}} \par
 © Norsk institutt for naturforskning  \par
-Publikasjonen kan siteres fritt med kildeangivelse \par \smallspace
+Denne rapporten er lisensiert under Creative Commons Navngivelse 4.0 \par
+Internasjonal lisens: \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons — Attribution 4.0 International — CC BY 4.0}\par \smallspace
 {\scriptsize{TILGJENGELIGHET}} \par
 $access$ \par \smallspace
 {\scriptsize{PUBLISERINGSTYPE}} \par
@@ -465,7 +493,7 @@ www.nina.no
 \section{Sammendrag}
 
 
-\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
+\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par
 \vspace{0.5cm}
 \normalsize{
 $sammendrag$} \\
@@ -488,7 +516,7 @@ $endfor$
 \section{Abstract}
 
 
-\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
+\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$}\par
 \vspace{0.5cm}
 \normalsize{
 $abstract$} \\
