@@ -21,6 +21,7 @@ location: Trondheim
 ISBN_end: 1234-5
 self-ref: Brum, O., Robin, K. 2016. En veldig bra titel. 
 english-self-ref: the Poo, W., Robin, C. 2016. A very good title.
+handle-endpoint: [fås av bibliotek]
 access: Åpen
 secure_pdf:
 cover_picture: coverPicture.png
@@ -48,6 +49,7 @@ output:
   NinaR::ninaRapport:
     highlight: tango
     fig_caption: yes
+    latex_engine: xelatex
 foreword: 
     text: [Forord inn her]
     location: [Sted, forord]

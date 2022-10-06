@@ -119,7 +119,7 @@ $endif$
 
 %To adjust margins and use left justification
 \usepackage[a4paper, left=1.5cm,right=3.5cm,top=2cm,bottom=2cm,headheight=1cm]{geometry}
-\usepackage[document]{ragged2e}
+%\usepackage[document]{ragged2e}
 
 %To adjust heading spacings
 \usepackage{titlesec}
@@ -182,7 +182,7 @@ $endif$
     \node at (rapportnr) {\color{orange}\Large{\narrowbold{$reportnr$}}};
  \end{tikzpicture}
 \lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-\rfoot{\vspace{2.2cm}\hfill\Large\color{darkgrey}{\narrow{Norsk institutt for naturforskning}}}
+\rfoot{\vspace{2.2cm}\hfill\Large\color{darkgrey}{\arialnarrow{Norsk institutt for naturforskning}}}
 \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -221,8 +221,8 @@ $endif$
  \coordinate[above=2.5cm of b,xshift=-2.5cm]  (legend);
  \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
  \fill[footgrey] (a) rectangle (b);
- \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
- \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+ \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\arialnarrowbold{NINA~}\arialnarrow{Rapport}}};
+ \node at (rapportnr) {\color{orange}\huge{\narrowbold{$reportnr$}}};
 \end{tikzpicture}
     \begin{minipage}{0.386\linewidth}
     {\begin{flushleft}\color{darkgrey}\vspace{1.2cm}\large\narrow\em{\textbf{Norsk institutt for naturforskning, NINA,} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
@@ -405,8 +405,8 @@ $endfor$
 \fancyhead[c]{\ruleline{\tiny{NINA Rapport $reportnr$}}}
 
 \normalsize
-
-\footnotesize{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par \smallspace
+\newgeometry{bottom=3cm, top=3cm, left=2.5cm, right=5cm}
+\small{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par \smallspace
 $location$, \ninadate\today \par \smallspace
 ISSN: 1504-3312 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
@@ -491,9 +491,9 @@ www.nina.no
 \clearpage
 \setcounter{secnumdepth}{0}
 \section{Sammendrag}
+\newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
 
-
-\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par
+\small{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par
 \vspace{0.5cm}
 \normalsize{
 $sammendrag$} \\
@@ -514,9 +514,9 @@ $endfor$
 
 \setcounter{secnumdepth}{0}
 \section{Abstract}
+\newgeometry{bottom=2.5cm, top=2.5cm, left=2.5cm, right=2.5cm}
 
-
-\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$}\par
+\small{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$}\par
 \vspace{0.5cm}
 \normalsize{
 $abstract$} \\
