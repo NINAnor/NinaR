@@ -93,9 +93,9 @@ Den enkleste måten er å bruke rstudio-servene http://rstudio.nina.no, der alt 
 
 Når R-pakken `NinaR` er installert, finner man malen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mal produseres gjennom `rmarkdown::draft("title", template="nina_rapport", package="NinaR")`.
   
-Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives inn. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. Radnommer til review produseres gjennom `line_numbering: yes`. Selv-referansen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
+Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives inn. En lukket PDF kan lages gjennom å skrive "yes" etter secure_pdf. Radnummer til review produseres gjennom `line_numbering: yes`. Selv-referansen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
 
-Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Stilen for referansene er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
+Referanser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Stilen for referansene er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
 
 
 ### Test sub sub heading
@@ -123,7 +123,7 @@ R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highligh
 x<- 1:10*0.5+rnorm(10, mean=1,sd=2)
 y<-1:10
 ```
-Tabeller fra R kan lages gjennom pakken `xtable`. Her er et eksempel på output fra en enkel modell. De kan også refereres til, for eksempel referer jeg nå til tabell \ref{tab1}.
+Tabeller fra R kan lages gjennom pakken `xtable`. Her er et eksempel på output fra en enkel modell. Man kan også referere til en tabell, for eksempel referer jeg nå til tabell \ref{tab1}.
 
 ```{r test-chunk2, results = 'asis', message = F}
 mod1<-glm(y~x)
@@ -135,18 +135,36 @@ print(xtable(round(summary(mod1)$coefficients, 3),
 Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Figurteksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man også referere til figuren. Figur \ref{xy_plot} viser et eksempel på bruk av NINAs logofarger via funksjonen `NinaR::NinaPalette`.  
 
 
-```{r test-chunk3, fig.cap = "Ett exempel med NINAs grafpalett generert fra R. \\label{xy_plot}"}
-old.mai<-par("mai")
-par(mai = old.mai * c(1, 2.3, 1, 1.5))
-palette(ninaPalette())
-set.seed(123)
-plot.mat<-matrix(rnorm(25, 40, sd=10), ncol=5, dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
 
-barplot(plot.mat, col=1:5, beside=T, horiz = T, las=1, xlim = c(0, 100), xlab="%", border = NA, ylim = c(0, 25))
+```{r test-chunk3, fig.cap = "Ett exempel med NINAs fargepalett generert fra R. \\label{xy_plot}"}
+plot.mat <- matrix(rnorm(25, 40, sd=10), ncol=5, dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
 
-legend("topright", legend = rownames(plot.mat), fill = 1:5, bty = "n")
+plot.mat <- tibble::tibble(Verdi = rnorm(n = 25, 
+                                 mean = 40, 
+                                 sd = 10),
+                   Prøvetyper = rep(c("Type_1",
+                                  "Type_2",
+                                  "Type_3",
+                                  "Type_4",
+                                  "Type_5"),
+                                  each = 5),
+                   Kategori = rep(c("Lengde",
+                                     "Høyde",
+                                     "Dybde",
+                                     "Vekt",
+                                     "Kvalitet"),
+                                   times = 5)
+)
+
+ggplot(plot.mat) +
+  geom_bar(aes(x = Verdi, y = Prøvetyper, fill = Kategori),
+           stat = "identity",
+           position = 'dodge') +
+  scale_fill_nina() 
 
 ```
+
+
 
 Eksisterende bilder kan også legges til gjennom vanlig markdown syntax. Disse blir sentrerte. Noter at eps-filer angis uten filendelse.
 
