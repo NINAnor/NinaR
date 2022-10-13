@@ -67,7 +67,8 @@ require(NinaR)
 require(xtable)
 require(knitr)
 opts_chunk$set(tidy=T, 
-               tidy.opts=list(width.cutoff=50))
+               tidy.opts=list(width.cutoff=50),
+               fig.align = "left")
 options(width = 60,
         "xtable.comment" = F,
         "xtable.include.rownames" = F)
@@ -75,11 +76,11 @@ options(width = 60,
 ```
 
 # Innledning {#inl}
-Dette er et eksempel på en NINA Rapport laget direkt fra statistikkprogrammet R, gjennom packen `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stor innhold av R-skript. Bortsett fra avsnitten med kod er mallen tenkt å efterligne NINAs standardmalle for rapporter. Mallen brukes på samme måte som andre maller i pakken `Rmarkdown` og `rticles` (se http://rmarkdown.rstudio.com/). Rstudio er særskilt tilpasset til `rmarkdown`, men mallen kan også brukes direkte i R (også via terminalen/Command Prompt). Kommandoet `rmarkdown::render("din_rapport.Rmd")` genererer en pdf, alternativt bruk knappen "Knit" i Rstudio.
+Dette er et eksempel på en NINA Rapport produsert fra statistikkprogrammet R [@R], gjennom pakken `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stort innhold av R-skript. Bortsett fra seksjonene med kod er mallen tenkt å etterligne NINA sin standardmalle for rapporter. Malen brukes på samme måte som andre maller i pakken `Rmarkdown` [@rmarkdown] og `rticles` [@rticles] (se http://rmarkdown.rstudio.com/). Rstudio er særskilt tilpasset til `rmarkdown`, men malen kan også brukes direkte i R (også via terminalen/Command Prompt). I Rstudio bruker man enklest knappen "Knit", men rapporten kan også genereres med kommandoen `rmarkdown::render("din_rapport.Rmd")`.
 
 ## Fremgangsmåte
 
-*For å bruke mallen trengs:*
+*For å bruke malen trengs:*
 
 * R
 * NinaR (se http://www.github.com/NINAnor/NinaR)
@@ -88,22 +89,22 @@ Dette er et eksempel på en NINA Rapport laget direkt fra statistikkprogrammet R
     - For Mac, se http://tug.org/mactex/
     - For Linux, installere tex-live
     
-Den enkleste måten er å bruke rstudio-servene http://ninrstudio[x].nina.no (x = 01, 02, 03), der alt finns installert.
+Den enkleste måten er å bruke rstudio-servene http://rstudio.nina.no, der alt er (bør være) installert.
 
-Når R-pakken `NinaR` er installert, finner man malen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mall produseres gjennom `rmarkdown::draft("title", template="nina_rapport", package="NinaR")`.
+Når R-pakken `NinaR` er installert, finner man malen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mal produseres gjennom `rmarkdown::draft("title", template="nina_rapport", package="NinaR")`.
   
-Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives in. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. Radnummer til review produseres gjennom `line_numbering: yes`. Selv-referensen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
+Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives inn. En lukket PDF kan lages gjennom å skrive "yes" (eller hva som helst) etter secure_pdf. Radnommer til review produseres gjennom `line_numbering: yes`. Selv-referansen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
 
-Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Referansenes stil er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
+Referenser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Stilen for referansene er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
 
 
 ### Test sub sub heading
-For å lage en "pagebreak", for eksempel mellom ulike kapitel, skriv `\newpage`. `\clearpage` fungerer lignede, men da tvinges det frem en plassering av alle bilder til nå, og da kan de ofte havne på en egen side. Prøv deg frem.
+For å lage en "pagebreak", for eksempel mellom ulike kapittel, skriv `\newpage`. `\clearpage` fungerer på lignende måte, men da tvinger man frem en plassering av alle bilder til nå, og da kan de ofte havne på en egen side. Prøv deg frem.
 
 ### En til sub sub heading
-Da denne malle er fortsatt ikke perfekt, men har blitt brukt (og godjkent av Biblioteket og brukt for et prosjekt til Miljødirektoratet). Spørsmål og synspunkter kan også sendes til Jens Åström. 
+Denne male er fortsatt ikke perfekt, men har blitt brukt for et prosjekt til Miljødirektoratet og godkjent av biblioteket. Spørsmål og synspunkter kan sendes til Jens Åström. 
 
-Det kan gå kjappere å skrive rapporter i dette format, men det gjenstår ofte noen småfix med formateringer på slutten. Plassering av bilder kan til hvis grad styres gjennom å endre på størrelsen til dem (f.eks. out.width eller fig.width), eller gjennom å overstyre plasseringen (f.eks. fig.pos = "!hb"). Men alt er ikke mulig å styre helt så foreløpig må man akseptere noen plasseringer. 
+Det kan gå kjappere å skrive rapporter i dette format, men det gjenstår ofte noen småfiks med formateringer på slutten. Plassering av bilder kan til hvis grad styres gjennom å endre på størrelsen til dem (f.eks. out.width eller fig.width), eller gjennom å overstyre plasseringen (f.eks. fig.pos = "!hb"). Men alt er ikke mulig å styre helt så foreløpig må man akseptere noen plasseringer. 
 
 \paragraph{Prøver meg på en sub sub sub heading}
 Obs at 4-nivåseksjoner må skrives med `\paragraph{titell}`!
@@ -117,7 +118,7 @@ Resultater {#res}
 R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokumentet.
 
 ```{r test-chunk1}
-#Så her ser kod-comments ut
+#Slik vises kode-kommentarer
 
 x<- 1:10*0.5+rnorm(10, mean=1,sd=2)
 y<-1:10
@@ -147,13 +148,14 @@ legend("topright", legend = rownames(plot.mat), fill = 1:5, bty = "n")
 
 ```
 
-Eksisterende bilder kan også legges till gjennom vanlig markdown syntax. Noter at eps-filer angis uten filendelse.
+Eksisterende bilder kan også legges til gjennom vanlig markdown syntax. Disse blir sentrerte. Noter at eps-filer angis uten filendelse.
 
 ![Nina-logoen, som eksempel på inkludering av et bilde. \label{logoen}](logo)
 
-Hvis man trenger fler muligheter for definisjon av størrelse på en ferdig bilde, kan man også inkludere den med et avsnitt R-kod.
+Hvis man trenger flere muligheter for definisjon av størrelse og plassering på en ferdig bilde, kan man også inkludere den med "include_graphics".
 
-```{r timer, echo = F, out.width = '10cm', fig.align = 'center', dev ='pdf', fig.cap = "NINA-logoen i større format \\label{logo_stor}"}
+
+```{r timer, echo = F, out.width = '10cm', dev ='pdf', fig.cap = "NINA-logoen i større format \\label{logo_stor}"}
 knitr::include_graphics("logo.eps")
 ```
 
@@ -166,6 +168,5 @@ Vi kan også referere til bilder, for eksempel til figur \ref{logoen}, som er in
 Referanser {#references}
 ==========
 \setlength{\parindent}{-0.2in}
-\setlength{\leftskip}{0.2in}
 \setlength{\parskip}{8pt}
 \noindent
