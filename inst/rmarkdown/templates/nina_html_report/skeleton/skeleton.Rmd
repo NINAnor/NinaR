@@ -1,0 +1,190 @@
+---
+title: [Skriv in titell nivå 1 her]
+subtitle: [Skriv in titell nivå 2 her]
+first_author:
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+second_authors:
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+  - name: [Skriv in forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+last_author:    
+  - name: [Skriv in siste forfatter her]
+    address: [Author adress]
+    email: for.efternavn@nina.no
+reportnr: 1234
+location: Trondheim
+ISBN_end: 1234-5
+self-ref: Brum, O., Robin, K. 2016. En veldig bra titel. 
+english-self-ref: the Poo, W., Robin, C. 2016. A very good title.
+handle-endpoint: [fås av bibliotek]
+access: Åpen
+secure_pdf:
+cover_picture: coverPicture.png
+cover_picture_text: Forsidebildetekst
+cover_picture_photographer: Fotografnavn
+line_numbering:
+qualitycontrol: [xx]
+boss_sign: Forskningssjef [fylles ut av forskningssjefen] (sign.)
+customer: [xx]
+customer_ref: [xx]
+customer_contact: [xx]
+keywords:
+  - word: geografisk område (land, fylke, kommune)
+  - word: art (fauna, flora, høyere taksonomisk enhet
+  - word: konsekvensutredning
+  - word: overvåkingsrapport
+  - word: etterundersøkelse
+  - word: vassdrag
+  - word: økosystemtjenester
+  - word: radioaktivitet
+englishkeywords:
+  - word: [se nøkkelord]
+bibliography: mybibfile.bib
+output: 
+  NinaR::ninaHtmlRapport:
+    highlight: tango
+    fig_caption: yes
+    self_contained: false
+foreword: 
+    text: [Forord inn her]
+    location: [Sted, forord]
+    name: [Prosjektleder]
+sammendrag: |
+  Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her.} Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.\
+  \
+  Seksjoner og tomme rader mellom dem er litt tricky å få til i YAML-avsnittet, men det kan gjøres slik. Tomme rader i forordet kan også lages på samme måte.
+  
+abstract: Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 tegn inkl. ordmellomrom. Dette er maxgrense i sammendragsfeltet i CRIStin, og dersom sammendraget er lengre kommer det ikke med her.} Teksten i sammendraget er søkbar i databaser og på nett, og er viktig for at rapporten skal fanges opp ved søk.
+---
+
+```{r setup, echo=F, message=F, warning=F}
+require(NinaR)
+require(xtable)
+require(knitr)
+opts_chunk$set(tidy=T, 
+               tidy.opts=list(width.cutoff=50),
+               fig.align = "left")
+options(width = 60,
+        "xtable.comment" = F,
+        "xtable.include.rownames" = F)
+
+```
+
+# Innledning {#inl}
+Dette er et eksempel på en NINA Rapport produsert fra statistikkprogrammet R [@R], gjennom pakken `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stort innhold av R-skript. Bortsett fra seksjonene med kod er mallen tenkt å etterligne NINA sin standardmalle for rapporter. Malen brukes på samme måte som andre maller i pakken `Rmarkdown` [@rmarkdown] og `rticles` [@rticles] (se http://rmarkdown.rstudio.com/). Rstudio er særskilt tilpasset til `rmarkdown`, men malen kan også brukes direkte i R (også via terminalen/Command Prompt). I Rstudio bruker man enklest knappen "Knit", men rapporten kan også genereres med kommandoen `rmarkdown::render("din_rapport.Rmd")`.
+
+## Fremgangsmåte
+
+*For å bruke malen trengs:*
+
+* R
+* NinaR (se http://www.github.com/NINAnor/NinaR)
+* En Tex-installasjon
+    - For Windows, se http://miktex.org/
+    - For Mac, se http://tug.org/mactex/
+    - For Linux, installere tex-live
+    
+Den enkleste måten er å bruke rstudio-servene http://rstudio.nina.no, der alt er (bør være) installert.
+
+Når R-pakken `NinaR` er installert, finner man malen i Rstudio gjennom `File -> New File -> R Markdown -> From templates`. Alternativt kan en mal produseres gjennom `rmarkdown::draft("title", template="nina_rapport", package="NinaR")`.
+  
+Høyst oppe i malen (vises ikke i PDFen) finns en såkalt "YAML-seksjon" der diverse obligatoriske ting skal skrives inn. En lukket PDF kan lages gjennom å skrive "yes" etter secure_pdf. Radnummer til review produseres gjennom `line_numbering: yes`. Selv-referansen på side 3 skrives manuelt inn i ved `self-ref:` i YAML-avsnittet.
+
+Referanser kan inkluderes på to måter. Vi kan for eksempel referere til @Pedersen2016 i teksten, eller så her [@Pedersen2016]. Stilen for referansene er avhengig at man klasser dem som rett type, for eksempel som artikel [@article].
+
+
+### Test sub sub heading
+For å lage en "pagebreak", for eksempel mellom ulike kapittel, skriv `\newpage`. `\clearpage` fungerer på lignende måte, men da tvinger man frem en plassering av alle bilder til nå, og da kan de ofte havne på en egen side. Prøv deg frem.
+
+### En til sub sub heading
+Denne male er fortsatt ikke perfekt, men har blitt brukt for et prosjekt til Miljødirektoratet og godkjent av biblioteket. Spørsmål og synspunkter kan sendes til Jens Åström. 
+
+Det kan gå kjappere å skrive rapporter i dette format, men det gjenstår ofte noen småfiks med formateringer på slutten. Plassering av bilder kan til hvis grad styres gjennom å endre på størrelsen til dem (f.eks. out.width eller fig.width), eller gjennom å overstyre plasseringen (f.eks. fig.pos = "!hb"). Men alt er ikke mulig å styre helt så foreløpig må man akseptere noen plasseringer. 
+
+\paragraph{Prøver meg på en sub sub sub heading}
+Obs at 4-nivåseksjoner må skrives med `\paragraph{titell}`!
+
+\newpage
+
+
+
+Resultater {#res}
+========
+R-kod kan legges til på vanlig vis. Fargemønstret kan endres gjennom `highlight: xxx` Yaml-avsnittet i starten på dokumentet.
+
+```{r test-chunk1}
+#Slik vises kode-kommentarer
+
+x<- 1:10*0.5+rnorm(10, mean=1,sd=2)
+y<-1:10
+```
+Tabeller fra R kan lages gjennom pakken `xtable`. Her er et eksempel på output fra en enkel modell. Man kan også referere til en tabell, for eksempel referer jeg nå til tabell \ref{tab1}.
+
+```{r test-chunk2, results = 'asis', message = F}
+mod1<-glm(y~x)
+print(xtable(round(summary(mod1)$coefficients, 3), 
+             caption="Tabell laget med xtable \\label{tab1}"))
+
+```
+
+Figurer fungerer på vanlig vis. Figurtekst lages hvis `fig_caption: yes` er angitt i Yaml-avsnittet. Figurteksten legges til som i eksemplet nedenfor. Hvis man angir `\\label{}` i figurteksten kan man også referere til figuren. Figur \ref{xy_plot} viser et eksempel på bruk av NINAs logofarger via funksjonen `NinaR::NinaPalette`.  
+
+
+
+```{r test-chunk3, fig.cap = "Ett exempel med NINAs fargepalett generert fra R. \\label{xy_plot}"}
+plot.mat <- matrix(rnorm(25, 40, sd=10), ncol=5, dimnames = list(c("Sportsfisker", "Elveeier", "Oppleid", "Fisket", "Poseidon"), c("Lakselus", "Utsetting", " Strengere restriksjoner", "Fysiske tiltak", "Flaks")))
+
+plot.mat <- tibble::tibble(Verdi = rnorm(n = 25, 
+                                 mean = 40, 
+                                 sd = 10),
+                   Prøvetyper = rep(c("Type_1",
+                                  "Type_2",
+                                  "Type_3",
+                                  "Type_4",
+                                  "Type_5"),
+                                  each = 5),
+                   Kategori = rep(c("Lengde",
+                                     "Høyde",
+                                     "Dybde",
+                                     "Vekt",
+                                     "Kvalitet"),
+                                   times = 5)
+)
+
+ggplot(plot.mat) +
+  geom_bar(aes(x = Verdi, y = Prøvetyper, fill = Kategori),
+           stat = "identity",
+           position = 'dodge') +
+  scale_fill_nina() 
+
+```
+
+
+
+Eksisterende bilder kan også legges til gjennom vanlig markdown syntax. Disse blir sentrerte. Noter at eps-filer angis uten filendelse.
+
+![Nina-logoen, som eksempel på inkludering av et bilde. \label{logoen}](logo)
+
+Hvis man trenger flere muligheter for definisjon av størrelse og plassering på en ferdig bilde, kan man også inkludere den med "include_graphics".
+
+
+```{r timer, echo = F, out.width = '10cm', dev ='pdf', fig.cap = "NINA-logoen i større format \\label{logo_stor}"}
+knitr::include_graphics("logo.eps")
+```
+
+
+Vi kan også referere til bilder, for eksempel til figur \ref{logoen}, som er inkludert i mallen. Notere at man må ha to `\\` for figurer laget i R men en `\` for  "eksterne" bilder. Man kan referere til seksjoner ved å angi en referanse i headingen `{#seksjon}`. Se dette eksempel for å referere til innledningen i kapittel \ref{inl}.
+
+
+\clearpage
+
+Referanser {#references}
+==========
+\setlength{\parindent}{-0.2in}
+\setlength{\parskip}{8pt}
+\noindent
