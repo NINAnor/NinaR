@@ -4,18 +4,10 @@
 \alias{ninaHtmlRapport}
 \title{NINA Report format for publishing on NINA.no --EXPERIMENTAL!!.}
 \usage{
-ninaHtmlRapport(
-  ...,
-  keep_tex = TRUE,
-  md_extensions = c("-autolink_bare_uris", "+header_attributes")
-)
+ninaHtmlRapport(...)
 }
 \arguments{
 \item{...}{Additional arguments to \code{rmarkdown::html_document}}
-
-\item{md_extensions}{Markdown extensions to be added or removed from the
-default definition of R Markdown. See the \code{\link[rmarkdown]{rmarkdown_format}} for
-additional details.}
 }
 \value{
 R Markdown output format to pass to

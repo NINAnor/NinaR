@@ -17,7 +17,6 @@
 #' \url{https://tug.org/mactex/} for Mac installation of LaTeX backbone.
 #'
 #'
-#' @inheritParams rmarkdown::html_document
 #' @param ... Additional arguments to \code{rmarkdown::html_document}
 #'
 #' @return R Markdown output format to pass to
