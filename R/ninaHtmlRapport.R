@@ -1,14 +1,10 @@
-#' @title NINA Report format.
+#' @title NINA Report format for publishing on NINA.no --EXPERIMENTAL!!.
 #'
 #' @description
 #'  Provides an Rmarkdown template for creating a NINA Report, conforming to the
 #'  existing NINA word template. The template is available in Rstudio through `New File ->
 #'  R Markdown -> From Template` but can also be retrieved as shown in the example below.
 #'
-#'  This template requires a working \code{LaTeX} installation. For Windows computers, install "MikTeX".
-#'  For Mac, install "MacTex". Linux machines usually have \code{LaTeX} available through their repositories. "texlive"
-#'  is the preferred version for Ubuntu, and is installed on the N16 server and therefore
-#'  available through the Rstudio server there.
 #'
 #' @details
 #'  Retreive an ISBN number and reportnumber from the NINA library and fill in the relevant fields in the
@@ -21,8 +17,7 @@
 #' \url{https://tug.org/mactex/} for Mac installation of LaTeX backbone.
 #'
 #'
-#' @inheritParams rmarkdown::pdf_document
-#' @param ... Additional arguments to \code{rmarkdown::pdf_document}
+#' @param ... Additional arguments to \code{rmarkdown::html_document}
 #'
 #' @return R Markdown output format to pass to
 #'   \code{\link[rmarkdown:render]{render}}
@@ -32,24 +27,19 @@
 #' \dontrun{
 #' # initiate a template
 #' library(rmarkdown)
-#' draft("MyReport.Rmd", template = "nina_rapport", package = "NinaR")
+#' draft("MyReport.Rmd", template = "nina_html_rapport", package = "NinaR")
 #'
 #' #render an article manually
-#' render("MyReport.Rmd", ninaRrapport.R())
+#' render("MyReport.Rmd", ninaHtmlRrapport.R())
 #'
 #' }
 #'
 #' @export
-ninaRapport <- function(...,
-                             keep_tex = TRUE,
-                             md_extensions = c("-autolink_bare_uris","+header_attributes")) {
-  fmt <- inherit_pdf_document(...,
-                       template = find_resource("nina_rapport", "template.tex"),
-                       keep_tex = keep_tex,
-                       md_extensions = md_extensions
+ninaHtmlRapport <- function(...) {
+  fmt <- inherit_html_document(...,
+                       template = find_resource("nina_html_report", "default.html")
                        )
 
-  fmt$pandoc$args <- c(fmt$pandoc$args, "--csl", "nina.csl")
 
   fmt
 

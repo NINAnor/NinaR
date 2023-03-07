@@ -46,10 +46,10 @@ englishkeywords:
   - word: [se nøkkelord]
 bibliography: mybibfile.bib
 output: 
-  NinaR::ninaRapport:
+  NinaR::ninaHtmlRapport:
     highlight: tango
     fig_caption: yes
-    latex_engine: xelatex
+    self_contained: false
 foreword: 
     text: [Forord inn her]
     location: [Sted, forord]

@@ -55,6 +55,14 @@ inherit_pdf_document <- function(...) {
   fmt
 }
 
+# Call rmarkdown::html_documet and mark the return value as inheriting pdf_document
+inherit_html_document <- function(...) {
+  fmt <- rmarkdown::html_document(...)
+  fmt$inherits <- "html_document"
+  fmt
+}
+
+
 # Call rmarkdown::pdf_documet and mark the return value as inheriting pdf_document
 inherit_beamer <- function(...) {
   fmt <- rmarkdown::beamer_presentation(...)

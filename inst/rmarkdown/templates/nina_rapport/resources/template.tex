@@ -4,15 +4,27 @@ $endif$
 \documentclass[11pt, a4paper]{article}
 \usepackage[norsk]{babel}
 
+
+%$if(csl-refs)$
+%\newlength{\cslhangindent}
+%\setlength{\cslhangindent}{1.5em}
+%\newenvironment{CSLReferences}%
+%  {\setlength{\parindent}{0pt}%
+%  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
+%  {\par}
+%$endif$
+
 %To fix CLSreferenses bug
+%This will probably have to be updated when using later rmarkdown and or pandoc versions
 $if(csl-refs)$
 \newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{CSLReferences}%
-  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
-  {\par}
+\setlength{\cslhangindent}{3.2em}
+\newenvironment{CSLReferences}[2]{
+\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces%
+  \par}
 $endif$
+
 
 %For fill text
 \usepackage{blindtext}
@@ -40,6 +52,10 @@ $endif$
 %\usepackage{natbib} %%Handled by pandoc!
 %\bibliographystyle{nina}
 \usepackage[hidelinks,
+            pdfborder={0 0 0},
+            colorlinks = true,
+            linkcolor = black,
+            urlcolor = darkblue,
             pdfauthor={
             $for(first_author)$
               $first_author.name$
@@ -73,17 +89,32 @@ $endif$
 \monthname[\THEMONTH]~ \THEYEAR}
 
 %Set fonts
+%Note that we need to suppress ligaturs to mimic standard windows behaviour with Calibri
 \usepackage{fontspec}
-\setmainfont{Arial}
-\newfontfamily{\narrow}{Arial Narrow}
-\newfontfamily{\narrowbold}{Arial Narrow Bold}
+\defaultfontfeatures{Ligatures={NoRequired, NoCommon, NoContextual}}
+\setmainfont{Calibri}
+\newfontfamily{\narrow}{Calibri}
+\newfontfamily{\narrowbold}{Calibri Bold}
+\newfontfamily{\arialnarrow}{Arial Narrow}
+\newfontfamily{\arialnarrowbold}{Arial Narrow Bold}
 %\restoresymbol{fontspec}{medspace}
+
 
 %To insert manual hyphens
 \usepackage{hyphenat}
 
 %To set caption font
-\usepackage[font=it,labelfont=bf]{caption}
+%\usepackage[font=it,labelfont=bf]{caption}
+\usepackage[font=it,format=plain,labelfont=bf,justification=justified,singlelinecheck=false,labelsep=period]{caption}
+
+%Modify defaults to restrict the floating of figures
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
 
 %To place table caption above table
 \usepackage{float}
@@ -94,6 +125,10 @@ $endif$
 %To refer to sections, figures and tables
 \usepackage{nameref}
 \newcommand*{\myref}[1]{\hyperref[{#1}]{\autoref*{#1} \nameref*{#1}}}
+%Define own http_links to get underline links
+\usepackage{soul}
+\setul{.2ex}{.15ex}
+\renewcommand*{\href}[2]{\hyperref[#1]{\color{darkblue}\setulcolor{darkblue}\ul{#2}}}
 
 %Modify table of contents style
 %\usepackage{titlesec}
@@ -110,7 +145,7 @@ $endif$
 
 %To adjust margins and use left justification
 \usepackage[a4paper, left=1.5cm,right=3.5cm,top=2cm,bottom=2cm,headheight=1cm]{geometry}
-\usepackage[document]{ragged2e}
+%\usepackage[document]{ragged2e}
 
 %To adjust heading spacings
 \usepackage{titlesec}
@@ -131,7 +166,7 @@ $endif$
 %\newcommand{\medspace}{\vspace{5mm}}
 
 %Adjust paragraph indentations
-%\setlength{\parindent}{0pt}
+\setlength{\parindent}{0pt}
 
 %To adjust graphics
 \usepackage{graphicx}
@@ -164,16 +199,16 @@ $endif$
   \vspace{.2cm}
   \end{center}
   \begin{tikzpicture}[remember picture,overlay]
-    \node (a) at (-4,-1.7) {};
-    \node (b) at (0.45,-8.1) {};
+    \node (a) at (-4,-1.68) {};
+    \node (b) at (0.37,-8.12) {};
     \coordinate[above=2.5cm of b,xshift=-.6cm]  (legend);
-    \coordinate[below=.49cm of a,xshift=3.4cm]  (rapportnr);
+    \coordinate[below=.49cm of a,xshift=3.3cm]  (rapportnr);
     \fill[footgrey] (a) rectangle (b);
-    \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
+    \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\arialnarrowbold{NINA~}\arialnarrow{Rapport}}};
     \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
  \end{tikzpicture}
-\lfoot{\vspace{1.1cm}\hspace{-1cm}\includegraphics[height=1.6cm]{logo.eps}}
-\rfoot{\vspace{2.2cm}\hfill\Large\lightGrey{\narrow{Norsk institutt for naturforskning}}}
+\lfoot{\vspace{1.25cm}\hspace{-1.45cm}\includegraphics[height=1.6cm]{logo.eps}}
+\rfoot{\vspace{2.4cm}\Large\color{darkgrey}{\arialnarrow{Norsk institutt for naturforskning~~~}}}
 \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
     (current page.south west)
@@ -181,6 +216,21 @@ $endif$
   (current page.east|-current page footer area.south east);
   \end{tikzpicture}
 }
+
+ \usepackage{tikzpagenodes}
+
+
+% one way of including bg-pic
+% \usepackage{eso-pic}
+% \newcommand\BackgroundPic{%
+% \put(0,0){%
+% \parbox[b][\paperheight]{\paperwidth}{%
+% \vfill
+% \centering
+% \includegraphics[width=\paperwidth,height=\paperheight,%
+% keepaspectratio]{title_page_bg.png}%
+% \vfill
+% }}}
 
 %Define endpage footer
 \fancypagestyle{endfooter}{% Define endpage footer (change to svg logo)
@@ -192,13 +242,13 @@ $endif$
     \Large\shadOrange{\narrow{\textbf{www.nina.no}}}
 
  \begin{tikzpicture}[remember picture,overlay]
- \node (a) at (11.5,4.5) {};
- \node (b) at (15,-2) {};
- \coordinate[above=2.5cm of b,xshift=-2.5cm]  (legend);
+ \node (a) at (11.05, 4.3) {};
+ \node (b) at (15,-2.1) {};
+ \coordinate[above=2.5cm of b,xshift=-3cm]  (legend);
  \coordinate[below=.5cm of a,xshift=1cm]  (rapportnr);
  \fill[footgrey] (a) rectangle (b);
- \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\narrowbold{NINA~}\narrow{Rapport}}};
- \node at (rapportnr) {\color{orange}\Huge{\narrowbold{$reportnr$}}};
+ \node[rotate=90] at (legend) {\color{darkgrey}\Huge{\arialnarrowbold{NINA~}\arialnarrow{Rapport}}};
+ \node at (rapportnr) {\color{orange}\huge{\narrowbold{$reportnr$}}};
 \end{tikzpicture}
     \begin{minipage}{0.386\linewidth}
     {\begin{flushleft}\color{darkgrey}\vspace{1.2cm}\large\narrow\em{\textbf{Norsk institutt for naturforskning, NINA,} er en uavhengig stiftelse som forsker på natur og samspillet natursammfunn.
@@ -227,7 +277,7 @@ http://www.nina.no
   % \rfoot{\vspace{2cm}\hspace{-3cm}\includegraphics[height=1.6cm]{logo.eps}\\
   % \Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}
   % }
-  \rfoot{\vspace{2.3cm}\textsc{\savebox{\myheadbox}{\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}\makebox[\wd\myheadbox][c]{\includegraphics[height=1.6cm]{logo.eps}}\\\usebox{\myheadbox}}}
+  \rfoot{\vspace{2.3cm}\savebox{\myheadbox}{\Large\darkGrey{\narrow{Samarbeid og kunnskap for framtidas miljøløsninger}}}\makebox[\wd\myheadbox][c]{\includegraphics[height=1.6cm]{logo.eps}}\\\usebox{\myheadbox}}
 
     \begin{tikzpicture}[remember picture,overlay]
   \fill[footgrey]
@@ -292,6 +342,7 @@ $endif$
 \definecolor{ashgrey}{RGB}{128, 128, 128}
 \definecolor{darkgrey}{RGB}{66, 85, 99}
 \definecolor{footgrey}{RGB}{212, 215, 221}
+\definecolor{darkblue}{RGB}{0, 79, 113}
 
 \newcommand{\shadOrange}[1]{\textcolor{lightOrange}{#1}}
 \newcommand{\orange}[1]{\textcolor{darkOrange}{#1}}
@@ -299,14 +350,22 @@ $endif$
 \newcommand{\darkGrey}[1]{\textcolor{darkgrey}{#1}}
 
 \begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
 
-\newgeometry{bottom=6cm, top=4.6cm, left=3.2cm, right=1.5cm}
+\newgeometry{bottom=6cm, top=4.6cm, left=3.48cm, right=1.5cm}
 
 \begin{titlepage}
+%Testing out title page bg-pic
 \thispagestyle{titlefooter}
 
-\Huge{$title$} \par\vspace{.3cm}
-\huge{$subtitle$} \par\vspace{.6cm}
+%Testing out tikz title page bg-pic
+% \begin{tikzpicture}[remember picture,overlay, anchor=south west]
+%   \node at (current page.south west){\includegraphics[width=\paperwidth,height=\paperheight,%
+%  keepaspectratio]{title_page_bg.png}};
+% \end{tikzpicture}
+
+\huge{$title$} \par\vspace{.3cm}
+\LARGE{$subtitle$} \par\vspace{.6cm}
 $for(first_author)$
 \hspace{0cm}\Large{$first_author.name$},
 $endfor$
@@ -318,47 +377,41 @@ $for(last_author)$
 $endfor$
 
 \begin{tikzpicture}[remember picture,overlay, anchor=south west]
-  \node at ([yshift=4.75cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
+  \node at ([yshift=4.77cm,xshift=-0.24cm]current page.south west){\includegraphics[width=21.35cm, height=13.9cm]{$cover_picture$}};
  \end{tikzpicture}
 \restoregeometry
 \end{titlepage}
-\newgeometry{bottom=3cm, top=3cm, left=2.5cm, right=2.5cm}
+\newgeometry{bottom=3cm, top=3cm, left=2.68cm, right=2.68cm}
 %Second page
 \cfoot{}
 
 \section*{\narrow{NINAs publikasjoner}}
-
+\hspace{1ex}
 
 \subsection*{\small{NINA Rapport}}
-{\small Dette er NINAs ordinære rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel
-fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier.
-NINA Rapport kan også utgis på annet språk når det er hensiktsmessig.}
+{\normalsize Dette er NINAs ordinære rapportering til oppdragsgiver etter gjennomført forsknings\hyp{}, overvåkings\hyp{} eller utredningsarbeid. I tillegg vil serien favne mye av instituttets øvrige rapportering, for eksempel fra seminarer og konferanser, resultater av eget forsknings\hyp{} og utredningsarbeid og litteraturstudier. NINA Rapport kan også utgis på engelsk, som NINA Report.
+}
 
 \subsection*{\small{NINA Temahefte}}
-{\small Som navnet angir behandler temaheftene spesielle emner. Heftene utarbeides etter behov og
-serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige
-problemstillinger i samfunnet. NINA Temahefte gis vanligvis en populærvitenskapelig form med mer
-vekt på illustrasjoner enn NINA Rapport.}
+{\normalsize Heftene utarbeides etter behov og serien favner svært vidt; fra systematiske bestemmelsesnøkler til informasjon om viktige problemstillinger i samfunnet. Heftene har vanligvis en populærvitenskapelig form med vekt på illustrasjoner. NINA Temahefte kan også utgis på engelsk, som NINA Special Report.}
 
 \subsection*{\small{NINA Fakta}}
-{\small Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større
+{\normalsize Faktaarkene har som mål å gjøre NINAs forskningsresultater raskt og enkelt tilgjengelig for et større
 publikum. Faktaarkene gir en kort framstilling av noen av våre viktigste forskningstema.}
 
 \subsection*{\small{Annen publisering}}
-{\small I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine
-vitenskapelige resultater i internasjonale journaler, populærfaglige bøker og tidsskrifter.}
-
+{\normalsize I tillegg til rapporteringen i NINAs egne serier publiserer instituttets ansatte en stor del av sine forsk- ningsresultater i internasjonale vitenskapelige journaler og i populærfaglige bøker og tidsskrifter.}
 \clearpage
-\newgeometry{bottom=3cm, top=3cm}
+\newgeometry{bottom=3cm, top=3cm, left=2.68cm, right=2.68cm}
 %Page 3
 \setcounter{page}{1}
 \fancyfoot[C]{
-\newgeometry{bottom=3cm, top=3cm, right=3cm}
-\hfill\LARGE{\narrowbold{Norsk institutt for naturforskning}}}
+\newgeometry{bottom=3cm, top=3cm, left=2.68cm, right=2cm}
+\vspace{-0.5cm}\hfill\Large{\narrowbold{Norsk institutt for naturforskning}}}
 \vspace{2cm}
 
-\Huge{$title$} \par\vspace{.5cm}
-\huge{$subtitle$} \par\vspace{1cm}
+\huge{$title$} \par\vspace{.5cm}
+\LARGE{$subtitle$} \par\vspace{1cm}
 $for(first_author)$
 \hspace{0cm}\LARGE{$first_author.name$} \par
 $endfor$
@@ -376,16 +429,19 @@ $endfor$
 \pagestyle{fancy}
 \fancyfoot[c]{\ruleline{\thepage}}
 \fancyhead[c]{\ruleline{\tiny{NINA Rapport $reportnr$}}}
+% To count also the first page (for new template)
+\addtocounter{page}{1}
 
 \normalsize
-
-\footnotesize{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \smallspace
+\newgeometry{bottom=3cm, top=2.6cm, left=2.82cm, right=6.2cm}
+\small{$self-ref$}~NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par \href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par \smallspace
 $location$, \ninadate\today \par \smallspace
 ISSN: 1504-3312 \par
 ISBN: 978-82-426-$ISBN_end$ \par  \smallspace
 {\scriptsize{RETTIGHETSHAVER}} \par
 © Norsk institutt for naturforskning  \par
-Publikasjonen kan siteres fritt med kildeangivelse \par \smallspace
+Denne rapporten er lisensiert under Creative Commons Navngivelse 4.0 \par
+Internasjonal lisens: \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons — Attribution 4.0 International — CC BY 4.0}\par \smallspace
 {\scriptsize{TILGJENGELIGHET}} \par
 $access$ \par \smallspace
 {\scriptsize{PUBLISERINGSTYPE}} \par
@@ -462,10 +518,9 @@ www.nina.no
 
 \clearpage
 \setcounter{secnumdepth}{0}
+\newgeometry{bottom=3cm, top=3cm, left=2.68cm, right=2.68cm}
 \section{Sammendrag}
-
-
-\footnotesize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
+\normalsize{$self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par\href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$} \par
 \vspace{0.5cm}
 \normalsize{
 $sammendrag$} \\
@@ -486,9 +541,7 @@ $endfor$
 
 \setcounter{secnumdepth}{0}
 \section{Abstract}
-
-
-\footnotesize{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par
+\small{$english-self-ref$} NINA Rapport $reportnr$. Norsk institutt for naturforskning. \par\href{http://hdl.handle.net/11250/$handle-endpoint$}{http://hdl.handle.net/11250/$handle-endpoint$}\par
 \vspace{0.5cm}
 \normalsize{
 $abstract$} \\

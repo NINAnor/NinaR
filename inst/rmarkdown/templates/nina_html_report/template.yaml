@@ -1,0 +1,5 @@
+name: NINA Report
+description: >
+ Template for creating a NINA Report
+create_dir: true
+
