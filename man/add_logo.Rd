@@ -33,7 +33,9 @@ This is a ggplot version of addLogo. It inserts a svg version of the NINA logo i
 \examples{
 
 
-p <- ggplot(tibble(x = (1:10)^2, y = 1:10), aes(x = x, y = y)) +
+p <- ggplot2::ggplot(tibble::tibble(x = (1:10)^2, y = 1:10), ggplot2::aes(x = x, y = y)) +
+add_logo(xmin = 75, ymax = 2.5, ymin = 1, stroke_scale = 0.3) +
+ ggplot2::geom_point()
 
 
 

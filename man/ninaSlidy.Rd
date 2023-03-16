@@ -107,6 +107,9 @@ default definition of R Markdown. See the \code{\link[rmarkdown]{rmarkdown_forma
 additional details.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc}
+
+\item{...}{Additional function arguments to pass to the base R Markdown HTML
+output formatter \code{\link[rmarkdown]{html_document_base}}}
 }
 \value{
 R Markdown output format to pass to \code{\link{render}}

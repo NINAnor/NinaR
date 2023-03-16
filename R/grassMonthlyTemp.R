@@ -76,7 +76,7 @@ grassMonthlyTemp <- function(points,
   dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   # set the computational region first to the raster map and extent of your points:
-  execGRASS("g.region", align = dem,
+  rgrass7::execGRASS("g.region", align = dem,
             n = as.character(max_y),
             s = as.character(min_y),
             e = as.character(max_x),
@@ -84,13 +84,13 @@ grassMonthlyTemp <- function(points,
             flags = "p")
 
   # Add mapset containing time series data
-  execGRASS("g.mapsets",
+  rgrass7::execGRASS("g.mapsets",
             operation = "add",
             mapset = "gt_Meteorology_Norway_seNorge_precipitation_months,gt_Meteorology_Norway_seNorge_temperature_months")
 
   # Query time series at vector points, transfer result into R
-  execGRASS("t.connect", flags = "d")
-  execGRASS("g.region",
+  rgrass7::execGRASS("t.connect", flags = "d")
+  rgrass7::execGRASS("g.region",
             align = "precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days",
             n = as.character(max_y),
             s = as.character(min_y),
@@ -100,7 +100,7 @@ grassMonthlyTemp <- function(points,
 
 
   cat("This can take some time...")
-  temp_monthly <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
+  temp_monthly <- rgrass7::execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
                           strds=selection,
                           where=time_cond,
                           nprocs=10,

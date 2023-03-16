@@ -15,9 +15,9 @@
 #' @examples
 #'
 #'
-#' p <- ggplot(tibble(x = (1:10)^2, y = 1:10), aes(x = x, y = y)) +
-# add_logo(xmin = 75, ymax = 2.5, ymin = 1, stroke_scale = 0.3) +
-#  geom_point()
+#' p <- ggplot2::ggplot(tibble::tibble(x = (1:10)^2, y = 1:10), ggplot2::aes(x = x, y = y)) +
+#' add_logo(xmin = 75, ymax = 2.5, ymin = 1, stroke_scale = 0.3) +
+#'  ggplot2::geom_point()
 # p
 #'
 #'
@@ -40,11 +40,12 @@ add_logo <- function(logo_type = "black",
                                 stroke_scale = stroke_scale)
   }
 
+  dummy_data <- data.frame(x = NA)
 
-  ggplot2::layer(data = ggplot2:::dummy_data(),
-                 stat = ggplot2:::StatIdentity,
-                 position = ggplot2:::PositionIdentity,
-                 geom = ggplot2:::GeomCustomAnn,
+  ggplot2::layer(data = dummy_data,
+                 stat = ggplot2::StatIdentity,
+                 position = ggplot2::PositionIdentity,
+                 geom = ggplot2::GeomCustomAnn,
                  inherit.aes = FALSE,
                  params = list(grob = grob,
                                xmin = xmin,

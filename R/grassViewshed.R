@@ -39,17 +39,17 @@ grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevatio
 
   #Check that is is run on NINSRV16
   #Check that is is run on NINSRV16
-  if(!NinaR:::checkMachine()){
+  if(!checkMachine()){
     stop("Must be run on NINA servers!")
   }
 
-  require(rgrass7)
+  requireNamespace(rgrass7)
 
   ##Check if grassconnection is up, otherwise connect
   op <- options(warn=2)
   tt <- try(gmeta())
   if(is(tt,"try-error")){
-    NinaR::grassConnect()
+    grassConnect()
     }
   options(op)
 
@@ -62,18 +62,18 @@ grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevatio
   dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   ##Set g.region
-  execGRASS("g.region", align = dem,
+  rgrass7::execGRASS("g.region", align = dem,
             n = as.character(max_y), s = as.character(min_y), e = as.character(max_x),
             w = as.character(min_x))
   ##Get viewshed
-  execGRASS("r.viewshed", parameters = list(input = dem, output = "viewshed_raster",
+  rgrass7::execGRASS("r.viewshed", parameters = list(input = dem, output = "viewshed_raster",
                                             coordinates = c(my_point$x, my_point$y),
                                             observer_elevation = observer_elevation,
                                             target_elevation = target_elevation,
                                             max_distance = dist),
                                             flags = c("b", "c","overwrite"))
 
-  execGRASS("r.to.vect",
+  rgrass7::execGRASS("r.to.vect",
             parameters = list(input = "viewshed_raster",
                               output = "viewshed_vector",
                               type = "area"),

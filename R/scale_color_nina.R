@@ -13,15 +13,15 @@
 #'
 #'
 #' @examples
+#' require(ggplot2)
+#' ggplot2::ggplot(mpg, ggplot2::aes(cyl, hwy)) +
+#' ggplot2::geom_point(ggplot2::aes(colour = drv)) +
+#'   scale_color_nina(discrete = TRUE)
 #'
-#' ggplot(mpg, aes(cyl, hwy)) +
-#' geom_point(aes(colour = drv)) +
-#'   scale_color_nina(discrete = T)
 #'
-#'
-#' ggplot(mpg, aes(cyl, hwy)) +
-#' geom_point(aes(colour = year)) +
-#'   scale_color_nina(discrete = F,
+#' ggplot2::ggplot(mpg, aes(cyl, hwy)) +
+#' ggplot2::geom_point(aes(colour = year)) +
+#'   scale_color_nina(discrete = FALSE,
 #'                    palette = "lightblue-yellow",
 #'                    name = "Year of make") +
 #'  ylab("Highway miles per gallon") +

@@ -9,6 +9,8 @@
 [![](https://img.shields.io/badge/devel%20version-0.2.2.7-blue.svg)](https://github.com/NINAnor/NinaR)
 [![](https://www.r-pkg.org/badges/version/NinaR)](https://cran.r-project.org/package=NinaR)
 [![](https://img.shields.io/github/languages/code-size/NINAnor/NinaR.svg)](https://github.com/NINAnor/NinaR)
+[![R build
+status](https://github.com/NINAnor/NinaR/workflows/R-CMD-check/badge.svg)](https://github.com/NINAnor/NinaR/actions)
 <!-- badges: end -->
 
 This is an R package that provides Rmarkdown templates and various

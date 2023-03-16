@@ -23,6 +23,7 @@ library(badger)
 `r badge_github_version("NINAnor/NinaR", "blue")`
 `r badge_cran_release("NinaR")`
 `r badge_code_size("NINAnor/NinaR")`
+`r badge_github_actions("NINAnor/NinaR")`
 <!-- badges: end -->
 
 This is an R package that provides Rmarkdown templates and various practical functions for R users in NINA. NINA-employees, please contribute with R functions that you think would be useful to others. 

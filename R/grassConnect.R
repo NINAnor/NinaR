@@ -17,11 +17,12 @@
 #' @export
 
 
-grassConnect <- function(location="ETRS_33N", mapset="user"){
+grassConnect <- function(location = "ETRS_33N",
+                         mapset = "user"){
     host <- NULL
     try(host <- system("hostname", intern = T))
     if (grepl("ninrstudio|ningis", host)) {
-      require(rgrass7)
+      #requireNamespace(rgrass7)
       gisDbase <- "/data/grass"
       #location <- "ETRS_33N"
       if(mapset=="user") {
@@ -32,7 +33,7 @@ grassConnect <- function(location="ETRS_33N", mapset="user"){
         wd <- paste(gisDbase, location, mapset, sep = "/")
         try(system(paste("grass -text -c -e", wd)))
         grasslib <- try(system('grass --config path', intern=TRUE))
-        initGRASS(gisBase = grasslib, location = location,
+        rgrass7::initGRASS(gisBase = grasslib, location = location,
                   mapset = mapset, gisDbase = gisDbase, override = TRUE)
       } else {
         stop("Mapset name does not follow naming convention! Please check: http://web.nina.no/giswiki/doku.php?id=ninsrv16:grassgisbase")
