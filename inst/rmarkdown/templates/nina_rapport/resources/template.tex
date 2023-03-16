@@ -4,6 +4,19 @@ $endif$
 \documentclass[11pt, a4paper]{article}
 \usepackage[norsk]{babel}
 
+%For strikethrough
+\usepackage{ulem}
+
+%For landscpe orientation \begin{landscape}...
+\usepackage{pdflscape}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
+%For rotating a figure \begin{sidewaysfigure}...
+\usepackage{rotating}
+\newcommand{\brotatefig}{\begin{sidewaysfigure}}
+\newcommand{\erotatefig}{\end{sidewaysfigure}}
+
 
 %$if(csl-refs)$
 %\newlength{\cslhangindent}
