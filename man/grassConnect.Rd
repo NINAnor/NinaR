@@ -26,5 +26,5 @@ grassConnect()
 \code{\link{grassDailyTemp}}
 }
 \author{
-Stefan Blumentrath, Jens Astrom
+Stefan Blumentrath, Jens Astrom, Bernardo Niebuhr
 }
