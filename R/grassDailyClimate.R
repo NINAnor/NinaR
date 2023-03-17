@@ -35,7 +35,7 @@
 grassDailyClimate <- function(points, variables=c("Temperature", "Precipitation"), start_time, end_time, where=NULL, nprocs=10){
   #Check that is is run on Linux Server
   try(host <- system("hostname", intern = T))
-  if (!(grepl("ninrstudio", host))){
+  if (!(grepl("ninrstudio|ningis|lipgis", host))){
     stop("Must be run on NINA servers!")
   }
 
@@ -47,10 +47,10 @@ grassDailyClimate <- function(points, variables=c("Temperature", "Precipitation"
       stop("Climate variables are only available in ETRS 33N location!")
     }
   }
-  
+
   mapsets <- system("ls -1 /data/grass/ETRS_33N/ | grep gt_Meteorology_Norway_seNorge | grep days", intern=TRUE)
   all_variables <- unlist(lapply(1:length(mapsets), function(x) strsplit(mapsets, "_")[[x]][5]))
-  
+
   for(variable in variables){
     if(!(variable %in% all_variables)){
       stop(paste0("Variable ", variable, "not available, available are: ", paste(all_variables, sep=",")))
@@ -70,7 +70,7 @@ grassDailyClimate <- function(points, variables=c("Temperature", "Precipitation"
   min_y <- min(points$y)
 
   # set the computational region first to the raster map and extent of your points:
-  execGRASS("g.region", align = "precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_Precipitation_days",
+  rgrass::execGRASS("g.region", align = "precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_Precipitation_days",
             n = as.character(max_y),
             s = as.character(min_y),
             e = as.character(max_x),
@@ -78,20 +78,20 @@ grassDailyClimate <- function(points, variables=c("Temperature", "Precipitation"
             flags = "p")
 
   # Query time series at vector points, transfer result into R
-  execGRASS("t.connect", flags = "d")
-  
+  rgrass::execGRASS("t.connect", flags = "d")
+
   out <- list()
 
   for(v in variables){
     # Add mapset containing time series data
-    execGRASS("g.mapsets", operation = "add", mapset = paste0("gt_Meteorology_Norway_seNorge_", v, "_days"))
+    rgrass::execGRASS("g.mapsets", operation = "add", mapset = paste0("gt_Meteorology_Norway_seNorge_", v, "_days"))
 
     cat("This can take some time...")
     strds_var <- paste(tolower(substr(v, 1, 1)), substr(v, 2, nchar(v)), sep="")
-    variable_daily <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
+    variable_daily <- rgrass::execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
                             strds=paste0(strds_var, "_seNorge_1km_days@gt_Meteorology_Norway_seNorge_", v,"_days"),
                             where=time_cond, nprocs=nprocs, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
-  
+
     print(variable_daily)
     con <- textConnection(variable_daily)
     out[[v]] <- read.csv(con, header=TRUE)

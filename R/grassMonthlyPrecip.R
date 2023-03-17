@@ -56,25 +56,25 @@ grassMonthlyPrecip <- function(points, start_time, end_time, where=NULL, type=c(
   dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   # set the computational region first to the raster map and extent of your points:
-  execGRASS("g.region", align = dem,
-            n = as.character(max_y),
-            s = as.character(min_y),
-            e = as.character(max_x),
-            w = as.character(min_x),
-            flags = "p")
+  rgrass::execGRASS("g.region", align = dem,
+                    n = as.character(max_y),
+                    s = as.character(min_y),
+                    e = as.character(max_x),
+                    w = as.character(min_x),
+                    flags = "p")
 
   # Add mapset containing time series data
-  execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_months,gt_Meteorology_Norway_seNorge_temperature_months")
+  rgrass::execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_months,gt_Meteorology_Norway_seNorge_temperature_months")
 
   # Query time series at vector points, transfer result into R
-  execGRASS("t.connect", flags = "d")
-  execGRASS("g.region", align="precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
+  rgrass::execGRASS("t.connect", flags = "d")
+  rgrass::execGRASS("g.region", align="precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
 
 
   cat("This can take some time...")
-  temp_monthly <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
-                          strds=selection,
-                          where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
+  temp_monthly <- rgrass::execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
+                                    strds=selection,
+                                    where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
 
   con <- textConnection(temp_monthly)
   out <- read.csv(con, header=TRUE)
