@@ -5,7 +5,7 @@ $endif$
 \usepackage[norsk]{babel}
 
 %For strikethrough
-\usepackage{ulem}
+%\usepackage{ulem}
 
 %For landscpe orientation \begin{landscape}...
 \usepackage{pdflscape}
@@ -141,7 +141,9 @@ $endif$
 %Define own http_links to get underline links
 \usepackage{soul}
 \setul{.2ex}{.15ex}
-\renewcommand*{\href}[2]{\hyperref[#1]{\color{darkblue}\setulcolor{darkblue}\ul{#2}}}
+\renewcommand*{\href}[2]{\hyperref[#1]{\color{darkblue}\setulcolor{darkblue}\ul{\mbox{#2}}}}
+%\renewcommand*{\href}[1]{\hyperref[#1]{\color{darkblue}\setulcolor{darkblue}\ul{\mbox{#1}}}}
+
 
 %Modify table of contents style
 %\usepackage{titlesec}
@@ -334,7 +336,7 @@ http://www.nina.no
 %Make sure it always produce even numbered document (adding empty page if necessary)
 \usepackage{scrextend}
 \newcommand{\OpenNewPageIfNeeded}{%
-  \ifthispageodd{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\clearpage~\pagestyle{endfooter}
+  \Ifthispageodd{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\clearpage~\pagestyle{endfooter}
   }{\fancyhf{}\newgeometry{bottom=6.6cm, top=2cm, left=1.5cm, right=1.5cm, headsep=0cm, footskip=0.5cm}\null\pagestyle{endfooter}}
 }
 \AtEndDocument{\OpenNewPageIfNeeded}
