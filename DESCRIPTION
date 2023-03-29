@@ -15,13 +15,15 @@ Description: This package collects functions and templates of practical use
 url: https://github.com/NINAnor/NinaR
 License: GPL-3
 Depends: rmarkdown
-Suggests: knitr
+Suggests: 
+  knitr,
+  rgrass
 Imports: 
   utils, 
   rmarkdown, 
   knitr, 
   yaml, 
-    grImport, 
+  grImport, 
   grid, 
   XML, 
   tikzDevice, 

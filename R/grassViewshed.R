@@ -43,14 +43,14 @@ grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevatio
     stop("Must be run on NINA servers!")
   }
 
-  require(rgrass7)
+  # require(rgrass)
 
   ##Check if grassconnection is up, otherwise connect
   op <- options(warn=2)
   tt <- try(gmeta())
   if(is(tt,"try-error")){
     NinaR::grassConnect()
-    }
+  }
   options(op)
 
   ##Calculate suitable boundary
@@ -62,27 +62,27 @@ grassViewshed <- function(xycoords, return = TRUE, dist = 100, observer_elevatio
   dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   ##Set g.region
-  execGRASS("g.region", align = dem,
-            n = as.character(max_y), s = as.character(min_y), e = as.character(max_x),
-            w = as.character(min_x))
+  rgrass::execGRASS("g.region", align = dem,
+                    n = as.character(max_y), s = as.character(min_y), e = as.character(max_x),
+                    w = as.character(min_x))
   ##Get viewshed
-  execGRASS("r.viewshed", parameters = list(input = dem, output = "viewshed_raster",
-                                            coordinates = c(my_point$x, my_point$y),
-                                            observer_elevation = observer_elevation,
-                                            target_elevation = target_elevation,
-                                            max_distance = dist),
-                                            flags = c("b", "c","overwrite"))
+  rgrass::execGRASS("r.viewshed", parameters = list(input = dem, output = "viewshed_raster",
+                                                    coordinates = c(my_point$x, my_point$y),
+                                                    observer_elevation = observer_elevation,
+                                                    target_elevation = target_elevation,
+                                                    max_distance = dist),
+                    flags = c("b", "c","overwrite"))
 
-  execGRASS("r.to.vect",
-            parameters = list(input = "viewshed_raster",
-                              output = "viewshed_vector",
-                              type = "area"),
-            flags = c("overwrite"),
-            ignore.stderr = TRUE)
+  rgrass::execGRASS("r.to.vect",
+                    parameters = list(input = "viewshed_raster",
+                                      output = "viewshed_vector",
+                                      type = "area"),
+                    flags = c("overwrite"),
+                    ignore.stderr = TRUE)
 
   if(return){
-  out <- rgrass7::read_VECT("viewshed_vector")
-  return(out)
+    out <- rgrass7::read_VECT("viewshed_vector")
+    return(out)
   }
 
 }

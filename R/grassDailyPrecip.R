@@ -52,25 +52,25 @@ grassDailyPrecip <- function(points, start_time, end_time, where=NULL){
   dem <- "dem_10m_nosefi@g_Elevation_Fenoscandia"
 
   # set the computational region first to the raster map and extent of your points:
-  execGRASS("g.region", align = dem,
-            n = as.character(max_y),
-            s = as.character(min_y),
-            e = as.character(max_x),
-            w = as.character(min_x),
-            flags = "p")
+  rgrass::execGRASS("g.region", align = dem,
+                    n = as.character(max_y),
+                    s = as.character(min_y),
+                    e = as.character(max_x),
+                    w = as.character(min_x),
+                    flags = "p")
 
   # Add mapset containing time series data
-  execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_days,gt_Meteorology_Norway_seNorge_temperature_days")
+  rgrass::execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_days,gt_Meteorology_Norway_seNorge_temperature_days")
 
   # Query time series at vector points, transfer result into R
-  execGRASS("t.connect", flags = "d")
-  execGRASS("g.region", align="precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
+  rgrass::execGRASS("t.connect", flags = "d")
+  rgrass::execGRASS("g.region", align="precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
 
 
   cat("This can take some time...")
-  precip_daily <- execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
-                          strds="precipitation_seNorge_1km_days@gt_Meteorology_Norway_seNorge_precipitation_days",
-                          where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
+  precip_daily <- rgrass::execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
+                                    strds="precipitation_seNorge_1km_days@gt_Meteorology_Norway_seNorge_precipitation_days",
+                                    where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
 
   con <- textConnection(precip_daily)
   out <- read.csv(con, header=TRUE)
