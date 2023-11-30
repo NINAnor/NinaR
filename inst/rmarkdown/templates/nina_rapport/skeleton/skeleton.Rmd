@@ -66,14 +66,21 @@ abstract: Tekst inn her, et kort resymé av innholdet. \textbf{Maksimalt 4000 te
 require(NinaR)
 require(xtable)
 require(knitr)
+
 opts_chunk$set(tidy=T, 
                tidy.opts=list(width.cutoff=50),
                fig.align = "left")
+
 options(width = 60,
         "xtable.comment" = F,
         "xtable.include.rownames" = F)
 
 ```
+```{r}
+#For example plots
+require(ggplot2)
+```
+
 
 # Innledning {#inl}
 Dette er et eksempel på en NINA Rapport produsert fra statistikkprogrammet R [@R], gjennom pakken `NinaR` [@NinaR]. Den kan med fordel brukes da rapporten har stort innhold av R-skript. Bortsett fra seksjonene med kod er mallen tenkt å etterligne NINA sin standardmalle for rapporter. Malen brukes på samme måte som andre maller i pakken `Rmarkdown` [@rmarkdown] og `rticles` [@rticles] (se http://rmarkdown.rstudio.com/). Rstudio er særskilt tilpasset til `rmarkdown`, men malen kan også brukes direkte i R (også via terminalen/Command Prompt). I Rstudio bruker man enklest knappen "Knit", men rapporten kan også genereres med kommandoen `rmarkdown::render("din_rapport.Rmd")`.

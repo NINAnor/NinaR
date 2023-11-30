@@ -36,6 +36,13 @@ knitr::opts_chunk$set(
   fig.path = "figure/"
 )
 
+knitr::knit_hooks$set(
+  document = function(x) {
+    sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)
+    }
+  )
+
+
 options(
   xtable.comment = F,
   xtable.include.rownames = F,
@@ -72,7 +79,7 @@ postgreSQLConnect(
 rm(list = c("username", "password"))
 
 
-#You could also use the .pgpass file as shown in https://www.postgresql.org/docs/current/libpq-pgpass.html. Then you don't have to provide your credentials at all. gisdata-db.nina.no doesn't synk it's credentials to the Windows password servers yet though, so this only works (for me) with other databases. 
+#You could also use the .pgpass file as shown in https://www.postgresql.org/docs/current/libpq-pgpass.html. Then you don't have to provide your credentials at all. gisdata-db.nina.no doesn't sync it's credentials to the Windows password servers yet though, so this only works (for me) with other databases. 
 
 con <- dbConnect(RPostgres::Postgres(),
                  host = "ninradardata01.nina.no",

@@ -10,10 +10,10 @@ grassConnect(location = "ETRS_33N", mapset = "user")
 \item{Function}{accepts no params}
 }
 \description{
-Connects to GRASS on the Linux server at NINA.
+Connects to GRASS on the Linux servers at NINA.
 }
 \details{
-Only works when run on the Linux server, and stops if checks fail to identify the running machine as such.
+Only works when run on the Linux servers, and stops if checks fail to identify the running machine as such.
 The function creates uses a Grass location based on the formula "u_USERNAME" where "USERNAME" is identified internally,
 as the user that executes the function. This location is created if needed.
 }
