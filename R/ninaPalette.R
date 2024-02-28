@@ -30,6 +30,8 @@ nina_palettes <- list(
 
   `logo`  = ninaColors("grey", "light blue", "yellow"),
 
+  `contrast` = ninaColors("dark blue", "orange", "purple", "green", "grey", "light blue", "yellow"),
+
   `darkblue-blue` = ninaColors("dark blue", "blue"),
 
   `darkblue-orange` = ninaColors("dark blue", "orange"),
