@@ -4,13 +4,19 @@
 \alias{checkWorkload}
 \title{checkWorkload}
 \usage{
-checkWorkload(procs = 20)
+checkWorkload(
+  user_aggregate = TRUE,
+  sort_proc_by = c("CPU", "MEM"),
+  procs = 50
+)
 }
 \arguments{
-\item{procs}{The number of processes to show for the "Processes" table. Default = 20.}
+\item{user_aggregate}{Summarize the processes on the user that started it? Boolean.}
+
+\item{procs}{The number of processes to show for the "Processes" table, when not aggregating on user. Default = 50.}
 }
 \value{
-A list consisting of 1) he total number of cores on the machine, 2) an overview of the running processes, and 3) a summary of the memory usage.
+A list consisting of 1) he total number of cores on the machine, 2) an overview of the running processes, and 3) a summary of the memory usage. The overview of the running processes depends on `user_aggregate`
 }
 \description{
 See the current workload on your machine. ONLY WORKS ON LINUX!

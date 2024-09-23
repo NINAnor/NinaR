@@ -7,21 +7,30 @@
 #' busy the cores are. The number of total cores on the machine is shown in "Cores". In the "Memory" table, the "Available" column is the
 #' thing of most interest.
 #'
-#' @param procs The number of processes to show for the "Processes" table. Default = 20.
+#' @param user_aggregate Summarize the processes on the user that started it? Boolean.
+#' @param procs The number of processes to show for the "Processes" table, when not aggregating on user. Default = 50.
 #'
 #' @author Jens Åström
 #' @import NCmisc parallel
 #'
-#' @return A list consisting of 1) he total number of cores on the machine, 2) an overview of the running processes, and 3) a summary of the memory usage.
+#' @return A list consisting of 1) he total number of cores on the machine, 2) an overview of the running processes, and 3) a summary of the memory usage. The overview of the running processes depends on `user_aggregate`
 #'
 #' @export
 
-checkWorkload <- function(procs = 20){
+checkWorkload <- function(user_aggregate = TRUE,
+                          sort_proc_by = c("CPU", "MEM"),
+                          procs = 50){
 
   system <- Sys.info()["sysname"]
   if(system != "Linux") stop("This only works on Linux machines!")
 
-  noCores <- parallel::detectCores()
+  sort_proc_by <- match.arg(sort_proc_by, c("CPU", "MEM"))
+  sort_proc_by <- switch(sort_proc_by,
+                          "CPU" = "%CPU",
+                          "MEM" = "%MEM"
+                          )
+
+   noCores <- parallel::detectCores()
 
   top <- NCmisc::top(Table = T,
                      procs = 100)
@@ -37,7 +46,20 @@ checkWorkload <- function(procs = 20){
   dimnames(mem) <- list(mem[, 1], mem[1, ])
   mem <- as.data.frame(mem[-1, -1], optional = T, stringsAsFactors = FALSE)
 
-  out <- list("Cores" = noCores, "Processes" = top[[1]][1:procs, ], "Memory" = mem)
+  if(user_aggregate){
+    top_out <- top[[1]] %>%
+      group_by(USER) %>%
+      mutate_at(vars(`%CPU`,`%MEM`), as.numeric) %>%
+      summarise_at(vars(`%CPU`,`%MEM`), sum)
+  } else {
+    top_out <- top[[1]] %>%
+      mutate_at(vars(`%CPU`,`%MEM`), as.numeric)
+  }
+
+  top_out <- top_out %>%
+    arrange(desc(!!sym(sort_proc_by)))
+
+  out <- list("Cores" = noCores, "Processes" = top_out[1:procs, ], "Memory" = mem)
 
   return(out)
 }
