@@ -19,21 +19,22 @@
 
 checkWorkload <- function(user_aggregate = TRUE,
                           sort_proc_by = c("CPU", "MEM"),
-                          procs = 50){
-
+                          procs = 50) {
   system <- Sys.info()["sysname"]
-  if(system != "Linux") stop("This only works on Linux machines!")
+  if (system != "Linux") stop("This only works on Linux machines!")
 
   sort_proc_by <- match.arg(sort_proc_by, c("CPU", "MEM"))
   sort_proc_by <- switch(sort_proc_by,
-                          "CPU" = "%CPU",
-                          "MEM" = "%MEM"
-                          )
+    "CPU" = "%CPU",
+    "MEM" = "%MEM"
+  )
 
-   noCores <- parallel::detectCores()
+  noCores <- parallel::detectCores()
 
-  top <- NCmisc::top(Table = T,
-                     procs = 100)
+  top <- NCmisc::top(
+    Table = T,
+    procs = 100
+  )
 
   memRaw <- system("free -mh ", intern = T)
   mem <- strsplit(memRaw, "\t")
@@ -42,18 +43,18 @@ checkWorkload <- function(user_aggregate = TRUE,
   mem[[3]] <- c(mem[[3]], rep(",", 3))
 
   mem <- lapply(mem, function(x) unlist(strsplit(x, ",")))
-  mem <- matrix(unlist(mem), nrow = 3, byrow=T)
+  mem <- matrix(unlist(mem), nrow = 3, byrow = T)
   dimnames(mem) <- list(mem[, 1], mem[1, ])
   mem <- as.data.frame(mem[-1, -1], optional = T, stringsAsFactors = FALSE)
 
-  if(user_aggregate){
+  if (user_aggregate) {
     top_out <- top[[1]] %>%
       group_by(USER) %>%
-      mutate_at(vars(`%CPU`,`%MEM`), as.numeric) %>%
-      summarise_at(vars(`%CPU`,`%MEM`), sum)
+      mutate_at(vars(`%CPU`, `%MEM`), as.numeric) %>%
+      summarise_at(vars(`%CPU`, `%MEM`), sum)
   } else {
     top_out <- top[[1]] %>%
-      mutate_at(vars(`%CPU`,`%MEM`), as.numeric)
+      mutate_at(vars(`%CPU`, `%MEM`), as.numeric)
   }
 
   top_out <- top_out %>%
@@ -63,6 +64,3 @@ checkWorkload <- function(user_aggregate = TRUE,
 
   return(out)
 }
-
-
-

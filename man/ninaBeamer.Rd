@@ -38,7 +38,6 @@ The resulting template can be processed most easily in Rstudio, but can be run
  in plain R using the \code{rmarkdown::render} function.
 }
 \examples{
-
 \dontrun{
 library(rmarkdown)
 draft("MyArticle.Rmd", template = "ninaBeamer", package = "NinaR")

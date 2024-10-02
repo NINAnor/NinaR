@@ -43,15 +43,13 @@ The resulting template can be processed most easily in Rstudio, but can also be 
  the package "rticles" by RStudio, and uses their utility functions.
 }
 \examples{
-
 \dontrun{
 # initiate a template
 library(rmarkdown)
 draft("MyReport.Rmd", template = "jens_analysis", package = "NinaR")
 
-#render an article manually
+# render an article manually
 render("MyReport.Rmd", jensAnalysis.R())
-
 }
 
 }

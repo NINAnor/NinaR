@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![](https://img.shields.io/badge/devel%20version-0.2.2.7-blue.svg)](https://github.com/NINAnor/NinaR)
+[![](https://img.shields.io/badge/devel%20version-0.2.2.12-blue.svg)](https://github.com/NINAnor/NinaR)
 [![](https://www.r-pkg.org/badges/version/NinaR)](https://cran.r-project.org/package=NinaR)
 [![](https://img.shields.io/github/languages/code-size/NINAnor/NinaR.svg)](https://github.com/NINAnor/NinaR)
 <!-- badges: end -->
@@ -17,42 +17,39 @@ contribute with R functions that you think would be useful to others.
 
 Currently, the package contains the functions:
 
--   addAlpha
--   addLogo
--   add_logo
--   checkWorkload
--   grassConnect
--   grassDailyPrecip
--   grassDailyTemp
--   grassMonthlyPrecip
--   grassMonthlyTemp
--   grassViewshed
--   jensAnalysis
--   mountFolders
--   ninaBeamer
--   ninaColors
--   ninaLogoPalette
--   ninaPalette
--   ninaRapport
--   ninaSlidy
--   nina_colors
--   postgreSQLConnect
--   scale_color_nina
--   scale_fill_nina
--   tidyScandinavian
+- addAlpha
+- addLogo
+- add_logo
+- checkWorkload
+- grassConnect
+- grassDailyPrecip
+- grassDailyTemp
+- grassMonthlyPrecip
+- grassMonthlyTemp
+- grassViewshed
+- jensAnalysis
+- mountFolders
+- ninaBeamer
+- ninaColors
+- ninaLogoPalette
+- ninaPalette
+- ninaRapport
+- ninaSlidy
+- nina_colors
+- postgreSQLConnect
+- scale_color_nina
+- scale_fill_nina
+- tidyScandinavian
 
 # NOTE!
 
-At the moment, some functions have not been updated from using the old
-server (ninsrv16) to the new one (ninrstudio03). So some grass functions
-might not work.
+Some grass functions might not work.
 
 # To-do
 
-I have added a NINA report template (similar to the old
-ninaKortrapport), but this is untested in a real case. Please test it
-and you are most welcome to contribute if you know your way around
-LaTeX.
+The templates are superseeded by the new quarto_templates, see
+e.g. <https://github.com/NINAnor/quarto_nina_report>. The old ones will
+be removed from this package.
 
 # Installation
 
@@ -74,7 +71,7 @@ vignette("Nina-figures")
 Alternatively, it might be a good idea not to use the network drive to
 store your R-packages. To switch to using a local folder, create a
 folder on C:/, for example C:/R-packages. Then let R know where you want
-to put your packages by going to Control panel -> User accounts ->
+to put your packages by going to Control panel -\> User accounts -\>
 Change my environment variables, and make or update the environmental
 variable “R_LIBS_USER” to say C:/R-packages. After a restart, R should
 now use this folder for package installation. This might solve

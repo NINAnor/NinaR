@@ -11,15 +11,11 @@ addLogo(
 )
 }
 \arguments{
-\item{x}{x-position in percentage values (0-1) of
-npc (Normalized parent coordinates)}
+\item{x}{x-position in percentage values (0-1) of npc (Normalized parent coordinates)}
 
-\item{y}{y-position in percentage values (0-1) of
-npc (Normalized parent coordinates)}
+\item{y}{y-position in percentage values (0-1) of npc (Normalized parent coordinates)}
 
-\item{size}{size specified as width in percentage of original size (default 0.2).
-Height is left unspecified to scale with width, retaining
-original aspect ratio.}
+\item{size}{size specified as width in percentage of original size (default 0.2).  Height is left unspecified to scale with width, retaining original aspect ratio.}
 }
 \value{
 Adds scalable logo on current device (opens new device if no current device exists)
@@ -28,20 +24,19 @@ Adds scalable logo on current device (opens new device if no current device exis
 Adds a NINA logo to plot
 }
 \details{
-Logo is based on Postscript version of logo, and is scalable
-(vectorized). The function uses the package grImport. See
-examples for usage.
+Logo is based on Postscript version of logo, and is scalable (vectorized). The function uses the package grImport. See examples for usage.
 }
 \examples{
-## Add small logo to right bottom corner
-plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1)
+# Add small logo to right bottom corner.
+plot((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16, las = 1)
 addLogo()
 
-#Add large logo to background of plot
-plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1, type="n")
+# Add large logo to background of plot.
+plot((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16, las = 1, type = "n")
 addLogo(x = 0.5, y = 0.5, size = 1)
-grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
-points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
+grid::grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
+points((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16)
+
 }
 \author{
 Jens Astrom

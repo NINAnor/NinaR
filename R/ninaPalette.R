@@ -10,11 +10,10 @@
 #' @seealso \code{\link{ninaLogoPalette}}
 #' @examples
 #' set.seed(12345)
-#' barplot(runif(5), col=ninaPalette())
+#' barplot(runif(5), col = ninaPalette())
 #' @export
 
 ninaPalette <- function(palette = "main", reverse = FALSE, ...) {
-
   palette <- match.arg(palette, names(nina_palettes))
 
   pal <- nina_palettes[[palette]]
@@ -26,32 +25,19 @@ ninaPalette <- function(palette = "main", reverse = FALSE, ...) {
 
 #' @export
 nina_palettes <- list(
-  `main`  = ninaColors("dark blue", "blue", "orange", "purple", "green"),
-
-  `logo`  = ninaColors("grey", "light blue", "yellow"),
-
+  `main` = ninaColors("dark blue", "blue", "orange", "purple", "green"),
+  `logo` = ninaColors("grey", "light blue", "yellow"),
   `contrast` = ninaColors("dark blue", "orange", "purple", "green", "grey", "light blue", "yellow"),
-
   `darkblue-blue` = ninaColors("dark blue", "blue"),
-
   `darkblue-orange` = ninaColors("dark blue", "orange"),
-
-  `blue-orange` =  ninaColors("blue", "orange"),
-
-  `orange-purple` =  ninaColors("orange", "purple"),
-
-  `purple-green` =  ninaColors("purple", "green"),
-
+  `blue-orange` = ninaColors("blue", "orange"),
+  `orange-purple` = ninaColors("orange", "purple"),
+  `purple-green` = ninaColors("purple", "green"),
   `darkblue-orange` = ninaColors("dark blue", "orange"),
-
   `darkblue-green` = ninaColors("dark blue", "green"),
-
   `orange-green` = ninaColors("orange", "green"),
-
   `grey-yellow` = ninaColors("grey", "yellow"),
-
   `lightblue-yellow` = ninaColors("light blue", "yellow")
-
 )
 
 
@@ -66,27 +52,27 @@ nina_palettes <- list(
 
 ninaPaletteGgplot <- function(palette = "main", reverse = FALSE, ...) {
   pal <- nina_palettes[[palette]]
-  if(reverse) pal <- rev(pal)
+  if (reverse) pal <- rev(pal)
 
-  manual_pal(unname(pal),
-             ...)
-
+  manual_pal(
+    unname(pal),
+    ...
+  )
 }
 
 
 manual_pal <- function(values,
-                       ...)
-{
+                       ...) {
   force(values)
   function(n) {
     n_values <- length(values)
     if (n <= n_values) {
       return(values[seq_len(n)])
-
     } else {
-      colorRampPalette(values,
-                       ...)(n)
+      colorRampPalette(
+        values,
+        ...
+      )(n)
     }
-
   }
 }

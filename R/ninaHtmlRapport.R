@@ -23,24 +23,21 @@
 #'   \code{\link[rmarkdown:render]{render}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' # initiate a template
 #' library(rmarkdown)
 #' draft("MyReport.Rmd", template = "nina_html_rapport", package = "NinaR")
 #'
-#' #render an article manually
+#' # render an article manually
 #' render("MyReport.Rmd", ninaHtmlRrapport.R())
-#'
 #' }
 #'
 #' @export
 ninaHtmlRapport <- function(...) {
   fmt <- inherit_html_document(...,
-                       template = find_resource("nina_html_report", "default.html")
-                       )
+    template = find_resource("nina_html_report", "default.html")
+  )
 
 
   fmt
-
 }

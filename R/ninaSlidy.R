@@ -47,69 +47,78 @@
 #'
 #' @export
 ninaSlidy <- function(incremental = FALSE,
-                               duration = NULL,
-                               footer = NULL,
-                               font_adjustment = 0,
-                               fig_width = 8,
-                               fig_height = 6,
-                               fig_retina = if (!fig_caption) 2,
-                               fig_caption = TRUE,
-                               dev = 'png',
-                               smart = TRUE,
-                               self_contained = TRUE,
-                               highlight = "default",
-                               mathjax = "default",
-                               template = "default",
-                               css = NULL,
-                               includes = NULL,
-                               keep_md = FALSE,
-                               lib_dir = NULL,
-                               md_extensions = NULL,
-                               pandoc_args = NULL,
-                               ...) {
-
+                      duration = NULL,
+                      footer = NULL,
+                      font_adjustment = 0,
+                      fig_width = 8,
+                      fig_height = 6,
+                      fig_retina = if (!fig_caption) 2,
+                      fig_caption = TRUE,
+                      dev = "png",
+                      smart = TRUE,
+                      self_contained = TRUE,
+                      highlight = "default",
+                      mathjax = "default",
+                      template = "default",
+                      css = NULL,
+                      includes = NULL,
+                      keep_md = FALSE,
+                      lib_dir = NULL,
+                      md_extensions = NULL,
+                      pandoc_args = NULL,
+                      ...) {
   # base pandoc options for all reveal.js output
   args <- c()
 
   # template path and assets
-  if (identical(template, "default"))
-    args <- c(args, "--template",
-              pandoc_path_arg(system.file("rmarkdown/templates/nina_slidy/resources/nina_template.html", package = "NinaR")))
-  else if (!is.null(template))
+  if (identical(template, "default")) {
+    args <- c(
+      args, "--template",
+      pandoc_path_arg(system.file("rmarkdown/templates/nina_slidy/resources/nina_template.html", package = "NinaR"))
+    )
+  } else if (!is.null(template)) {
     args <- c(args, "--template", pandoc_path_arg(template))
+  }
 
   # incremental
-  if (incremental)
+  if (incremental) {
     args <- c(args, "--incremental")
+  }
 
   # duration
-  if (!is.null(duration))
+  if (!is.null(duration)) {
     args <- c(args, pandoc_variable_arg("duration", duration))
+  }
 
   # footer
-  if (!is.null(footer))
+  if (!is.null(footer)) {
     args <- c(args, pandoc_variable_arg("footer", footer))
+  }
 
   # font size adjustment
-  if (font_adjustment != 0)
-    args <- c(args, pandoc_variable_arg("font-size-adjustment",
-                                        font_adjustment))
+  if (font_adjustment != 0) {
+    args <- c(args, pandoc_variable_arg(
+      "font-size-adjustment",
+      font_adjustment
+    ))
+  }
 
   # content includes
   args <- c(args, rmarkdown::includes_to_pandoc_args(includes))
 
   # additional css
-  for (css_file in css)
+  for (css_file in css) {
     args <- c(args, "--css", pandoc_path_arg(css_file))
+  }
 
   # pre-processor for arguments that may depend on the name of the
   # the input file (e.g. ones that need to copy supporting files)
   pre_processor <- function(metadata, input_file, runtime, knit_meta, files_dir,
                             output_dir) {
-
     # use files_dir as lib_dir if not explicitly specified
-    if (is.null(lib_dir))
+    if (is.null(lib_dir)) {
       lib_dir <- files_dir
+    }
 
     # extra args
     args <- c()
@@ -120,9 +129,10 @@ ninaSlidy <- function(incremental = FALSE,
       pandoc_path_arg(slidy_path)
     } else {
       normalized_relative_to(
-        output_dir, render_supporting_files(slidy_path, lib_dir))
+        output_dir, render_supporting_files(slidy_path, lib_dir)
+      )
     }
-    args <- c(args, "--variable", paste("slidy-url=", slidy_path, sep=""))
+    args <- c(args, "--variable", paste("slidy-url=", slidy_path, sep = ""))
 
     # highlight
     args <- c(args, pandoc_highlight_args(highlight, default = "pygments"))
@@ -134,15 +144,20 @@ ninaSlidy <- function(incremental = FALSE,
   # return format
   output_format(
     knitr = knitr_options_html(fig_width, fig_height, fig_retina, keep_md, dev),
-    pandoc = pandoc_options(to = "slidy",
-                            from = from_rmarkdown(fig_caption, md_extensions),
-                            args = args),
+    pandoc = pandoc_options(
+      to = "slidy",
+      from = from_rmarkdown(fig_caption, md_extensions),
+      args = args
+    ),
     keep_md = keep_md,
     clean_supporting = self_contained,
     pre_processor = pre_processor,
-    base_format = html_document_base(smart = smart, lib_dir = lib_dir,
-                                     self_contained = self_contained,
-                                     mathjax = mathjax,
-                                     bootstrap_compatible = TRUE,
-                                     pandoc_args = pandoc_args, ...))
+    base_format = html_document_base(
+      smart = smart, lib_dir = lib_dir,
+      self_contained = self_contained,
+      mathjax = mathjax,
+      bootstrap_compatible = TRUE,
+      pandoc_args = pandoc_args, ...
+    )
+  )
 }

@@ -12,9 +12,9 @@
 #' @seealso \code{\link{ninaPalette}}
 #' @examples
 #' set.seed(12345)
-#' barplot(runif(3), col=ninaLogoPalette())
+#' barplot(runif(3), col = ninaLogoPalette())
 #' @export
 
-ninaLogoPalette <- function(){
+ninaLogoPalette <- function() {
   ninaPalette(palette = "logo")
 }

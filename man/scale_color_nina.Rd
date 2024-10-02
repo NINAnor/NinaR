@@ -33,16 +33,18 @@ Shamelessly taken from https://drsimonj.svbtle.com/creating-corporate-colour-pal
 \examples{
 
 ggplot(mpg, aes(cyl, hwy)) +
-geom_point(aes(colour = drv)) +
+  geom_point(aes(colour = drv)) +
   scale_color_nina(discrete = T)
 
 
 ggplot(mpg, aes(cyl, hwy)) +
-geom_point(aes(colour = year)) +
-  scale_color_nina(discrete = F,
-                   palette = "lightblue-yellow",
-                   name = "Year of make") +
- ylab("Highway miles per gallon") +
- xlab("Number of cylinders")
+  geom_point(aes(colour = year)) +
+  scale_color_nina(
+    discrete = F,
+    palette = "lightblue-yellow",
+    name = "Year of make"
+  ) +
+  ylab("Highway miles per gallon") +
+  xlab("Number of cylinders")
 
 }

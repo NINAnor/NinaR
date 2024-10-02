@@ -17,7 +17,7 @@ Code taken from Markus Gesmann http://www.magesblog.com/2013/04/how-to-change-al
 }
 \examples{
 set.seed(12345)
-barplot(runif(5), col=addAlpha(ninaPalette(), 0.4))
+barplot(runif(5), col = addAlpha(ninaPalette(), 0.4))
 }
 \seealso{
 \code{\link{ninaPalette}}

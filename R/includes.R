@@ -25,27 +25,31 @@
 #' html_document(includes = includes(before_body = "header.htm"))
 #'
 #' pdf_document(includes = includes(after_body = "footer.tex"))
-#'
 #' }
 #' @name includes
 #' @noRd
 includes <- function(in_header = NULL,
                      before_body = NULL,
                      after_body = NULL) {
-  list(in_header = in_header,
-       before_body = before_body,
-       after_body = after_body)
+  list(
+    in_header = in_header,
+    before_body = before_body,
+    after_body = after_body
+  )
 }
 
 
 
 includes_to_pandoc_args <- function(includes, filter = identity) {
-  if (!is.null(includes))
-    pandoc_include_args(in_header = filter(includes$in_header),
-                        before_body = filter(includes$before_body),
-                        after_body = filter(includes$after_body))
-  else
+  if (!is.null(includes)) {
+    pandoc_include_args(
+      in_header = filter(includes$in_header),
+      before_body = filter(includes$before_body),
+      after_body = filter(includes$after_body)
+    )
+  } else {
     NULL
+  }
 }
 
 
@@ -53,7 +57,7 @@ includes_to_pandoc_args <- function(includes, filter = identity) {
 # simple wrapper over normalizePath that preserves NULLs and applies pandoc-
 # friendly defaults
 normalize_path <- function(path, winslash = "/", mustWork = NA) {
-  if (!is.null(path))
+  if (!is.null(path)) {
     normalizePath(path, winslash = winslash, mustWork = mustWork)
+  }
 }
-

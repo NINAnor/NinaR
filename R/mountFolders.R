@@ -27,15 +27,13 @@
 #' }
 #' @export
 
-mountFolders <- function(){
-
-  #Ask for password
+mountFolders <- function() {
+  # Ask for password
   passw <- .rs.askForPassword("Enter your Windows password:")
 
   # Try to reset credits
-  try(system("/usr/bin/kinit", input = passw), silent=TRUE)
+  try(system("/usr/bin/kinit", input = passw), silent = TRUE)
 
-  #Delete password string (not sure is needed)
+  # Delete password string (not sure is needed)
   rm(passw)
-
 }

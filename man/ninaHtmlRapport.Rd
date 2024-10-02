@@ -25,15 +25,13 @@ Retreive an ISBN number and reportnumber from the NINA library and fill in the r
  the package "rticles" by RStudio, and uses their utility functions.
 }
 \examples{
-
 \dontrun{
 # initiate a template
 library(rmarkdown)
 draft("MyReport.Rmd", template = "nina_html_rapport", package = "NinaR")
 
-#render an article manually
+# render an article manually
 render("MyReport.Rmd", ninaHtmlRrapport.R())
-
 }
 
 }
