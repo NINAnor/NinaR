@@ -13,7 +13,7 @@ require(NinaR)
 require(grid)
 require(ggplot2)
 knitr::opts_chunk$set(
-  dev = 'svg'
+  dev = "svg"
 )
 options(rmarkdown.html_vignette.check_title = FALSE)
 ```
@@ -41,14 +41,14 @@ Alternatively, the palette can be used directly in functions:
 
 ```{r pallettefunction, fig.width=7, fig.height=5}
 require(NinaR)
-plot(10:1, cex=2, pch=16, col=ninaLogoPalette())
+plot(10:1, cex = 2, pch = 16, col = ninaLogoPalette())
 ```
 
 Transparency can be added with the `addAlpha` function.
 
 ```{r addAlpha, fig.width=7, fig.height=5}
 set.seed(12345)
-barplot(runif(5), col=addAlpha(ninaPalette(), 0.4))
+barplot(runif(5), col = addAlpha(ninaPalette(), 0.4))
 ```
 
 
@@ -58,17 +58,17 @@ addLogo
 The function `addLogo`, not surprisingly, adds a Nina logo to a figure. The default behaviour adds the logo to the right bottom corner, but the position and size can be specified to suit most needs.
 
 ```{r addlogo, fig.width=7, fig.height=5}
-plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1)
+plot((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16, las = 1)
 addLogo()
 ```
 
 The logo can also be added in the background, with a faded tint, with help from the package `grImport` (loaded automatically). Note that you have to initiate a plot before adding the logo, and therefore you have to elements on top of the logo manually afterwards.
 
 ```{r addbackgroundlogo, fig.width=7, fig.height=5}
-plot((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16, las=1, type="n")
+plot((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16, las = 1, type = "n")
 addLogo(x = 0.5, y = 0.5, size = 1)
 grid.rect(gp = gpar(fill = rgb(1, 1, 1, .6)))
-points((1:10)^2, 1:10, col=ninaPalette(), cex=4, pch=16)
+points((1:10)^2, 1:10, col = ninaPalette(), cex = 4, pch = 16)
 ```
 
 ggplot2
@@ -85,19 +85,19 @@ g + geom_raster(aes(fill = density)) +
 ```{r scale_fill_nina_discrete, fig.width=7, fig.height=5}
 g <- ggplot(mpg, aes(class))
 g + geom_bar(aes(fill = drv)) +
-   scale_fill_nina(palette = "logo")
+  scale_fill_nina(palette = "logo")
 ```
 
 ```{r scale_color_nina_discrete, fig.width=7, fig.height=5}
-g <- ggplot(mpg, aes(cyl, hwy)) 
+g <- ggplot(mpg, aes(cyl, hwy))
 g + geom_point(aes(colour = drv)) +
-   scale_color_nina(discrete = T)
+  scale_color_nina(discrete = T)
 ```
 
 ```{r scale_color_nina_continuous, fig.width=7, fig.height=5}
-g <- ggplot(mpg, aes(cty, hwy)) 
+g <- ggplot(mpg, aes(cty, hwy))
 g + geom_point(aes(colour = cyl)) +
-   scale_color_nina(discrete = F)
+  scale_color_nina(discrete = F)
 ```
 
 add_logo for ggplots
@@ -106,15 +106,16 @@ There is also a ggplot version of the add logo funtion, called add_logo. This ad
 
 
 ```{r add_logo, fig.width=7, fig.height=5}
-g <- ggplot(mpg, aes(cty, hwy))  +
+g <- ggplot(mpg, aes(cty, hwy)) +
   geom_point(aes(colour = cyl)) +
-   scale_color_nina(discrete = F) +
-  add_logo(xmin = 25,
-           xmax = 30,
-           stroke_scale = 0.3)
+  scale_color_nina(discrete = F) +
+  add_logo(
+    xmin = 25,
+    xmax = 30,
+    stroke_scale = 0.3
+  )
 
 g
-
 ```
 
 

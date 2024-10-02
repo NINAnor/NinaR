@@ -24,14 +24,13 @@ postgreSQLConnect <- function(username = "postgjest",
                               password = "gjestpost",
                               host = "gisdata-db.nina.no",
                               dbname = "gisdata",
-                              ...){
-
+                              ...) {
   tmp <- DBI::dbConnect(RPostgres::Postgres(),
-                 host = host,
-                 dbname = dbname,
-                 user = username,
-                 password = password,
-                 ...)
+    host = host,
+    dbname = dbname,
+    user = username,
+    password = password,
+    ...
+  )
   assign("con", tmp, .GlobalEnv)
-
 }

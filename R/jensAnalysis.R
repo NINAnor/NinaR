@@ -27,25 +27,23 @@
 #'   \code{\link[rmarkdown:render]{render}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' # initiate a template
 #' library(rmarkdown)
 #' draft("MyReport.Rmd", template = "jens_analysis", package = "NinaR")
 #'
-#' #render an article manually
+#' # render an article manually
 #' render("MyReport.Rmd", jensAnalysis.R())
-#'
 #' }
 #'
 #' @export
 jensAnalysis <- function(...,
-                             keep_tex = FALSE,
-                             md_extensions = c("-autolink_bare_uris","+header_attributes")) {
+                         keep_tex = FALSE,
+                         md_extensions = c("-autolink_bare_uris", "+header_attributes")) {
   inherit_pdf_document(...,
-                       template = find_resource("jens_analysis", "template.tex"),
-                       keep_tex = keep_tex,
-                       md_extensions = md_extensions,
-                       latex_engine = "xelatex")
-
+    template = find_resource("jens_analysis", "template.tex"),
+    keep_tex = keep_tex,
+    md_extensions = md_extensions,
+    latex_engine = "xelatex"
+  )
 }

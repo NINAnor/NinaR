@@ -36,19 +36,21 @@ The function returns (optional) an SP class dataframe with a viewshed, i.e. area
 }
 \examples{
 \dontrun{
-test_view <- grassViewshed(xycoords = data.frame("x" = 310400,
-                                                "y" = 6991600),
-                          dist=1000)
+test_view <- grassViewshed(
+  xycoords = data.frame(
+    "x" = 310400,
+    "y" = 6991600
+  ),
+  dist = 1000
+)
 
 
 terra::plot(test_view)
 
 test_view_sf <- sf::st_as_sf(test_view)
 ggplot(test_view_sf) +
-geom_sf(aes(fill = value)) +
-scale_fill_nina(discrete = FALSE)
-
-
+  geom_sf(aes(fill = value)) +
+  scale_fill_nina(discrete = FALSE)
 }
 }
 \author{

@@ -15,17 +15,19 @@
 #' @examples
 #'
 #' ggplot(mpg, aes(cyl, hwy)) +
-#' geom_point(aes(colour = drv)) +
+#'   geom_point(aes(colour = drv)) +
 #'   scale_color_nina(discrete = T)
 #'
 #'
 #' ggplot(mpg, aes(cyl, hwy)) +
-#' geom_point(aes(colour = year)) +
-#'   scale_color_nina(discrete = F,
-#'                    palette = "lightblue-yellow",
-#'                    name = "Year of make") +
-#'  ylab("Highway miles per gallon") +
-#'  xlab("Number of cylinders")
+#'   geom_point(aes(colour = year)) +
+#'   scale_color_nina(
+#'     discrete = F,
+#'     palette = "lightblue-yellow",
+#'     name = "Year of make"
+#'   ) +
+#'   ylab("Highway miles per gallon") +
+#'   xlab("Number of cylinders")
 #'
 #' @export
 scale_color_nina <- function(palette = "main",
@@ -33,20 +35,22 @@ scale_color_nina <- function(palette = "main",
                              reverse = FALSE,
                              name = waiver(),
                              ...) {
-
   palette <- match.arg(palette, names(nina_palettes))
 
   pal <- ninaPaletteGgplot(palette = palette, reverse = reverse)
 
   if (discrete) {
     ggplot2::discrete_scale("colour",
-                   paste0("NINA", palette),
-                   palette = pal,
-                   name = name,
-                   ...)
+      paste0("NINA", palette),
+      palette = pal,
+      name = name,
+      ...
+    )
   } else {
-    ggplot2::scale_color_gradientn(colours = pal(256),
-                          name = name,
-                          ...)
+    ggplot2::scale_color_gradientn(
+      colours = pal(256),
+      name = name,
+      ...
+    )
   }
 }

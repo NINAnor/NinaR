@@ -8,17 +8,20 @@
 #' @author Diana Bowler, Jens Astrom
 #' @name tidyScandinavian
 #' @examples
-#' #to use
-#' myData <- data.frame("locations" = c(1, 2, 3),
-#'                      "messyNames" = c("Tr\xf8ndelag",
-#'                                   "\xf6stersund",
-#'                                   "G\xe6len"))
+#' # to use
+#' myData <- data.frame(
+#'   "locations" = c(1, 2, 3),
+#'   "messyNames" = c(
+#'     "Tr\xf8ndelag",
+#'     "\xf6stersund",
+#'     "G\xe6len"
+#'   )
+#' )
 #'
 #' myData$tidyName <- tidyScandinavian(myData$messyNames)
 #' @export
 
 tidyScandinavian <- function(string = NULL) {
-
   string <- as.character(string)
   string <- gsub("\xb0", "°", string)
   string <- gsub("\xf8", "ø", string)
@@ -30,6 +33,4 @@ tidyScandinavian <- function(string = NULL) {
   string <- gsub("\xf6", "Ö", string)
 
   return(string)
-
 }
-

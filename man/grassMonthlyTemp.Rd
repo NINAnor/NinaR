@@ -42,9 +42,8 @@ grassConnect()
 points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 tmp <- grassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 
-##Get data just for first 6 months
-tmp2 <- grassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where="strftime('\%m', start_time) <= '06'")
-
+## Get data just for first 6 months
+tmp2 <- grassMonthlyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31", where = "strftime('\%m', start_time) <= '06'")
 }
 }
 \seealso{

@@ -18,7 +18,7 @@ nina_colors <- c(
   `green` = "#7A9A01",
   `grey` = "#A2AAAD",
   `light blue` = "#2DCCD3",
-  `yellow` =   "#FFB25B"
+  `yellow` = "#FFB25B"
 )
 
 #' @export
@@ -26,10 +26,9 @@ nina_colors <- c(
 ninaColors <- function(...) {
   cols <- c(...)
 
-  if (is.null(cols))
-    return (nina_colors)
+  if (is.null(cols)) {
+    return(nina_colors)
+  }
 
   nina_colors[cols]
 }
-
-

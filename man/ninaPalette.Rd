@@ -20,7 +20,7 @@ Colors conform to the 'NINA Grafisk handbok'
 }
 \examples{
 set.seed(12345)
-barplot(runif(5), col=ninaPalette())
+barplot(runif(5), col = ninaPalette())
 }
 \seealso{
 \code{\link{ninaLogoPalette}}

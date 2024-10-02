@@ -8,7 +8,7 @@
 #' To learn more about NinaR, start with the vignettes:
 #' \code{browseVignettes(package = "NinaR")}
 #'
-#' @docType package
+#' @docType _PACKAGE
 #' @name NinaR
 #' @import rmarkdown
 NULL

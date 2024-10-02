@@ -30,13 +30,13 @@ add_logo(
 adds a NINA logo in vector formats to ggplots
 }
 \description{
-This is a ggplot version of addLogo. It inserts a png version of the NINA logo in a ggplot. You have to tinker a bit with the xmin, xmax, ymin, ymax values, and the stroke_scale a bit to get it to fit your particular plot. So far, no alpha capabilities.
+This is a ggplot version of addLogo. It inserts a png version of the NINA logo in a ggplot. You have to tinker a bit with the xmin, xmax, ymin, ymax values to get it to fit your particular plot. So far, no alpha capabilities.
 }
 \examples{
 
-
 p <- ggplot(tibble(x = (1:10)^2, y = 1:10), aes(x = x, y = y)) +
-
-
+  add_logo(xmin = 75, ymax = 2.5, ymin = 1) +
+  geom_point()
+p
 
 }

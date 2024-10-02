@@ -13,17 +13,19 @@
 #'
 #' @examples
 #'
-#' par(ask =T)
+#' par(ask = T)
 #'
-#'  g <- ggplot(faithfuld, aes(waiting, eruptions))
-#'  g + geom_raster(aes(fill = density)) +
-#'    scale_fill_nina(discrete = F,
-#'                    name = "Eruptions",
-#'                    palette = "darkblue-green")
+#' g <- ggplot(faithfuld, aes(waiting, eruptions))
+#' g + geom_raster(aes(fill = density)) +
+#'   scale_fill_nina(
+#'     discrete = F,
+#'     name = "Eruptions",
+#'     palette = "darkblue-green"
+#'   )
 #'
-#'  g <- ggplot(mpg, aes(class))
-#'  g + geom_bar(aes(fill = drv)) +
-#'    scale_fill_nina(palette = "logo")
+#' g <- ggplot(mpg, aes(class))
+#' g + geom_bar(aes(fill = drv)) +
+#'   scale_fill_nina(palette = "logo")
 #'
 #' @export
 #'
@@ -32,22 +34,28 @@ scale_fill_nina <- function(palette = "main",
                             reverse = FALSE,
                             name = waiver(),
                             ...) {
+  palette <- match.arg(
+    palette,
+    names(nina_palettes)
+  )
 
-  palette <- match.arg(palette,
-                       names(nina_palettes))
-
-  pal <- ninaPaletteGgplot(palette = palette,
-                           reverse = reverse)
+  pal <- ninaPaletteGgplot(
+    palette = palette,
+    reverse = reverse
+  )
 
   if (discrete) {
     ggplot2::discrete_scale("fill",
-                   paste0("NINA", palette),
-                   palette = pal,
-                   name = name,
-                   ...)
+      paste0("NINA", palette),
+      palette = pal,
+      name = name,
+      ...
+    )
   } else {
-    ggplot2::scale_fill_gradientn(colours = pal(256),
-                         name = name,
-                         ...)
+    ggplot2::scale_fill_gradientn(
+      colours = pal(256),
+      name = name,
+      ...
+    )
   }
 }

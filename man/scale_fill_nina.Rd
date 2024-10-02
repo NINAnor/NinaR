@@ -32,16 +32,18 @@ Shamelessly taken from https://drsimonj.svbtle.com/creating-corporate-colour-pal
 }
 \examples{
 
-par(ask =T)
+par(ask = T)
 
- g <- ggplot(faithfuld, aes(waiting, eruptions))
- g + geom_raster(aes(fill = density)) +
-   scale_fill_nina(discrete = F,
-                   name = "Eruptions",
-                   palette = "darkblue-green")
+g <- ggplot(faithfuld, aes(waiting, eruptions))
+g + geom_raster(aes(fill = density)) +
+  scale_fill_nina(
+    discrete = F,
+    name = "Eruptions",
+    palette = "darkblue-green"
+  )
 
- g <- ggplot(mpg, aes(class))
- g + geom_bar(aes(fill = drv)) +
-   scale_fill_nina(palette = "logo")
+g <- ggplot(mpg, aes(class))
+g + geom_bar(aes(fill = drv)) +
+  scale_fill_nina(palette = "logo")
 
 }

@@ -28,29 +28,26 @@
 #'   \code{\link[rmarkdown:render]{render}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' # initiate a template
 #' library(rmarkdown)
 #' draft("MyReport.Rmd", template = "nina_rapport", package = "NinaR")
 #'
-#' #render an article manually
+#' # render an article manually
 #' render("MyReport.Rmd", ninaRrapport.R())
-#'
 #' }
 #'
 #' @export
 ninaRapport <- function(...,
-                             keep_tex = TRUE,
-                             md_extensions = c("-autolink_bare_uris","+header_attributes")) {
+                        keep_tex = TRUE,
+                        md_extensions = c("-autolink_bare_uris", "+header_attributes")) {
   fmt <- inherit_pdf_document(...,
-                       template = find_resource("nina_rapport", "template.tex"),
-                       keep_tex = keep_tex,
-                       md_extensions = md_extensions
-                       )
+    template = find_resource("nina_rapport", "template.tex"),
+    keep_tex = keep_tex,
+    md_extensions = md_extensions
+  )
 
   fmt$pandoc$args <- c(fmt$pandoc$args, "--csl", "nina.csl")
 
   fmt
-
 }

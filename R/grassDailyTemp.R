@@ -23,26 +23,28 @@
 #' points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 #' tmp <- grassDailyTemp(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 #'
-#' ##Get values from middle of march to middle of april for two years
-#' tmp2 <- grassDailyTemp(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
-#'  where="(strftime('%m', start_time) = '03' AND strftime('%d', start_time) >= '15') OR
-#'  (strftime('%m', start_time) = '04' AND strftime('%d', start_time) <= '15')")
+#' ## Get values from middle of march to middle of april for two years
+#' tmp2 <- grassDailyTemp(
+#'   points = points, start_time = "2013-01-01", end_time = "2014-12-31",
+#'   where = "(strftime('%m', start_time) = '03' AND strftime('%d', start_time) >= '15') OR
+#'  (strftime('%m', start_time) = '04' AND strftime('%d', start_time) <= '15')"
+#' )
 #' }
 #' @export
 
 
-grassDailyTemp <- function(points, start_time, end_time, where=NULL){
-
-  #Check that is is run on NINSRV16
-  #Check that is is run on NINSRV16
-  if(!checkMachine()){
+grassDailyTemp <- function(points, start_time, end_time, where = NULL) {
+  # Check that is is run on NINSRV16
+  # Check that is is run on NINSRV16
+  if (!checkMachine()) {
     stop("Must be run on NINA servers!")
   }
 
-  if(!is.null(where)){
-    time_cond <- paste("(start_time >='", start_time, "' AND start_time < '", end_time, "')" , " AND (", where," )", sep="")
-  } else
-    time_cond <- paste("start_time >='", start_time, "' AND start_time < '", end_time, "'" ,sep="")
+  if (!is.null(where)) {
+    time_cond <- paste("(start_time >='", start_time, "' AND start_time < '", end_time, "')", " AND (", where, " )", sep = "")
+  } else {
+    time_cond <- paste("start_time >='", start_time, "' AND start_time < '", end_time, "'", sep = "")
+  }
 
   # Get bounding box of all points
   max_x <- max(points$x)
@@ -53,27 +55,31 @@ grassDailyTemp <- function(points, start_time, end_time, where=NULL){
 
 
   # set the computational region first to the raster map and extent of your points:
-  rgrass::execGRASS("g.region", align = dem,
-                    n = as.character(max_y),
-                    s = as.character(min_y),
-                    e = as.character(max_x),
-                    w = as.character(min_x),
-                    flags = "p")
+  rgrass::execGRASS("g.region",
+    align = dem,
+    n = as.character(max_y),
+    s = as.character(min_y),
+    e = as.character(max_x),
+    w = as.character(min_x),
+    flags = "p"
+  )
 
   # Add mapset containing time series data
   rgrass::execGRASS("g.mapsets", operation = "add", mapset = "gt_Meteorology_Norway_seNorge_precipitation_days,gt_Meteorology_Norway_seNorge_temperature_days")
 
   # Query time series at vector points, transfer result into R
   rgrass::execGRASS("t.connect", flags = "d")
-  rgrass::execGRASS("g.region", align="precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n=as.character(max_y), s=as.character(min_y), e=as.character(max_x), w=as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
+  rgrass::execGRASS("g.region", align = "precipitation_1957_01_01@gt_Meteorology_Norway_seNorge_precipitation_days", n = as.character(max_y), s = as.character(min_y), e = as.character(max_x), w = as.character(min_x), flags = "p") # You can get the list of rasters in a time series using t.rast.list
 
 
   cat("This can take some time...")
-  temp_daily <- rgrass::execGRASS("t.rast.what", flags=c("n", "i", "overwrite", "verbose"),
-                                  strds="temperature_seNorge_1km_days@gt_Meteorology_Norway_seNorge_temperature_days",
-                                  where=time_cond, nprocs=10, Sys_input=paste(points$x, points$y, points$site, sep=' '), separator=',', intern=TRUE)
+  temp_daily <- rgrass::execGRASS("t.rast.what",
+    flags = c("n", "i", "overwrite", "verbose"),
+    strds = "temperature_seNorge_1km_days@gt_Meteorology_Norway_seNorge_temperature_days",
+    where = time_cond, nprocs = 10, Sys_input = paste(points$x, points$y, points$site, sep = " "), separator = ",", intern = TRUE
+  )
 
   con <- textConnection(temp_daily)
-  out <- read.csv(con, header=TRUE)
+  out <- read.csv(con, header = TRUE)
   return(out)
 }

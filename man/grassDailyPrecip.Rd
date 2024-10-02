@@ -34,9 +34,11 @@ grassConnect()
 points <- data.frame("x" = 270877, "y" = 7039976, "site" = 1)
 tmp <- grassDailyPrecip(points = points, start_time = "2014-01-01", end_time = "2014-12-31")
 
-tmp2 <- grassDailyPrecip(points = points, start_time = "2013-01-01", end_time = "2014-12-31",
-where="(strftime('\%m', start_time) = '03' AND strftime('\%d', start_time) >= '15') OR
-(strftime('\%m', start_time) = '04' AND strftime('\%d', start_time) <= '15')")
+tmp2 <- grassDailyPrecip(
+  points = points, start_time = "2013-01-01", end_time = "2014-12-31",
+  where = "(strftime('\%m', start_time) = '03' AND strftime('\%d', start_time) >= '15') OR
+(strftime('\%m', start_time) = '04' AND strftime('\%d', start_time) <= '15')"
+)
 }
 }
 \seealso{
