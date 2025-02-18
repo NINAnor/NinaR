@@ -19,7 +19,7 @@
 grassConnect <- function(location = "ETRS_33N", mapset = "user") {
   host <- NULL
   try(host <- system("hostname", intern = T))
-  if (grepl("ninrstudio|ningis|lipgis|liprstudio", host)) {
+  if (grepl("lipvdi|lipgis|liprstudio", host)) {
     gisDbase <- "/data/grass"
     # location <- "ETRS_33N"
     if (mapset == "user") {
