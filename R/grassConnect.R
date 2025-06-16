@@ -18,8 +18,10 @@
 
 grassConnect <- function(location = "ETRS_33N", mapset = "user") {
   host <- NULL
-  try(host <- system("hostname", intern = T))
-  if (grepl("ninrstudio|ningis|lipgis|liprstudio", host)) {
+  if (!checkMachine()) {
+    stop("Must be run on NINA servers!")
+  } else
+    {
     gisDbase <- "/data/grass"
     # location <- "ETRS_33N"
     if (mapset == "user") {
@@ -28,7 +30,7 @@ grassConnect <- function(location = "ETRS_33N", mapset = "user") {
     }
     if (TRUE %in% startsWith(mapset, c("u_", "p_", "g_", "gt_"))) {
       wd <- paste(gisDbase, location, mapset, sep = "/")
-      try(system(paste("grass -text -c -e", wd)))
+      try(system(paste("grass --text -c -e", wd)))
       grasslib <- try(system("grass --config path", intern = TRUE))
       rgrass::initGRASS(
         gisBase = grasslib, location = location,
@@ -37,7 +39,5 @@ grassConnect <- function(location = "ETRS_33N", mapset = "user") {
     } else {
       stop("Mapset name does not follow naming convention! Please check: http://web.nina.no/giswiki/doku.php?id=ninsrv16:grassgisbase")
     }
-  } else {
-    stop("Must be run on one of NINAs Linux servers!")
   }
 }
