@@ -1,0 +1,277 @@
+---
+title: "PostGIS vs geoParquet spatial join"
+author: "Jens Åström"
+format: html
+---
+
+# Intro
+Researchers in Nina often want to do get areal statistics for a particular locality, or a set of localities. The underlying map to query can be large, e.g. the whole country. The task is then to make a spatial join on this large layer and smaller polygon, provided by the user. This can be a non-trivial task for many people, and it can make sense to create some software to make it more convenient, for map layers of general interest. 
+
+In particular, we are here testing the new "Grunnkart for arealregnskap", which will be a standard resource in Norway over many years to come.
+
+I will here test out two approaches, 1) importing the GIS-layer to PostGIS, and let the database do the spatial join, and 2) create a geoParquet file
+
+
+
+```{r}
+require(NinaR)
+require(Norimon)
+require(tidyr)
+require(dplyr)
+require(DBI)
+require(sf)
+require(ggplot2)
+```
+
+```{r}
+connect_to_insect_db()
+
+loc <- get_localities(dataset = "NorIns")
+
+small_sf <- loc |>
+  filter(locality %in% c("Semi-nat_100", "Semi-nat_99"))
+
+small_polygon_wkt <- small_sf |>
+  st_geometry() |>
+  st_as_text()
+
+small_polygon_wkb <- small_sf |>
+  st_geometry() |>
+  st_as_binary(EWKB = TRUE)
+
+# small_polygon_wkb <- paste(small_polygon_wkb[[1]], collapse = "")
+
+dbDisconnect(con)
+# ggplot(semi_nat_100) +
+#   geom_sf()
+```
+
+```{r}
+library(NinaR)
+postgreSQLConnect()
+require(sf)
+require(dplyr)
+small_sf <- tibble(locality = c("Semi-nat_99", "Semi-nat_100"), geom = c("POLYGON ((1082500 7775000, 1082500 7775500, 1083000 7775500, 1083000 7775000, 1082500 7775000))", "POLYGON ((1019000 7842500, 1019000 7843000, 1019500 7843000, 1019500 7842500, 1019000 7842500))")) |>
+  st_as_sf(wkt = "geom", crs = 25833)
+```
+
+
+```{r}
+small_sf_grunnkart <- clip_gis_layer(small_sf)
+```
+
+
+```{r}
+small_sf_grunnkart |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+```{r}
+small_sf_grunnkart_not_clipped <- clip_gis_layer(small_sf,
+  clip_geometries = FALSE
+)
+```
+```{r}
+small_sf_grunnkart_not_clipped |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+
+```{r}
+unioned |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+
+
+```{r}
+dbDisconnect(con)
+NinaR::postgreSQLConnect()
+
+# grunnkart_postgis <- st_read(con,
+#                          Id(schema = "LandCover",
+#                             table = "grunnkart_arealregnskap"))
+```
+
+
+```{r}
+ar5_query <- paste0("
+SELECT ar5.*
+FROM \"Topography\".\"Norway_FKB_AR5_omrade_2023\" as ar5
+WHERE ST_Intersects(ST_GeomFromText('", small_polygon_wkt, "', 25833), ar5.geom);
+")
+
+ar5_data <- sf::st_read(con, query = ar5_query)
+```
+
+```{r}
+ggplot(ar5_data) +
+  geom_sf(aes(fill = arealtype))
+```
+
+
+```{r}
+intersection_query <- paste0(
+  "
+  SELECT t.okosystemtype_1,
+  ST_Intersection(t.geom, ST_GeomFromText('",
+  small_polygon_wkt, "', ",
+  st_crs(small_sf)$epsg,
+  ")) as geom
+  FROM \"LandCover\".grunnkart_arealregnskap AS t
+  WHERE ST_Intersects(t.geom, ST_GeomFromText('",
+  small_polygon_wkt,
+  "', ",
+  st_crs(small_sf)$epsg,
+  "));"
+)
+
+
+intersection_query
+
+
+system.time({
+  postgis_intersection <- sf::st_read(con, query = intersection_query)
+})
+```
+```{r}
+ggplot(postgis_intersection) +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+```{r}
+small_polygon_wkb <- small_sf |>
+  st_geometry() |>
+  st_as_binary(EWKB = TRUE)
+
+small_polygon_id <- small_sf |>
+  st_drop_geometry() |>
+  select(locality)
+
+small_polygon <- cbind(
+  small_polygon_id,
+  small_polygon_wkb
+)
+
+sql_intersection_query <- "
+SELECT t.okosystemtype_1, $2,
+ST_AsEWKB(ST_Intersection(t.geom, ST_GeomFromEWKB($1))) as geom
+FROM \"LandCover\".grunnkart_arealregnskap AS t
+WHERE ST_Intersects(t.geom, ST_GeomFromEWKB($1));
+"
+
+sql_intersection_query <- "
+SELECT t.okosystemtype_1, ?id2,
+ST_AsEWKB(ST_Intersection(t.geom, ST_GeomFromEWKB(?id1))) as geom
+FROM \"LandCover\".grunnkart_arealregnskap AS t
+WHERE ST_Intersects(t.geom, ST_GeomFromEWKB(?id1));
+"
+san <- sqlInterpolate(con,
+  sql_intersection_query,
+  id1 = c(paste0(small_polygon_wkb[[1]], collapse = ""), paste0(small_polygon_wkb[[2]], collapse = "")),
+  id2 = small_polygon_id
+)
+
+system.time({
+  # Execute the intersection query
+  intersecting_features_df <- dbGetQuery(con, sql_intersection_query, params = list(small_polygon_wkb, small_polygon_id))
+  intersecting_features_df$geom <- st_as_sfc(intersecting_features_df$geom, wkb = "geom", EWKB = TRUE)
+  intersecting_features_df <- intersecting_features_df |>
+    st_as_sf()
+})
+```
+
+```{r}
+system.time({
+  dbWriteTable(
+    conn = con,
+    name = "temp_intersect",
+    value = small_sf,
+    temporary = TRUE,
+    overwrite = TRUE
+  )
+
+  sql_intersection_query <- "
+SELECT t.okosystemtype_1, locality,
+ST_Intersection(t.geom, tt.geom) as geom
+FROM \"LandCover\".grunnkart_arealregnskap AS t,
+temp_intersect as tt
+WHERE ST_Intersects(t.geom, tt.geom);
+"
+
+
+  intersecting_features_df <- dbGetQuery(con, sql_intersection_query)
+  intersecting_features_df$geom <- st_as_sfc(intersecting_features_df$geom, wkb = "geom", EWKB = TRUE)
+  intersecting_features_df <- st_as_sf(intersecting_features_df)
+})
+```
+
+```{r}
+tt <- clip_gis_layer(mask = small_sf)
+```
+
+
+
+```{r}
+tt |>
+  filter(locality == "Semi-nat_99") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+
+## GeoParquet way
+
+```{r}
+library(sf)
+library(sfarrow)
+library(geoarrow)
+library(duckdb)
+```
+
+
+```{r}
+con <- dbConnect(duckdb::duckdb())
+```
+```{r}
+dbExecute(con, "INSTALL spatial;")
+dbExecute(con, "LOAD spatial;")
+```
+
+
+```{r}
+geoparquet_file_path <- "/data/R/GeoSpatialData/LandUse/Norway_Arealregnskap/Converted/03_25832_arealregnskap_gdb.parquet"
+
+small_sf_bbox <- small_sf |>
+  st_bbox()
+
+
+query <- sprintf("
+    SELECT
+        t1.*,
+        'my_clipping_area' AS join_id -- Add an identifier for the joining polygon
+    FROM
+        ST_READ('%s') AS t1 -- Read your GeoParquet file directly
+    JOIN
+        (SELECT ST_GeomFromWKB(?) AS join_geom) AS t2 -- Use a prepared statement placeholder for WKB
+    ON
+        ST_Intersects(t1.geometry, t2.join_geom);
+", geoparquet_file_path)
+
+res <- dbSendQuery(con, query)
+dbBind(res, list(clipping_polygon_wkb_single)) # Bind the WKB value to the placeholder
+clipped_data_duckdb <- dbFetch(res)
+dbClearResult(res) # Clear the result set
+
+# 3. Convert the result back to an sf object in R (optional but usually desired)
+# The geometry column from DuckDB will be in WKB format, which sf can read.
+clipped_sf_from_duckdb <- st_as_sf(clipped_data_duckdb, wkb = "geometry", crs = st_crs(clipping_polygon_r))
+```
+
+

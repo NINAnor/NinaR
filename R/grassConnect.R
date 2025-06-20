@@ -20,8 +20,7 @@ grassConnect <- function(location = "ETRS_33N", mapset = "user") {
   host <- NULL
   if (!checkMachine()) {
     stop("Must be run on NINA servers!")
-  } else
-    {
+  } else {
     gisDbase <- "/data/grass"
     # location <- "ETRS_33N"
     if (mapset == "user") {

@@ -1,0 +1,113 @@
+---
+title: "Fetching and analyzing grunnkart for arealregnskap"
+author: "Jens Åström"
+format: html
+---
+
+
+```{r}
+library(NinaR)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(landscapemetrics)
+```
+```{r}
+postgreSQLConnect()
+```
+
+## Create a small test set of vectors to fetch grunnkarts-info for.
+
+```{r}
+small_sf <- tibble(locality = c("Semi-nat_99", "Semi-nat_100"), geom = c("POLYGON ((1082500 7775000, 1082500 7775500, 1083000 7775500, 1083000 7775000, 1082500 7775000))", "POLYGON ((1019000 7842500, 1019000 7843000, 1019500 7843000, 1019500 7842500, 1019000 7842500))")) |>
+  st_as_sf(wkt = "geom", crs = 25833)
+```
+
+Fetch grunnkart data for these areas.
+
+```{r}
+small_sf_grunnkart <- clip_gis_layer(small_sf)
+```
+```{r}
+small_sf_grunnkart
+```
+
+
+Plot one of the areas. In these examples, we use 'ekosystemtype_1' as the main feature to analyze, but you could choose any other as well. 
+
+```{r}
+small_sf_grunnkart |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+Optionally, you can get the whole geometries that intersects with the masking / clipping layer. This is perhaps most useful when masking / clipping with point geometries (such as points of species occurrences).
+
+```{r}
+small_sf_grunnkart_not_clipped <- clip_gis_layer(small_sf,
+  clip_geometries = FALSE
+)
+```
+
+```{r}
+small_sf_grunnkart_not_clipped |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+The grunnkart often has several connecting geometries of the same type. We can aggregate (union) them to get simpler geometries, if we prefer. If you do this, you have to decide what feature to join on, and you throw away the alternative features in the grunnkart.
+
+```{r}
+small_sf_grunnkart_union <- union_gis_layer(small_sf_grunnkart,
+  column_to_join_on = "okosystemtype_1"
+)
+```
+
+
+```{r}
+small_sf_grunnkart_union |>
+  filter(locality == "Semi-nat_100") |>
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
+
+Areal statistics is easy enough to calculate with normal tidyverse functions. Note that if you haven't unioned similar features within the locality / buffer, you have to group by locality and okosystemtype_1 and use 'sum(st_area(geom))' in the first step to get a single area for each okosystem type within a locality. 
+
+```{r}
+small_sf_grunnkart_union <- small_sf_grunnkart_union |>
+  mutate(area_m2 = st_area(geom)) |>
+  group_by(locality) |>
+  mutate(percentage = area_m2 / sum(area_m2) * 100)
+```
+
+```{r}
+small_sf_grunnkart_union
+```
+
+We can rasterize these vectors, to be able to use the package landscapemetrics, for example to calculate the shannon diversity of the ecosystem types in the localities. Here we provide just the resolution for the raster, but you could also provide a reference raster layer as a template.
+
+```{r}
+grunnkart_raster <- rasterize_gis_layer(small_sf_grunnkart_union,
+                                        feature_column = "okosystemtype_1",
+                                        resolution = 10
+                                        )
+```
+
+Here we calculate the shannon index of the ecosystemtype_1 variants within each locality / area.
+
+```{r}
+grunnkart_raster_shannon_index <- lsm_l_shdi(grunnkart_raster)
+grunnkart_raster_shannon_index$layer <- names(grunnkart_raster)
+
+locality_okosystemtype_1_shdi <- grunnkart_raster_shannon_index %>%
+  dplyr::select(
+    locality = layer,
+    lsm_l_shdi = value
+  )
+
+locality_okosystemtype_1_shdi
+```
+
+
