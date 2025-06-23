@@ -1,16 +1,20 @@
 ---
 title: "Fetching and analyzing grunnkart for arealregnskap"
 author: "Jens Åström"
-format: html
+format:
+  html:
+    embed-resources: true
 ---
 
 
 ```{r}
+suppressPackageStartupMessages({
 library(NinaR)
 library(sf)
 library(dplyr)
 library(ggplot2)
 library(landscapemetrics)
+})
 ```
 ```{r}
 postgreSQLConnect()
@@ -110,4 +114,29 @@ locality_okosystemtype_1_shdi <- grunnkart_raster_shannon_index %>%
 locality_okosystemtype_1_shdi
 ```
 
+## Another example with a gpg file stored locally
+
+```{r}
+solar_raw <- read_sf("../temp/solar_polygons.gpkg")
+solar_raw
+```
+
+```{r}
+solar_clip <- clip_gis_layer(solar_raw,
+                             clip_geometries = T)
+solar_clip
+```
+```{r}
+solar_clip_unioned <- union_gis_layer(solar_clip,
+                                      column_to_join_on = "okosystemtype_1",
+                                      id_column = "OBJECTID")
+```
+
+
+```{r}
+solar_clip_unioned |> 
+  filter(OBJECTID == '17511') |> 
+    ggplot() +
+  geom_sf(aes(fill = okosystemtype_1))
+```
 

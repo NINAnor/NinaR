@@ -21,6 +21,8 @@
 #' small_sf_grunnkart <- clip_gis_layer(small_sf)
 #' }
 #'
+
+
 clip_gis_layer <- function(mask = NULL,
                            layer_to_clip = "grunnkart_arealregnskap",
                            schema = "LandCover",
@@ -29,7 +31,6 @@ clip_gis_layer <- function(mask = NULL,
   checkCon()
 
   if (!("sf" %in% class(mask))) stop("Masking layer needs to be an simple feature object (sf)")
-
 
   orig_id_name <- names(mask)[1]
 
@@ -48,13 +49,13 @@ clip_gis_layer <- function(mask = NULL,
   })
 
 
-  columns_in_layer <- get_column_names(
+  columns_in_layer <- NinaR:::get_column_names(
     layer = layer_to_clip,
     schema = schema
   )
 
   columns_to_get_raw <- columns_in_layer |>
-    filter(!(column_name %in% c("id", "geom"))) |>
+    filter(!(column_name %in% c("id", "geom", "geom_valid", "geom_is_valid"))) |>
     paste(collapse = ",")
 
   columns_to_get <- gsub("^c\\(|\\)$", "", columns_to_get_raw)
@@ -63,23 +64,18 @@ clip_gis_layer <- function(mask = NULL,
   if (clip_geometries) {
     sql_intersection_query <- paste0("
     SELECT tt.id as mask_id, ", columns_to_get, ",
-    ST_Intersection(t.geom, tt.geom) as geom
+    ST_Intersection(t.geom_valid, tt.geom) as geom
     FROM \"", schema, "\".\"", layer_to_clip, "\" AS t,
     temp_mask_to_intersect as tt
-    WHERE ST_Intersects(t.geom, tt.geom);
+    WHERE ST_Intersects(t.geom_valid, tt.geom);
     ")
   } else {
-    columns_to_get_raw <- columns_in_layer |>
-      filter(!(column_name %in% c("id", "geom"))) |>
-      paste(collapse = ",")
-
-    columns_to_get <- gsub("^c\\(|\\)$", "", columns_to_get_raw)
 
     sql_intersection_query <- paste0("
-    SELECT t.*, tt.id as mask_id
+    SELECT t.id, ", columns_to_get, ", t.geom_valid as geom,  tt.id as mask_id
     FROM \"", schema, "\".\"", layer_to_clip, "\" AS t,
     temp_mask_to_intersect as tt
-    WHERE ST_Intersects(t.geom, tt.geom);
+    WHERE ST_Intersects(t.geom_valid, tt.geom);
     ")
   }
 
