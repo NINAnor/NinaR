@@ -17,7 +17,7 @@ rasterize_gis_layer(
 
 \item{feature_column}{What column to use as values. Character values will be made into numerical values by as.numeric(as.factor())}
 
-\item{raster_template}{Optional raster layer to use as template. Must be a of 'RasterLayer' class (from packages raster or fasterize)}
+\item{raster_template}{Optional raster layer to use as template. Must be a of 'SpatRaster' class (from package terra)}
 
 \item{resolution}{Set the spatial resolution of the raster if no raster template is provided. The origin of the raster will then be the left bottom origin of the border of the input vector layer.}
 
@@ -41,5 +41,6 @@ raster_grunnkart <- rasterize_gis_layer(small_sf_grunnkart,
   feature_column = "okosystemtype_1"
 )
 }
+
 
 }

@@ -3,7 +3,7 @@
 #' @param gis_layer An sf layer to rasterize. Typically made by clip_gis_layer().
 #' @param id_layer Optional id column that identifies separate areas to rasterize, e.g. localities. If none is provided, the first column of the input layer will be used.
 #' @param feature_column What column to use as values. Character values will be made into numerical values by as.numeric(as.factor())
-#' @param raster_template Optional raster layer to use as template. Must be a of 'RasterLayer' class (from packages raster or fasterize)
+#' @param raster_template Optional raster layer to use as template. Must be a of 'SpatRaster' class (from package terra)
 #' @param resolution Set the spatial resolution of the raster if no raster template is provided. The origin of the raster will then be the left bottom origin of the border of the input vector layer.
 #'
 #' @return A list of rasters for every value in id_layer (e.g. a list of rasters for each locality)
@@ -22,6 +22,8 @@
 #' )
 #' }
 #'
+#'
+
 rasterize_gis_layer <- function(gis_layer,
                                 id_column = NULL,
                                 feature_column = NULL,
@@ -58,20 +60,20 @@ rasterize_gis_layer <- function(gis_layer,
     if (is.null(raster_template)) {
       r <- input |>
         filter(get({{ id_column }}) == !!i) |>
-        fasterize::raster(
-          res = resolution
+        terra::rast(
+          resolution = resolution
         )
     } else {
-      if (!("RasterLayer" %in% class(raster_template))) stop("raster template must be of RasterLayer class")
+      if (!("SpatRaster" %in% class(raster_template))) stop("raster template must be of SpatRaster class")
       r <- raster_template
     }
 
     vect <- input |>
       filter(get({{ id_column }}) == !!i)
 
-    out[[i]] <- fasterize::fasterize(
-      sf = vect,
-      raster = r,
+    out[[i]] <- terra::rasterize(
+      x = vect,
+      y = r,
       field = "feature_column_factor"
     )
   }

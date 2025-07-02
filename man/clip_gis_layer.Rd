@@ -8,7 +8,8 @@ clip_gis_layer(
   mask = NULL,
   layer_to_clip = "grunnkart_arealregnskap",
   schema = "LandCover",
-  clip_geometries = TRUE
+  clip_geometries = TRUE,
+  recalculate_area = TRUE
 )
 }
 \arguments{
@@ -17,6 +18,8 @@ clip_gis_layer(
 \item{layer_to_clip}{The PostGIS layer to clip from. Default is the Grunnkart for arealregnskap.}
 
 \item{clip_geometries}{Should the returned geometries be clipped to the masking layer? If true, the first column of the masking layer is returned as row IDs, and the clipped geometries of the layer_to_clip are returned. If false, the ids in the layer_to_clip is returned as well the first column in the masking layer, together with the whole geometries in layer_to_clip that intersects at some point with the masking layer.  Default is TRUE.}
+
+\item{recalculate_area}{Should the column "areal_m2" be recalculated after clipping the geometries? Only in effect if clip_geometries is true. Default true.}
 
 \item{host}{host machine for the database. Default is gisdata-db.nina.no}
 

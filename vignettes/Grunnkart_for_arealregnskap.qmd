@@ -4,16 +4,18 @@ author: "Jens Åström"
 format:
   html:
     embed-resources: true
+    code-overflow: wrap
 ---
 
 
 ```{r}
 suppressPackageStartupMessages({
-library(NinaR)
-library(sf)
-library(dplyr)
-library(ggplot2)
-library(landscapemetrics)
+  library(NinaR)
+  library(sf)
+  library(dplyr)
+  library(ggplot2)
+  library(landscapemetrics)
+  library(terra)
 })
 ```
 ```{r}
@@ -27,7 +29,7 @@ small_sf <- tibble(locality = c("Semi-nat_99", "Semi-nat_100"), geom = c("POLYGO
   st_as_sf(wkt = "geom", crs = 25833)
 ```
 
-Fetch grunnkart data for these areas.
+Fetch grunnkart data for these areas. !N.B. that the areas in areal_m2 is recalculated by default after clipping. If you want the original areas (of the unclipped geometries), set recalculate_areas = FALSE. 
 
 ```{r}
 small_sf_grunnkart <- clip_gis_layer(small_sf)
@@ -40,26 +42,49 @@ small_sf_grunnkart
 Plot one of the areas. In these examples, we use 'ekosystemtype_1' as the main feature to analyze, but you could choose any other as well. 
 
 ```{r}
+#| label: fig-ecosystem_clipped
+#| fig-cap: "Ecosystem level 1 for clipped polygon"
 small_sf_grunnkart |>
-  filter(locality == "Semi-nat_100") |>
+  filter(locality == "Semi-nat_100") |>  
   ggplot() +
-  geom_sf(aes(fill = okosystemtype_1))
+  geom_sf(aes(fill = okosystemtype_1)) +
+  scale_fill_okosystemtype_1(name = "Hovedøkosystem")
+
 ```
 
-Optionally, you can get the whole geometries that intersects with the masking / clipping layer. This is perhaps most useful when masking / clipping with point geometries (such as points of species occurrences).
+Notice we use a custom ggplot fill function for okoystemtype_1. You can plot arealdekke in a similar way. Other color scale functions might be added later on. 
 
 ```{r}
-small_sf_grunnkart_not_clipped <- clip_gis_layer(small_sf,
-  clip_geometries = FALSE
-)
+#| label: fig-arealdekke_clipped
+#| fig-cap: "Arealdekke for clipped polygon"
+small_sf_grunnkart |>
+  filter(locality == "Semi-nat_100") |>  
+  ggplot() +
+  geom_sf(aes(fill = arealdekke)) +
+  scale_fill_arealdekke(name = "Arealdekke")
+
+```
+
+Optionally, instead of clipping the geometries, you can get the whole geometries that intersects with the masking / clipping layer. This is perhaps most useful when masking / clipping with point geometries (such as points of species occurrences).
+
+```{r}
+sample_point <- tibble(locality = "Point_1", geom = "POINT (1082550 7775050)") |>
+  st_as_sf(wkt = "geom", crs = 25833)
+
+small_sf_grunnkart_not_clipped <- clip_gis_layer(sample_point,
+                                                 clip_geometries = FALSE)
 ```
 
 ```{r}
+#| label: fig-point_clipped
+#| fig-cap: Fetched grunnkart which overlaps with a point
 small_sf_grunnkart_not_clipped |>
-  filter(locality == "Semi-nat_100") |>
   ggplot() +
-  geom_sf(aes(fill = okosystemtype_1))
+  geom_sf(aes(fill = okosystemtype_1)) +
+  geom_sf(color = "blue", data = sample_point)
 ```
+
+## Aggregating data
 
 The grunnkart often has several connecting geometries of the same type. We can aggregate (union) them to get simpler geometries, if we prefer. If you do this, you have to decide what feature to join on, and you throw away the alternative features in the grunnkart.
 
@@ -71,24 +96,34 @@ small_sf_grunnkart_union <- union_gis_layer(small_sf_grunnkart,
 
 
 ```{r}
+#| label: fig-unioned_clipped
+#| fig-cap: The same ecosystem level 1 after unioning similar adjoining geometries.
 small_sf_grunnkart_union |>
   filter(locality == "Semi-nat_100") |>
   ggplot() +
-  geom_sf(aes(fill = okosystemtype_1))
+  geom_sf(aes(fill = okosystemtype_1)) +
+  scale_fill_okosystemtype_1(name = "Hovedøkosystem")
 ```
 
-Areal statistics is easy enough to calculate with normal tidyverse functions. Note that if you haven't unioned similar features within the locality / buffer, you have to group by locality and okosystemtype_1 and use 'sum(st_area(geom))' in the first step to get a single area for each okosystem type within a locality. 
+Areal statistics is easy enough to calculate with normal tidyverse functions. By default, the `clip_gis_layer` function recalculates the areas in the areal_m2 column, so you should be able to use these. However, this can be  cumbersome in practise, as you have to calculate areas in several grouping steps, and reattach geometries etc.
+
+It is easier to use the unioned sf-object like this:
 
 ```{r}
 small_sf_grunnkart_union <- small_sf_grunnkart_union |>
   mutate(area_m2 = st_area(geom)) |>
   group_by(locality) |>
-  mutate(percentage = area_m2 / sum(area_m2) * 100)
+  mutate(percentage_area = area_m2 / sum(area_m2) * 100)
 ```
 
 ```{r}
 small_sf_grunnkart_union
 ```
+
+Note that if you haven't unioned similar features within the locality / buffer, you have to group by locality and okosystemtype_1 and use 'sum(st_area(geom))' in the first step to get a single area for each okosystem type within a locality. 
+
+
+## Rasterizing
 
 We can rasterize these vectors, to be able to use the package landscapemetrics, for example to calculate the shannon diversity of the ecosystem types in the localities. Here we provide just the resolution for the raster, but you could also provide a reference raster layer as a template.
 
@@ -98,8 +133,20 @@ grunnkart_raster <- rasterize_gis_layer(small_sf_grunnkart_union,
                                         resolution = 10
                                         )
 ```
+We can visualize the results, here done quickly with base R plotting functions.
 
-Here we calculate the shannon index of the ecosystemtype_1 variants within each locality / area.
+```{r}
+#| label: fig-rasterized_ecosystem
+#| fig-cap: Ecosystem type 1 after rasterization to 10x10 m resolution.
+temp_v <- small_sf_grunnkart_union |> filter(locality == "Semi-nat_100") |> vect()
+temp_r <- grunnkart_raster["Semi-nat_100"][[1]]
+
+plot(temp_r, mar=c(2, 2, 2, 14))
+lines(temp_v)
+```
+
+
+We can for example calculate the shannon index of the ecosystemtype_1 variants within each locality / area.
 
 ```{r}
 grunnkart_raster_shannon_index <- lsm_l_shdi(grunnkart_raster)
@@ -132,11 +179,13 @@ solar_clip_unioned <- union_gis_layer(solar_clip,
                                       id_column = "OBJECTID")
 ```
 
-
 ```{r}
+#| label: fig-solar_clipped
+#| fig-cap: Ecosystem type 1 for a clipping layer made from a gpkg-file.
 solar_clip_unioned |> 
   filter(OBJECTID == '17511') |> 
     ggplot() +
-  geom_sf(aes(fill = okosystemtype_1))
+  geom_sf(aes(fill = okosystemtype_1)) +
+  scale_fill_okosystemtype_1(name = "Hovedøkosystem")
 ```
 

@@ -5,6 +5,7 @@
 #' @param mask A simple feature (sf) object with an id column and a geometry. Typically a polygon or a set of polygons.
 #' @param layer_to_clip The PostGIS layer to clip from. Default is the Grunnkart for arealregnskap.
 #' @param clip_geometries Should the returned geometries be clipped to the masking layer? If true, the first column of the masking layer is returned as row IDs, and the clipped geometries of the layer_to_clip are returned. If false, the ids in the layer_to_clip is returned as well the first column in the masking layer, together with the whole geometries in layer_to_clip that intersects at some point with the masking layer.  Default is TRUE.
+#' @param recalculate_area Should the column "areal_m2" be recalculated after clipping the geometries? Only in effect if clip_geometries is true. Default true.
 #' @param host host machine for the database. Default is gisdata-db.nina.no
 #' @param dbname host database name. Default is gisdata
 #'
@@ -26,7 +27,8 @@
 clip_gis_layer <- function(mask = NULL,
                            layer_to_clip = "grunnkart_arealregnskap",
                            schema = "LandCover",
-                           clip_geometries = TRUE) {
+                           clip_geometries = TRUE,
+                           recalculate_area = TRUE) {
   checkMachine()
   checkCon()
 
@@ -80,9 +82,16 @@ clip_gis_layer <- function(mask = NULL,
   }
 
   intersecting_features_df <- DBI::dbGetQuery(con, sql_intersection_query) |>
-    rename(!!orig_id_name := mask_id)
+    rename(!!orig_id_name := mask_id) |>
+    as_tibble()
+
   intersecting_features_df$geom <- sf::st_as_sfc(intersecting_features_df$geom, wkb = "geom", EWKB = TRUE)
   intersecting_features_df <- sf::st_as_sf(intersecting_features_df)
+
+  if(recalculate_area & clip_geometries){
+    intersecting_features_df <- intersecting_features_df |>
+      mutate(areal_m2 = st_area(geom))
+  }
 
   return(intersecting_features_df)
 }
