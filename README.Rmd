@@ -84,6 +84,8 @@ help(package="NinaR")
 
 
 # Template usage
+!Note that these templates have been superseeded by a quarto version at https://github.com/NINAnor/quarto_nina_report . These versions should however work, e.g. in an environment that lacks quarto, and resembles the < 2025 NINA report formats.
+
 Once installed and using Rstudio, Nina templates appear in the `New file>Rmarkdown` menu. Alternatively, they could be retreived by 
 ```r 
 rmarkdown::draft("title", template="nina_slidy", package="NinaR")
