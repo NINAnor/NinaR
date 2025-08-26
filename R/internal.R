@@ -3,7 +3,7 @@ checkMachine <- function() {
   host <- NULL
   try(host <- system("hostname", intern = T))
 
-  test <- grepl("ninrstudio", host) || grepl("ningis", host) || grepl("t2liprstudio", host) || grepl("lipgis", host)
+  test <- grepl("lipvdi|lipgis|liprstudio", host)
   return(test)
 }
 

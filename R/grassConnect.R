@@ -16,7 +16,8 @@
 #' }
 #' @export
 
-grassConnect <- function(location = "ETRS_33N", mapset = "user") {
+grassConnect <- function(location = "ETRS_33N",
+                         mapset = "user") {
   host <- NULL
   if (!checkMachine()) {
     stop("Must be run on NINA servers!")
@@ -32,8 +33,11 @@ grassConnect <- function(location = "ETRS_33N", mapset = "user") {
       try(system(paste("grass --text -c -e", wd)))
       grasslib <- try(system("grass --config path", intern = TRUE))
       rgrass::initGRASS(
-        gisBase = grasslib, location = location,
-        mapset = mapset, gisDbase = gisDbase, override = TRUE
+        gisBase = grasslib,
+        location = location,
+        mapset = mapset,
+        gisDbase = gisDbase,
+        override = TRUE
       )
     } else {
       stop("Mapset name does not follow naming convention! Please check: http://web.nina.no/giswiki/doku.php?id=ninsrv16:grassgisbase")
