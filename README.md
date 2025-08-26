@@ -6,9 +6,10 @@
 <!-- badges: start -->
 
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![](https://img.shields.io/badge/devel%20version-0.2.2.12-blue.svg)](https://github.com/NINAnor/NinaR)
+[![](https://img.shields.io/badge/devel%20version-0.2.2.13-blue.svg)](https://github.com/NINAnor/NinaR)
 [![](https://www.r-pkg.org/badges/version/NinaR)](https://cran.r-project.org/package=NinaR)
 [![](https://img.shields.io/github/languages/code-size/NINAnor/NinaR.svg)](https://github.com/NINAnor/NinaR)
+[![DOI](https://zenodo.org/badge/54413656.svg)](https://doi.org/10.5281/zenodo.16947268)
 <!-- badges: end -->
 
 This is an R package that provides Rmarkdown templates and various

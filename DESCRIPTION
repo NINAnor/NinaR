@@ -2,7 +2,7 @@ Package: NinaR
 Type: Package
 Title: Document templates and functions for NINA
 Version: 0.2.2.13
-Date: 2025-06-20
+Date: 2025-08-26
 Author: Jens Åström
 Authors@R: c(
   person("Jens", "Åström", role = c("aut", "cre"), email = "jens.astrom@nina.no")
