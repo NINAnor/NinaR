@@ -36,8 +36,7 @@
 
 grassDailyClimate <- function(points, variables = c("Temperature", "Precipitation"), start_time, end_time, where = NULL, nprocs = 10) {
   # Check that is is run on Linux Server
-  try(host <- system("hostname", intern = T))
-  if (!(grepl("ninrstudio|ningis|lipgis", host))) {
+  if (!checkMachine()) {
     stop("Must be run on NINA servers!")
   }
 

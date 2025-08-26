@@ -1,0 +1,147 @@
+---
+title: "PostGIS vs geoParquet spatial join"
+author: "Jens Åström"
+format:
+  html:
+    embed-resources: true
+    code-overflow: wrap
+---
+
+# Intro
+Researchers in Nina often want to do get areal statistics for a particular locality, or a set of localities. The underlying map to query can be large, e.g. the whole country. The task is then to make a spatial join on this large layer and smaller polygon, provided by the user. This can be a non-trivial task for many people, and it can make sense to create some software to make it more convenient, for map layers of general interest. 
+
+In particular, we are here testing the new "Grunnkart for arealregnskap", which will be a standard resource in Norway over many years to come.
+
+I will here test out two approaches, 1) importing the large GIS-layer to PostGIS, create and index, and later let the database do the spatial join with an arbitrary smaller layer, and 2) store the large file as a geoParquet file and do the join directly there.
+
+
+```{r}
+suppressPackageStartupMessages({
+require(NinaR)
+require(Norimon)
+require(tidyr)
+require(dplyr)
+require(DBI)
+require(sf)
+require(ggplot2)
+})
+```
+
+## Create test data
+We create 2 small polygons that we can test a spatial join (clip) with.
+
+```{r}
+library(NinaR)
+postgreSQLConnect()
+require(sf)
+require(dplyr)
+small_sf <- tibble(locality = c("Semi-nat_99", "Semi-nat_100"), geom = c("POLYGON ((1082500 7775000, 1082500 7775500, 1083000 7775500, 1083000 7775000, 1082500 7775000))", "POLYGON ((1019000 7842500, 1019000 7843000, 1019500 7843000, 1019500 7842500, 1019000 7842500))")) |>
+  st_as_sf(wkt = "geom", crs = 25833)
+```
+
+Clip the layer using PostGIS. I've packaged this in the function `clip_gis_layer()`. It is basically this sql-query that does the job:
+
+```{psql}
+#| label: sql_example
+#| eval: false
+
+SELECT tt.id as mask_id, --data_columns_of_interest_here--
+ST_Intersection(t.geom_valid, tt.geom) as geom
+FROM schema.layer_to_clip AS t,
+temp_mask_to_intersect as tt
+WHERE ST_Intersects(t.geom_valid, tt.geom)
+
+```
+
+
+```{r}
+system.time({
+small_sf_grunnkart <- clip_gis_layer(small_sf)
+})
+```
+This is fast (100 - 200 milliseconds for this example).
+
+Plot one of the areas. In these examples, we use 'ekosystemtype_1' as the main feature to analyze, but you could choose any other as well. 
+
+```{r}
+#| label: fig-ecosystem_clipped
+#| fig-cap: "Ecosystem level 1 for clipped polygon"
+small_sf_grunnkart |>
+  filter(locality == "Semi-nat_100") |>  
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1)) +
+  scale_fill_okosystemtype_1(name = "Hovedøkosystem")
+
+```
+
+Notice we use a custom ggplot fill function for okoystemtype_1. You can plot arealdekke in a similar way. Other color scale functions might be added later on. 
+
+```{r}
+#| label: fig-arealdekke_clipped
+#| fig-cap: "Arealdekke for clipped polygon"
+small_sf_grunnkart |>
+  filter(locality == "Semi-nat_100") |>  
+  ggplot() +
+  geom_sf(aes(fill = arealdekke)) +
+  scale_fill_arealdekke(name = "Arealdekke")
+
+```
+
+
+
+## GeoParquet way
+I will use a subset of the data for now, since we don't have a single layer for the whole thing yet.
+
+
+```{r}
+suppressPackageStartupMessages({
+library(sf)
+library(sfarrow)
+library(geoarrow)
+library(arrow)
+})
+```
+
+
+```{r}
+geoparquet_file_path <- "/data/R/GeoSpatialData/LandUse/Norway_Arealregnskap/Converted/56_25835_arealregnskap_gdb.parquet"
+
+
+parquet_open <- open_dataset(geoparquet_file_path) |> 
+  st_as_sf(crs = 25835)
+
+```
+
+```{r}
+small_sf <- tibble(locality = c("Semi-nat_99", "Semi-nat_100"), geom = c("POLYGON ((1082500 7775000, 1082500 7775500, 1083000 7775500, 1083000 7775000, 1082500 7775000))", "POLYGON ((1019000 7842500, 1019000 7843000, 1019500 7843000, 1019500 7842500, 1019000 7842500))")) |>
+  st_as_sf(wkt = "geom", crs = 25833)
+
+small_sf_35 <- small_sf |> 
+  st_transform(crs = st_crs(25835))
+```
+
+
+
+```{r}
+#st_crs(parquet_open)
+#st_crs(small_sf)
+
+system.time({
+parquet_clipped <- parquet_open |> 
+  st_intersection(small_sf_35)
+})
+```
+
+This works, but takes considerably more time than querying the PostGIS database. Also, this needs to be tested on a dataset covering the whole of Norway to make a fair comparison. To be continued...
+
+```{r}
+#| label: fig-ecosystem_clipped_parquet
+#| fig-cap: "Ecosystem level 1 for clipped polygon"
+parquet_clipped |>
+  filter(locality == "Semi-nat_100") |>  
+  ggplot() +
+  geom_sf(aes(fill = okosystemtype_1)) +
+  scale_fill_okosystemtype_1(name = "Hovedøkosystem")
+
+```
+

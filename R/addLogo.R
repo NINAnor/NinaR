@@ -36,5 +36,3 @@ addLogo <- function(x = getOption("nina.logo.x.pos", 0.85),
   grid::pushViewport(grid::plotViewport())
   grImport::grid.picture(logo, width = size, x = unit(x, "npc"), y = unit(y, "npc"))
 }
-
-
