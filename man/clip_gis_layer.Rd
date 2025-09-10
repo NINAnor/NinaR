@@ -29,7 +29,7 @@ clip_gis_layer(
 An sf object with your initial vector column and the intersecting geometry of
 }
 \description{
-This function is meant to return the Grunnkart for Arealregnskap for a single or set of polygons you provide. Input polygons are provided as an sf object, with a column that identifies your polygons / buffers. Ouput is a similar sf object but with the clipped geometry and ecosystem type from the Grunnkart. Other layers can be clipped by naming the layers to clip
+This function is meant to return the Grunnkart for Arealregnskap for a single or set of polygons you provide, but also works with many other tables that have a geometry column named 'geom'. Input polygons are provided as an sf object, with a column that identifies your polygons / buffers. Ouput is a similar sf object but with the clipped geometry and ecosystem type from the Grunnkart. Other layers can be clipped by naming the layers to clip
 }
 \examples{
 \dontrun{
