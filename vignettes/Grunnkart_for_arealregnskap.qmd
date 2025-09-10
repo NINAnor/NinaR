@@ -122,6 +122,36 @@ small_sf_grunnkart_union
 
 Note that if you haven't unioned similar features within the locality / buffer, you have to group by locality and okosystemtype_1 and use 'sum(st_area(geom))' in the first step to get a single area for each okosystem type within a locality. 
 
+## Other layers - Buildings example
+
+We can use the same function to clip other layers in the database, if we specify the schema (if needed) and the layer name. Buildings can be a popular layer to combine with the arealkart for example. 
+
+```{r}
+small_sf_buildings <- clip_gis_layer(small_sf,
+                                     schema = "buildings",
+                                     layer_to_clip = "fkb_bygning_omrade")
+```
+
+```{r}
+#| label: fig-grunnkart_bygninger
+#| fig-cap: The same ecosystem level 1 after unioning similar adjoining geometries.
+small_sf_buildings_99 <- small_sf_buildings |> 
+  filter(locality == "Semi-nat_99")
+
+p <- small_sf_grunnkart_union |>
+    filter(locality == "Semi-nat_99") |>
+    ggplot() +
+    geom_sf(aes(fill = okosystemtype_1)) +
+    scale_fill_okosystemtype_1(name = "Hovedøkosystem")
+
+p <- p + ggnewscale::new_scale_fill() +
+  geom_sf(aes(fill = objtype), data = small_sf_buildings_99) +
+  scale_fill_nina(name = "Bygninger")
+
+p
+```
+ 
+
 
 ## Rasterizing
 

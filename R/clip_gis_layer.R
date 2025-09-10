@@ -1,6 +1,6 @@
 #' clip_gis_layer Get an intersection from an existing PostGIS layer and a provided sf layer
 #'
-#' This function is meant to return the Grunnkart for Arealregnskap for a single or set of polygons you provide. Input polygons are provided as an sf object, with a column that identifies your polygons / buffers. Ouput is a similar sf object but with the clipped geometry and ecosystem type from the Grunnkart. Other layers can be clipped by naming the layers to clip
+#' This function is meant to return the Grunnkart for Arealregnskap for a single or set of polygons you provide, but also works with many other tables that have a geometry column named 'geom'. Input polygons are provided as an sf object, with a column that identifies your polygons / buffers. Ouput is a similar sf object but with the clipped geometry and ecosystem type from the Grunnkart. Other layers can be clipped by naming the layers to clip
 #'
 #' @param mask A simple feature (sf) object with an id column and a geometry. Typically a polygon or a set of polygons.
 #' @param layer_to_clip The PostGIS layer to clip from. Default is the Grunnkart for arealregnskap.
@@ -57,7 +57,7 @@ clip_gis_layer <- function(mask = NULL,
   )
 
   columns_to_get_raw <- columns_in_layer |>
-    filter(!(column_name %in% c("id", "geom", "geom_valid", "geom_is_valid"))) |>
+    filter(!(column_name %in% c("id", "geom", "geom_old", "geom_valid", "geom_is_valid", "shape"))) |>
     paste(collapse = ",")
 
   columns_to_get <- gsub("^c\\(|\\)$", "", columns_to_get_raw)
@@ -66,18 +66,18 @@ clip_gis_layer <- function(mask = NULL,
   if (clip_geometries) {
     sql_intersection_query <- paste0("
     SELECT tt.id as mask_id, ", columns_to_get, ",
-    ST_Intersection(t.geom_valid, tt.geom) as geom
+    ST_Intersection(t.geom, tt.geom) as geom
     FROM \"", schema, "\".\"", layer_to_clip, "\" AS t,
     temp_mask_to_intersect as tt
-    WHERE ST_Intersects(t.geom_valid, tt.geom);
+    WHERE ST_Intersects(t.geom, tt.geom);
     ")
   } else {
 
     sql_intersection_query <- paste0("
-    SELECT t.id, ", columns_to_get, ", t.geom_valid as geom,  tt.id as mask_id
+    SELECT t.id, ", columns_to_get, ", t.geom as geom,  tt.id as mask_id
     FROM \"", schema, "\".\"", layer_to_clip, "\" AS t,
     temp_mask_to_intersect as tt
-    WHERE ST_Intersects(t.geom_valid, tt.geom);
+    WHERE ST_Intersects(t.geom, tt.geom);
     ")
   }
 
